@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>치과 레퍼런스 — 영어 문장 & 트렌드</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #f4f5f7;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e5eb;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 56px; gap: 16px;
+    }
+    .topbar-brand { font-size: 13px; font-weight: 700; color: #0891b2; letter-spacing: 0.05em; text-decoration: none; }
+    .topbar-nav { display: flex; gap: 4px; }
+    .topbar-nav a {
+      text-decoration: none; font-size: 13px; font-weight: 500; color: #6b7280;
+      padding: 6px 14px; border-radius: 6px; transition: background 0.15s, color 0.15s;
+    }
+    .topbar-nav a:hover, .topbar-nav a.active { background: #ecfeff; color: #0891b2; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: #6b7280;
+      text-decoration: none; padding: 6px 14px; border-radius: 6px;
+      border: 1px solid #e5e7eb; transition: all 0.15s;
+    }
+    .back-link:hover { background: #f9fafb; color: #374151; }
+
+    /* ── HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+      padding: 48px 40px 40px; color: #fff;
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .header-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; opacity: 0.85; margin-bottom: 12px; }
+    .page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
+    .page-header p { margin-top: 10px; font-size: 14px; opacity: 0.8; }
+
+    /* ── MAIN ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 32px 40px 60px; }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 16px; font-weight: 700; color: #111827;
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+
+    /* ── CARD ── */
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 28px; }
+    .card-header { padding: 16px 20px 14px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: space-between; }
+    .card-title { font-size: 14px; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 7px; }
+    .card-body { padding: 20px; }
+    .card-count { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: #ecfeff; color: #0891b2; }
+
+    /* ── SEARCH BOX ── */
+    .search-wrap { margin-bottom: 16px; }
+    .search-input {
+      width: 100%; padding: 10px 16px; border: 1px solid #e5e7eb;
+      border-radius: 8px; font-size: 14px; color: #374151;
+      outline: none; transition: border 0.15s;
+    }
+    .search-input:focus { border-color: #0891b2; }
+
+    /* ── CATEGORY TABS ── */
+    .cat-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .cat-tab {
+      padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      cursor: pointer; border: 1px solid #e5e7eb; background: #fff; color: #6b7280;
+      transition: all 0.15s;
+    }
+    .cat-tab:hover, .cat-tab.active { background: #0891b2; color: #fff; border-color: #0891b2; }
+
+    /* ── PHRASE TABLE ── */
+    .phrase-table-wrap { overflow-x: auto; }
+    .phrase-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    .phrase-table thead tr { background: #f0fdfe; }
+    .phrase-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #0e7490; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
+    .phrase-table td { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: middle; }
+    .phrase-table tr:last-child td { border-bottom: none; }
+    .phrase-table tr:hover td { background: #f0fdfe; }
+    .phrase-num { font-size: 11px; font-weight: 700; color: #9ca3af; width: 36px; }
+    .phrase-en { font-weight: 600; color: #0e7490; line-height: 1.5; }
+    .phrase-ko { color: #6b7280; font-size: 13px; line-height: 1.5; }
+    .phrase-cat { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .hidden { display: none !important; }
+
+    /* 카테고리 색상 */
+    .cat-check    { background: #ecfdf5; color: #065f46; }
+    .cat-exam     { background: #eff6ff; color: #1d4ed8; }
+    .cat-xray     { background: #f5f3ff; color: #5b21b6; }
+    .cat-anesthesia { background: #fef3c7; color: #92400e; }
+    .cat-cleaning { background: #ecfdf5; color: #065f46; }
+    .cat-filling  { background: #fff7ed; color: #9a3412; }
+    .cat-rct      { background: #fef2f2; color: #991b1b; }
+    .cat-crown    { background: #fdf4ff; color: #7e22ce; }
+    .cat-extraction { background: #fef2f2; color: #991b1b; }
+    .cat-implant  { background: #eff6ff; color: #1d4ed8; }
+    .cat-hygiene  { background: #f0fdfa; color: #065f46; }
+    .cat-postop   { background: #fff7ed; color: #9a3412; }
+    .cat-admin    { background: #f4f5f7; color: #374151; }
+
+    /* ── TREND CARDS ── */
+    .trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    .trend-card { background: #fff; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); padding: 20px; border-top: 3px solid #0891b2; }
+    .trend-card.teal  { border-top-color: #0891b2; }
+    .trend-card.violet { border-top-color: #7c3aed; }
+    .trend-card.amber { border-top-color: #d97706; }
+    .trend-card.rose  { border-top-color: #f43f5e; }
+    .trend-year { font-size: 11px; font-weight: 700; color: #9ca3af; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .trend-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+    .trend-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .trend-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: #374151; line-height: 1.55; }
+    .trend-dot { width: 6px; height: 6px; border-radius: 50%; background: #0891b2; flex-shrink: 0; margin-top: 7px; }
+    .trend-dot.violet { background: #7c3aed; }
+    .trend-dot.amber  { background: #d97706; }
+    .trend-dot.rose   { background: #f43f5e; }
+
+    /* ── PAPER TABLE ── */
+    .paper-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .paper-table thead tr { background: #f9fafb; }
+    .paper-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
+    .paper-table td { padding: 13px 14px; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: top; line-height: 1.55; }
+    .paper-table tr:last-child td { border-bottom: none; }
+    .paper-table tr:hover td { background: #fafafa; }
+    .paper-title { font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .paper-journal { font-size: 12px; color: #6b7280; }
+    .field-badge { display: inline-flex; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; font-size: 12px; color: #9ca3af; padding-bottom: 32px; }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <a class="topbar-brand" href="#">🦷 치과 레퍼런스</a>
+  <div class="topbar-nav">
+    <a href="#english" class="active">영어 문장</a>
+    <a href="#trends">트렌드</a>
+    <a href="#papers">주요 논문</a>
+    <a href="#antiseptics">항균제 기전</a>
+  </div>
+  <a class="back-link" href="회의록%20페이지.html">← 메인 대시보드</a>
+</nav>
+
+<!-- HEADER -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div class="header-meta">
+      <span>🦷 외국인 환자 대응 + 최신 트렌드</span>
+      <span>📅 2024–2026</span>
+    </div>
+    <h1>치과 레퍼런스 대시보드</h1>
+    <p>외국인 환자 응대 영어 문장 100개 · 최신 치과계 동향 · 주요 논문</p>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- ── 영어 문장 100 ── -->
+  <div id="english" class="section-title" style="margin-top:8px">💬 외국인 환자 응대 영어 문장 100</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">🗣 Clinical English Phrases</div>
+      <span class="card-count">100개</span>
+    </div>
+    <div class="card-body">
+
+      <div class="search-wrap">
+        <input class="search-input" type="text" id="phraseSearch" placeholder="영어 또는 한국어로 검색... (예: pain, 통증, extraction)" oninput="filterPhrases()" />
+      </div>
+
+      <div class="cat-tabs">
+        <div class="cat-tab active" onclick="filterCat('all', this)">전체</div>
+        <div class="cat-tab" onclick="filterCat('체크인', this)">체크인</div>
+        <div class="cat-tab" onclick="filterCat('검진', this)">검진</div>
+        <div class="cat-tab" onclick="filterCat('엑스레이', this)">엑스레이</div>
+        <div class="cat-tab" onclick="filterCat('마취', this)">마취</div>
+        <div class="cat-tab" onclick="filterCat('스케일링', this)">스케일링</div>
+        <div class="cat-tab" onclick="filterCat('충전', this)">충전</div>
+        <div class="cat-tab" onclick="filterCat('신경치료', this)">신경치료</div>
+        <div class="cat-tab" onclick="filterCat('크라운', this)">크라운</div>
+        <div class="cat-tab" onclick="filterCat('발치', this)">발치</div>
+        <div class="cat-tab" onclick="filterCat('임플란트', this)">임플란트</div>
+        <div class="cat-tab" onclick="filterCat('구강위생', this)">구강위생</div>
+        <div class="cat-tab" onclick="filterCat('술후주의', this)">술후주의</div>
+        <div class="cat-tab" onclick="filterCat('원무', this)">원무</div>
+      </div>
+
+      <div class="phrase-table-wrap">
+        <table class="phrase-table" id="phraseTable">
+          <thead>
+            <tr>
+              <th style="width:40px">#</th>
+              <th style="width:120px">카테고리</th>
+              <th>영어</th>
+              <th>한국어</th>
+            </tr>
+          </thead>
+          <tbody id="phraseBody">
+            <!-- 체크인 / 접수 -->
+            <tr data-cat="체크인"><td class="phrase-num">1</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Please have a seat. I'll be with you shortly.</td><td class="phrase-ko">잠깐 앉아서 기다려 주세요.</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">2</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">What brings you in today?</td><td class="phrase-ko">오늘 어떻게 오셨나요?</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">3</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you here for a checkup or do you have a specific problem?</td><td class="phrase-ko">정기검진으로 오셨나요, 아니면 특별히 불편한 부분이 있으신가요?</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">4</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Do you have any allergies to medications, especially antibiotics or painkillers?</td><td class="phrase-ko">약물 알레르기가 있으신가요? 특히 항생제나 진통제요.</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">5</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you currently taking any medications?</td><td class="phrase-ko">현재 복용 중인 약이 있으신가요?</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">6</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">When did you last visit a dentist?</td><td class="phrase-ko">마지막으로 치과에 오신 게 언제였나요?</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">7</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Do you have any medical conditions I should be aware of?</td><td class="phrase-ko">제가 알아야 할 기저질환이 있으신가요?</td></tr>
+            <tr data-cat="체크인"><td class="phrase-num">8</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you pregnant or breastfeeding?</td><td class="phrase-ko">임신 중이시거나 모유수유 중이신가요?</td></tr>
+
+            <!-- 검진 -->
+            <tr data-cat="검진"><td class="phrase-num">9</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Please open your mouth wide.</td><td class="phrase-ko">입을 크게 벌려 주세요.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">10</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Where does it hurt? Can you point to it?</td><td class="phrase-ko">어디가 아프세요? 가리켜 주실 수 있나요?</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">11</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">On a scale of 1 to 10, how bad is the pain?</td><td class="phrase-ko">1에서 10 사이로 통증이 어느 정도인가요?</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">12</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Is the pain constant or does it come and go?</td><td class="phrase-ko">통증이 계속 있나요, 아니면 왔다 갔다 하나요?</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">13</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Does it hurt when you bite down?</td><td class="phrase-ko">씹을 때 아프신가요?</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">14</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Is it sensitive to hot or cold?</td><td class="phrase-ko">뜨겁거나 차가운 것에 시리신가요?</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">15</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Let me check your gums.</td><td class="phrase-ko">잇몸을 확인해 볼게요.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">16</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">I'm going to probe around your gums. You may feel some pressure.</td><td class="phrase-ko">잇몸 주변을 검사할 거예요. 압박감이 느껴질 수 있어요.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">17</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Your gums look a bit inflamed.</td><td class="phrase-ko">잇몸이 약간 염증이 있어 보여요.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">18</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">There's a cavity on this tooth.</td><td class="phrase-ko">이 치아에 충치가 있습니다.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">19</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">This tooth has a crack.</td><td class="phrase-ko">이 치아에 금이 갔습니다.</td></tr>
+            <tr data-cat="검진"><td class="phrase-num">20</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">I can see some plaque and tartar buildup.</td><td class="phrase-ko">치태와 치석이 쌓여 있는 게 보입니다.</td></tr>
+
+            <!-- 엑스레이 -->
+            <tr data-cat="엑스레이"><td class="phrase-num">21</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">I need to take some X-rays.</td><td class="phrase-ko">엑스레이를 찍어야 합니다.</td></tr>
+            <tr data-cat="엑스레이"><td class="phrase-num">22</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">Please bite down gently on this sensor.</td><td class="phrase-ko">이 센서를 살짝 물어 주세요.</td></tr>
+            <tr data-cat="엑스레이"><td class="phrase-num">23</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">Stay still for a moment while I take the X-ray.</td><td class="phrase-ko">엑스레이 찍는 동안 잠깐 움직이지 마세요.</td></tr>
+            <tr data-cat="엑스레이"><td class="phrase-num">24</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">The X-ray shows some bone loss around this tooth.</td><td class="phrase-ko">엑스레이에 이 치아 주변에 골흡수가 보입니다.</td></tr>
+            <tr data-cat="엑스레이"><td class="phrase-num">25</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">There's a shadow under the filling — it may be decay.</td><td class="phrase-ko">충전물 아래에 음영이 있어요 — 충치일 수 있습니다.</td></tr>
+
+            <!-- 마취 -->
+            <tr data-cat="마취"><td class="phrase-num">26</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">I'm going to numb the area first.</td><td class="phrase-ko">먼저 이 부위를 마취할게요.</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">27</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">You'll feel a small pinch from the needle.</td><td class="phrase-ko">바늘이 살짝 따끔할 거예요.</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">28</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">The injection may sting for a second, then it should go numb.</td><td class="phrase-ko">주사 순간 따끔하고 곧 마취될 거예요.</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">29</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">Is the area numb yet? Do you feel this?</td><td class="phrase-ko">마취가 됐나요? 이거 느껴지세요?</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">30</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">You may feel some pressure, but you shouldn't feel pain. Let me know if you do.</td><td class="phrase-ko">압박감은 느껴질 수 있지만 통증은 없어야 해요. 아프시면 말씀해 주세요.</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">31</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">The numbness will wear off in about 2–3 hours.</td><td class="phrase-ko">마취는 2~3시간 후에 풀립니다.</td></tr>
+            <tr data-cat="마취"><td class="phrase-num">32</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">Be careful not to bite your cheek or lip while you're numb.</td><td class="phrase-ko">마취 중에 볼이나 입술을 깨물지 않도록 주의하세요.</td></tr>
+
+            <!-- 스케일링 -->
+            <tr data-cat="스케일링"><td class="phrase-num">33</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">I'm going to clean your teeth now.</td><td class="phrase-ko">지금 스케일링을 해드릴게요.</td></tr>
+            <tr data-cat="스케일링"><td class="phrase-num">34</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">You have quite a bit of tartar buildup — this may take a little longer.</td><td class="phrase-ko">치석이 꽤 많이 쌓여 있어서 시간이 좀 걸릴 수 있어요.</td></tr>
+            <tr data-cat="스케일링"><td class="phrase-num">35</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">This may feel a bit sensitive.</td><td class="phrase-ko">약간 시릴 수 있어요.</td></tr>
+            <tr data-cat="스케일링"><td class="phrase-num">36</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">Your gums may bleed a little — that's normal if they're inflamed.</td><td class="phrase-ko">잇몸에서 피가 약간 날 수 있어요 — 염증이 있으면 정상입니다.</td></tr>
+            <tr data-cat="스케일링"><td class="phrase-num">37</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">You need a deep cleaning — scaling and root planing.</td><td class="phrase-ko">치주 스케일링(치근면 활택술)이 필요합니다.</td></tr>
+            <tr data-cat="스케일링"><td class="phrase-num">38</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">I recommend coming back every 6 months for a cleaning.</td><td class="phrase-ko">6개월마다 스케일링을 받으시길 권장합니다.</td></tr>
+
+            <!-- 충전 -->
+            <tr data-cat="충전"><td class="phrase-num">39</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">I'm going to fill this cavity.</td><td class="phrase-ko">충치를 때울게요.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">40</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">I'll drill out the decayed part first.</td><td class="phrase-ko">먼저 썩은 부분을 갈아낼게요.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">41</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">We'll use a tooth-colored composite filling.</td><td class="phrase-ko">치아색 레진으로 충전할게요.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">42</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Please don't eat or drink for at least 1 hour.</td><td class="phrase-ko">최소 1시간은 드시지 마세요.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">43</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Avoid very hard or sticky foods for a day.</td><td class="phrase-ko">하루 동안은 딱딱하거나 끈적한 음식을 피하세요.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">44</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">The filling may feel slightly sensitive for a few days — that's normal.</td><td class="phrase-ko">며칠 동안 약간 시릴 수 있는데 정상입니다.</td></tr>
+            <tr data-cat="충전"><td class="phrase-num">45</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Does the bite feel even? Tap your teeth together.</td><td class="phrase-ko">교합이 자연스러운가요? 이를 맞물어 보세요.</td></tr>
+
+            <!-- 신경치료 -->
+            <tr data-cat="신경치료"><td class="phrase-num">46</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">This tooth needs a root canal treatment.</td><td class="phrase-ko">이 치아는 신경치료가 필요합니다.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">47</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">The nerve inside the tooth is infected.</td><td class="phrase-ko">치아 안의 신경이 감염되었습니다.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">48</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">I'll remove the infected pulp and clean the root canals.</td><td class="phrase-ko">감염된 신경을 제거하고 근관을 세정할게요.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">49</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">This procedure usually takes about an hour.</td><td class="phrase-ko">이 시술은 보통 1시간 정도 걸립니다.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">50</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">You'll need a crown on this tooth after the root canal.</td><td class="phrase-ko">신경치료 후 이 치아에 크라운이 필요합니다.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">51</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">You may have some soreness for a day or two — take the prescribed pain reliever.</td><td class="phrase-ko">하루이틀 정도 뻐근할 수 있어요 — 처방받은 진통제 복용하세요.</td></tr>
+            <tr data-cat="신경치료"><td class="phrase-num">52</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">We may need 2–3 appointments to complete the root canal.</td><td class="phrase-ko">신경치료 완료까지 2~3번 오셔야 할 수 있어요.</td></tr>
+
+            <!-- 크라운 -->
+            <tr data-cat="크라운"><td class="phrase-num">53</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">You need a crown on this tooth.</td><td class="phrase-ko">이 치아에 크라운이 필요합니다.</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">54</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">I'll shape the tooth to fit the crown.</td><td class="phrase-ko">크라운이 맞도록 치아를 삭제할게요.</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">55</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">We'll place a temporary crown today.</td><td class="phrase-ko">오늘은 임시 크라운을 붙여드릴게요.</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">56</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Your permanent crown will be ready in about 1–2 weeks.</td><td class="phrase-ko">최종 크라운은 1~2주 후에 완성됩니다.</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">57</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Does the crown feel comfortable when you bite?</td><td class="phrase-ko">크라운을 물었을 때 편안한가요?</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">58</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">The bite feels a bit high — I'll adjust it.</td><td class="phrase-ko">교합이 약간 높은 것 같아요 — 조정할게요.</td></tr>
+            <tr data-cat="크라운"><td class="phrase-num">59</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Be gentle with the temporary crown — avoid sticky or hard foods.</td><td class="phrase-ko">임시 크라운은 조심하세요 — 끈적하거나 딱딱한 음식은 피하세요.</td></tr>
+
+            <!-- 발치 -->
+            <tr data-cat="발치"><td class="phrase-num">60</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">This tooth needs to be extracted — it's too damaged to save.</td><td class="phrase-ko">이 치아는 발치해야 합니다 — 살리기 어려운 상태예요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">61</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">You'll feel pressure, but you shouldn't feel pain.</td><td class="phrase-ko">압박감은 느껴지지만 통증은 없어야 해요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">62</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">I'm going to rock the tooth back and forth to loosen it.</td><td class="phrase-ko">치아를 앞뒤로 움직여 빼낼 거예요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">63</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Bite down firmly on this gauze for 30 minutes.</td><td class="phrase-ko">이 거즈를 30분간 꽉 물고 계세요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">64</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Don't rinse, spit, or use a straw for 24 hours.</td><td class="phrase-ko">24시간 동안 헹구거나 침 뱉거나 빨대 사용을 삼가세요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">65</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Avoid smoking for at least 48 hours — it can delay healing.</td><td class="phrase-ko">48시간은 금연하세요 — 치유가 늦어질 수 있어요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">66</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Apply ice on and off for the first few hours to reduce swelling.</td><td class="phrase-ko">처음 몇 시간은 얼음찜질을 반복해서 붓기를 줄이세요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">67</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Eat soft foods for a few days.</td><td class="phrase-ko">며칠간 부드러운 음식을 드세요.</td></tr>
+            <tr data-cat="발치"><td class="phrase-num">68</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Call us immediately if you experience heavy bleeding or severe pain.</td><td class="phrase-ko">출혈이 심하거나 통증이 심하면 즉시 연락 주세요.</td></tr>
+
+            <!-- 임플란트 -->
+            <tr data-cat="임플란트"><td class="phrase-num">69</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">We recommend a dental implant to replace the missing tooth.</td><td class="phrase-ko">결손치 수복을 위해 임플란트를 권장합니다.</td></tr>
+            <tr data-cat="임플란트"><td class="phrase-num">70</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">The implant is placed into the jawbone and acts as an artificial root.</td><td class="phrase-ko">임플란트는 턱뼈에 심어 인공 치근 역할을 합니다.</td></tr>
+            <tr data-cat="임플란트"><td class="phrase-num">71</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">The healing and integration process takes about 3–6 months.</td><td class="phrase-ko">치유 및 골유착 과정에 3~6개월이 걸립니다.</td></tr>
+            <tr data-cat="임플란트"><td class="phrase-num">72</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">We'll attach the crown once the implant has integrated with the bone.</td><td class="phrase-ko">임플란트가 뼈와 유착된 후 크라운을 연결합니다.</td></tr>
+            <tr data-cat="임플란트"><td class="phrase-num">73</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">You may need a bone graft first if there isn't enough bone.</td><td class="phrase-ko">뼈가 부족하면 먼저 골이식이 필요할 수 있습니다.</td></tr>
+            <tr data-cat="임플란트"><td class="phrase-num">74</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">Do you smoke? Smoking can significantly reduce implant success rates.</td><td class="phrase-ko">흡연하시나요? 흡연은 임플란트 성공률을 크게 낮출 수 있습니다.</td></tr>
+
+            <!-- 구강위생 -->
+            <tr data-cat="구강위생"><td class="phrase-num">75</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Brush your teeth at least twice a day — morning and before bed.</td><td class="phrase-ko">하루 최소 두 번 — 아침과 자기 전에 양치하세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">76</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Use a soft-bristled toothbrush.</td><td class="phrase-ko">부드러운 칫솔을 사용하세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">77</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Floss at least once a day — preferably before bedtime.</td><td class="phrase-ko">하루 한 번 이상, 가능하면 자기 전에 치실을 사용하세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">78</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Use fluoride toothpaste.</td><td class="phrase-ko">불소 치약을 사용하세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">79</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">An electric toothbrush can be more effective at removing plaque.</td><td class="phrase-ko">전동칫솔이 치태 제거에 더 효과적일 수 있어요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">80</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Try to use an interdental brush or water flosser between the teeth.</td><td class="phrase-ko">치간칫솔이나 워터픽도 사용해 보세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">81</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Rinse with an antiseptic mouthwash to reduce bacteria.</td><td class="phrase-ko">항균 구강청결제로 헹구어 세균을 줄이세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">82</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Replace your toothbrush every 3 months.</td><td class="phrase-ko">칫솔은 3개월마다 교체하세요.</td></tr>
+            <tr data-cat="구강위생"><td class="phrase-num">83</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Limit sugary and acidic drinks — they accelerate tooth decay.</td><td class="phrase-ko">단 음료와 산성 음료는 줄이세요 — 충치를 빠르게 진행시킵니다.</td></tr>
+
+            <!-- 술후주의 -->
+            <tr data-cat="술후주의"><td class="phrase-num">84</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Take the medication as prescribed — even if the pain goes away.</td><td class="phrase-ko">통증이 없어져도 처방대로 약을 복용하세요.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">85</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Some swelling and soreness for 2–3 days is completely normal.</td><td class="phrase-ko">2~3일 정도 붓고 뻐근한 것은 정상입니다.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">86</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Avoid hot food and drinks today.</td><td class="phrase-ko">오늘은 뜨거운 음식과 음료를 피하세요.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">87</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Do not touch the surgical area with your finger or tongue.</td><td class="phrase-ko">손이나 혀로 시술 부위를 건드리지 마세요.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">88</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">If bleeding doesn't stop after 1 hour, call us.</td><td class="phrase-ko">1시간이 지나도 출혈이 멈추지 않으면 연락 주세요.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">89</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Come back if you have fever, severe swelling, or pain that worsens.</td><td class="phrase-ko">발열, 심한 부기, 또는 악화되는 통증이 있으면 다시 오세요.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">90</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">You can take over-the-counter ibuprofen or acetaminophen for mild pain.</td><td class="phrase-ko">가벼운 통증에는 이부프로펜이나 타이레놀을 드셔도 됩니다.</td></tr>
+            <tr data-cat="술후주의"><td class="phrase-num">91</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Keep the area clean, but brush gently near the treated tooth.</td><td class="phrase-ko">청결하게 유지하되 치료 부위 근처는 살살 닦으세요.</td></tr>
+
+            <!-- 원무 / 기타 -->
+            <tr data-cat="원무"><td class="phrase-num">92</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Would you like to schedule your next appointment?</td><td class="phrase-ko">다음 예약을 잡으시겠어요?</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">93</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">We'll see you in 6 months for your next checkup.</td><td class="phrase-ko">6개월 후에 정기검진으로 오세요.</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">94</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Please call us if you have any concerns before your next visit.</td><td class="phrase-ko">다음 내원 전에 걱정되는 게 있으면 연락 주세요.</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">95</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Here is your treatment plan and the estimated cost.</td><td class="phrase-ko">치료 계획서와 예상 비용입니다.</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">96</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Do you have dental insurance?</td><td class="phrase-ko">치과 보험이 있으신가요?</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">97</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">I'd like to refer you to a specialist for this.</td><td class="phrase-ko">이 부분은 전문의에게 의뢰해 드리겠습니다.</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">98</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Is there anything else I can help you with today?</td><td class="phrase-ko">오늘 다른 불편하신 점은 없으신가요?</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">99</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Thank you for coming in. Take care!</td><td class="phrase-ko">내원해 주셔서 감사합니다. 건강하세요!</td></tr>
+            <tr data-cat="원무"><td class="phrase-num">100</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Do you have any questions before you leave?</td><td class="phrase-ko">가시기 전에 궁금하신 점 있으신가요?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 트렌드 ── -->
+  <div id="trends" class="section-title">📊 2024–2026 치과계 주요 트렌드 & 이슈</div>
+
+  <div class="trend-grid">
+
+    <div class="trend-card teal">
+      <div class="trend-year">2024–2026 핵심 트렌드</div>
+      <div class="trend-title">🤖 AI & 디지털 진단</div>
+      <ul class="trend-list">
+        <li><span class="trend-dot"></span>AI가 X-ray·파노라마·CBCT에서 충치, 골흡수, 해부학적 위험 자동 감지 (민감도 80~92%)</li>
+        <li><span class="trend-dot"></span>2026년 현재 AI 진단 보조 소프트웨어가 주요 치과 체인에 본격 도입 단계</li>
+        <li><span class="trend-dot"></span>클라우드 기반 치과 소프트웨어 급성장 — 예약·EMR·영상 통합 관리</li>
+        <li><span class="trend-dot"></span>LLM 기반 환자 정보 제공 도구 연구 증가 (임플란트 상담 분야 Frontiers, 2025)</li>
+      </ul>
+    </div>
+
+    <div class="trend-card violet">
+      <div class="trend-year">2024–2026 핵심 트렌드</div>
+      <div class="trend-title">📡 디지털 워크플로우</div>
+      <ul class="trend-list">
+        <li><span class="trend-dot violet"></span>구강 내 스캐너 보급률 미국·북유럽 60% 초과 — 표준 진료로 자리잡는 중</li>
+        <li><span class="trend-dot violet"></span>TRIOS 스캐너 2025년 3,500만 환자 스캔 (전년 대비 24% 증가)</li>
+        <li><span class="trend-dot violet"></span>당일 수복(Same-day dentistry) 확산 — 의자 옆 밀링 시스템으로 단일 내원 완료</li>
+        <li><span class="trend-dot violet"></span>3D 프린팅: 임시 보철·수술 가이드·덴처 적용 확대</li>
+      </ul>
+    </div>
+
+    <div class="trend-card amber">
+      <div class="trend-year">2024–2026 핵심 트렌드</div>
+      <div class="trend-title">🔩 임플란트 & 재생</div>
+      <ul class="trend-list">
+        <li><span class="trend-dot amber"></span>티타늄 외 지르코니아·티타늄지르코늄 합금 임플란트 임상 적용 증가</li>
+        <li><span class="trend-dot amber"></span>가이디드 임플란트 수술: CBCT + 디지털 계획 → 정확도·예측성 향상</li>
+        <li><span class="trend-dot amber"></span>소켓쉴드 테크닉(Socket-shield) 연구 급증 — 1999~2024년 415편 논문</li>
+        <li><span class="trend-dot amber"></span>스마트 임플란트(실시간 센서 내장) 연구 중이나 임상 검증 미흡</li>
+      </ul>
+    </div>
+
+    <div class="trend-card rose">
+      <div class="trend-year">2024–2026 주요 이슈</div>
+      <div class="trend-title">⚠️ 한계 & 과제</div>
+      <ul class="trend-list">
+        <li><span class="trend-dot rose"></span>AI 임상 검증 부족 — 표준화 데이터셋 없고, 편향·투명성 문제 지적</li>
+        <li><span class="trend-dot rose"></span>환자 데이터 프라이버시 규제 강화 (국내 의료 마이데이터 정책 포함)</li>
+        <li><span class="trend-dot rose"></span>디지털 기기 도입 비용 — 중소 치과 의원의 접근성 격차 우려</li>
+        <li><span class="trend-dot rose"></span>AI 보조 진단의 법적 책임 소재 불명확 — 의료법 논의 진행 중</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ── 주요 논문 ── -->
+  <div id="papers" class="section-title">📄 최근 주목받는 연구 & 논문</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📚 분야별 주요 논문 요약</div>
+      <span class="card-count">참고용</span>
+    </div>
+    <div class="card-body">
+      <div style="overflow-x:auto">
+        <table class="paper-table">
+          <thead>
+            <tr>
+              <th>분야</th>
+              <th>논문 / 연구</th>
+              <th>핵심 내용</th>
+              <th>저널</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-badge" style="background:#eff6ff;color:#1d4ed8">임플란트·AI</span></td>
+              <td><div class="paper-title">AI-Powered Predictive Models in Implant Dentistry</div><div class="paper-journal">J. Clinical Medicine, 2025</div></td>
+              <td>임플란트 계획·위험평가·결과 예측에 AI 적용 — 진단부터 장기 추적까지 end-to-end 워크플로우 제시</td>
+              <td>MDPI</td>
+            </tr>
+            <tr>
+              <td><span class="field-badge" style="background:#f5f3ff;color:#5b21b6">디지털</span></td>
+              <td><div class="paper-title">The Future of Dental Implants: Trends, Technologies, and Patient Considerations</div><div class="paper-journal">PMC Narrative Review, 2025</div></td>
+              <td>지르코니아·Ti-Zr 합금 임플란트, 스마트 임플란트 센서, 디지털 가이드 수술의 최신 현황 종합 리뷰</td>
+              <td>PMC / NCBI</td>
+            </tr>
+            <tr>
+              <td><span class="field-badge" style="background:#ecfdf5;color:#065f46">AI 진단</span></td>
+              <td><div class="paper-title">Artificial Intelligence in Dentistry and Dental Biomaterials</div><div class="paper-journal">Frontiers in Dental Medicine, 2024</div></td>
+              <td>치과 AI 전반(진단·치료계획·재료과학) 현황 리뷰; 편향·데이터 품질 문제 강조</td>
+              <td>Frontiers</td>
+            </tr>
+            <tr>
+              <td><span class="field-badge" style="background:#fef3c7;color:#92400e">근관치료</span></td>
+              <td><div class="paper-title">Top 100 Most-Cited Articles in Regenerative Endodontics 2019–2023</div><div class="paper-journal">PubMed Bibliometric, 2024</div></td>
+              <td>재생 근관치료 분야 인용 논문 분석 — MTA·바이오세라믹 소재 연구가 다수 상위권</td>
+              <td>PubMed</td>
+            </tr>
+            <tr>
+              <td><span class="field-badge" style="background:#fdf4ff;color:#7e22ce">LLM·AI</span></td>
+              <td><div class="paper-title">Enhancing Patient-Centered Information on Implant Dentistry through Prompt Engineering</div><div class="paper-journal">Frontiers in Oral Health, 2025</div></td>
+              <td>ChatGPT·Claude 등 4개 LLM 비교 — 임플란트 환자 설명 정확도·신뢰도 평가</td>
+              <td>Frontiers</td>
+            </tr>
+            <tr>
+              <td><span class="field-badge" style="background:#ecfdf5;color:#065f46">치주</span></td>
+              <td><div class="paper-title">치주·임플란트 분야가 치과 인용 논문 최다 차지</div><div class="paper-journal">Bibliometric 종합, 2020 Update</div></td>
+              <td>치과 최다 인용 분야 1위 치주(32,410회), 2위 임플란트(15,592회) — J. Dental Research·J. Periodontology 주도</td>
+              <td>MDPI / PMC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:#9ca3af;margin-top:12px">* 최신 논문은 PubMed, Google Scholar에서 직접 검색 권장. 위 정보는 2026년 5월 기준.</p>
+    </div>
+  </div>
+
+  <!-- ── 항균제 기전 ── -->
+  <div id="antiseptics" class="section-title">🧪 항균제 기전 비교 — 헥사메딘 vs H₂O₂</div>
+
+  <!-- CHX 기전 -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">🔵 클로르헥시딘 (헥사메딘, CHX) 작용 기전</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div style="background:#ecfeff;border-radius:10px;padding:14px 16px;border-left:3px solid #0891b2">
+          <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.05em;margin-bottom:6px">① 흡착</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">양이온성 분자 → 세균 세포벽 음이온성 인지질에 정전기적 결합</div>
+        </div>
+        <div style="background:#ecfeff;border-radius:10px;padding:14px 16px;border-left:3px solid #0891b2">
+          <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.05em;margin-bottom:6px">② 막 투과</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">세포막 인지질 이중층에 삽입 → 투과성 파괴</div>
+        </div>
+        <div style="background:#ecfeff;border-radius:10px;padding:14px 16px;border-left:3px solid #0891b2">
+          <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.05em;margin-bottom:6px">③ 세포질 유출</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">K⁺·저분자 물질 누출 → <strong>저농도: bacteriostatic</strong></div>
+        </div>
+        <div style="background:#ecfeff;border-radius:10px;padding:14px 16px;border-left:3px solid #0891b2">
+          <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.05em;margin-bottom:6px">④ 세포질 응고</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">단백질·핵산 응고 → <strong>고농도: bactericidal</strong></div>
+        </div>
+        <div style="background:#fef3c7;border-radius:10px;padding:14px 16px;border-left:3px solid #d97706;grid-column:span 1">
+          <div style="font-size:11px;font-weight:700;color:#d97706;letter-spacing:.05em;margin-bottom:6px">⭐ Substantivity (핵심 장점)</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">구강 점막·치아에 흡착 후 <strong>8–12시간 서서히 방출</strong> → 지속 항균</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- H2O2 기전 -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">🟣 과산화수소 (H₂O₂) 작용 기전</div>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div style="background:#f5f3ff;border-radius:10px;padding:14px 16px;border-left:3px solid #7c3aed">
+          <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.05em;margin-bottom:6px">① ROS 생성</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">H₂O₂ → OH· (하이드록실 라디칼) + O₂ 생성</div>
+        </div>
+        <div style="background:#f5f3ff;border-radius:10px;padding:14px 16px;border-left:3px solid #7c3aed">
+          <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.05em;margin-bottom:6px">② 산화적 손상</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">DNA·단백질·세포막 지질 비선택적 산화 파괴</div>
+        </div>
+        <div style="background:#f5f3ff;border-radius:10px;padding:14px 16px;border-left:3px solid #7c3aed">
+          <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.05em;margin-bottom:6px">③ 혐기성균 선택성</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">카탈라아제·SOD 없는 혐기성균에 특히 강력</div>
+        </div>
+        <div style="background:#f5f3ff;border-radius:10px;padding:14px 16px;border-left:3px solid #7c3aed">
+          <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.05em;margin-bottom:6px">④ 물리적 세정</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">O₂ 발포 → 괴사조직·debris 기계적 제거</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 비교 테이블 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⚖️ CHX vs H₂O₂ 비교 & 임상 포인트</div>
+    </div>
+    <div class="card-body">
+      <div style="overflow-x:auto;margin-bottom:20px">
+        <table class="paper-table">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>클로르헥시딘 (헥사메딘)</th>
+              <th>H₂O₂ (과산화수소)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="font-weight:600;color:#374151">기전</td><td>세포막 파괴 (표적 특이적)</td><td>산화 손상 (비선택적)</td></tr>
+            <tr><td style="font-weight:600;color:#374151">지속성</td><td><strong style="color:#0891b2">8–12시간 지속</strong></td><td>거의 없음 (즉각 분해)</td></tr>
+            <tr><td style="font-weight:600;color:#374151">항균 스펙트럼</td><td>G+, G−, 진균, 일부 바이러스</td><td>광범위, 특히 혐기성균에 강력</td></tr>
+            <tr><td style="font-weight:600;color:#374151">바이오필름</td><td>형성 억제 강력</td><td>표면 biofilm에 제한적</td></tr>
+            <tr><td style="font-weight:600;color:#374151">조직 독성</td><td>낮음 (권장 농도 0.12–0.2%)</td><td>높음 (고농도 시 섬유아세포 손상)</td></tr>
+            <tr><td style="font-weight:600;color:#374151">치아 착색</td><td><span style="color:#dc2626">장기 사용 시 착색</span></td><td>없음 (오히려 미백 작용)</td></tr>
+            <tr><td style="font-weight:600;color:#374151">주요 임상 용도</td><td>수술 전후, 치주처치, 임플란트 주위염</td><td>NUG, 괴사조직 세정, 근관 세정 (1–3%)</td></tr>
+            <tr><td style="font-weight:600;color:#374151">내성 우려</td><td>장기 사용 시 일부 보고</td><td>거의 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 임상 주의사항 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="background:#fff7ed;border-radius:10px;padding:14px 16px;border-left:3px solid #f97316">
+          <div style="font-size:12px;font-weight:700;color:#9a3412;margin-bottom:8px">⚠️ 병용 금기 — CHX + NaOCl</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">갈색 침전물(chlorhexidine digluconate) 형성 → 근관 치료 시 절대 혼용 금지</div>
+        </div>
+        <div style="background:#f0fdf4;border-radius:10px;padding:14px 16px;border-left:3px solid #16a34a">
+          <div style="font-size:12px;font-weight:700;color:#14532d;margin-bottom:8px">✅ 병용 시 순서 주의 — CHX + H₂O₂</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">H₂O₂가 CHX를 불활성화할 수 있어 시간 간격을 두거나 사용 순서 고려</div>
+        </div>
+        <div style="background:#eff6ff;border-radius:10px;padding:14px 16px;border-left:3px solid #2563eb">
+          <div style="font-size:12px;font-weight:700;color:#1e3a8a;margin-bottom:8px">💡 CHX 우선 선택 상황</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">수술 후 구강 위생 유지, 임플란트 주위 관리 — substantivity가 핵심 이유</div>
+        </div>
+        <div style="background:#fdf4ff;border-radius:10px;padding:14px 16px;border-left:3px solid #9333ea">
+          <div style="font-size:12px;font-weight:700;color:#581c87;margin-bottom:8px">💡 H₂O₂ 우선 선택 상황</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">NUG 등 혐기성균 주범 + 괴사 debris 제거 필요한 급성 상황. 근관: NaOCl → H₂O₂ 교대 사용으로 세정 효율 ↑</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="footer">
+  치과 레퍼런스 페이지 &nbsp;|&nbsp; 최종 업데이트: 2026년 5월
+</div>
+
+<script>
+  let currentCat = 'all';
+
+  function filterPhrases() {
+    const keyword = document.getElementById('phraseSearch').value.toLowerCase();
+    const rows = document.querySelectorAll('#phraseBody tr');
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const catMatch = currentCat === 'all' || row.dataset.cat === currentCat;
+      const keyMatch = !keyword || text.includes(keyword);
+      row.classList.toggle('hidden', !(catMatch && keyMatch));
+    });
+  }
+
+  function filterCat(cat, el) {
+    currentCat = cat;
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    filterPhrases();
+  }
+</script>
+
+</body>
+</html>
