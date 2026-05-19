@@ -1,0 +1,14 @@
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "inline"
+    X-Content-Type-Options = "nosniff"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; object-src 'self' blob: data:; frame-src 'self' blob: data:; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self'"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
