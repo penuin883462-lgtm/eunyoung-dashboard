@@ -1,16 +1,25 @@
 # 대용량 파일 제외
 *.mp3
-*.pdf
 *.zip
 
-# 기능의학 강의 원본 자료
-AFMCP*/
+# 기능의학 강의 원문 트랜스크립트 (번역 전 원본 — 미배포)
+AFMCP_Chap*_Transcript_*.pdf
+AFMCP_Chapter_*.pdf
+AFMCP_May_*.pdf
+*_Transcript_*.pdf
+Elyaman_*.pdf
+Gaudet_*.pdf
+Kurnik_*.pdf
+
+# 기타 폴더
 번역본/
 음성/
+__pycache__/
+.claude/
 
-# Python 스크립트
+# Python 스크립트 & 임시 파일
 *.py
-
-# 기타
+create_*.py
+_tmp*.mp3
 *.txt
 *.bat
