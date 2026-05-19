@@ -1,21 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>은영의 대시보드</title>
+  <title>??곸쓽 ??쒕낫??/title>
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0891b2" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="은영 대시보드" />
+  <meta name="apple-mobile-web-app-title" content="?????쒕낫?? />
   <link rel="apple-touch-icon" href="icon.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f4f5f7; color: #1a1a2e; min-height: 100vh; }
 
-    /* ── TOP NAV ── */
+    /* ?? TOP NAV ?? */
     .topbar { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #e2e5eb; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; gap: 16px; }
     .topbar-brand { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap; }
     .brand-main { color: #0ea5e9; }
@@ -33,13 +33,13 @@
     .btn-primary-main   { background: #0ea5e9; color: #fff; }
     .btn-primary-main:hover   { background: #0284c7; }
 
-    /* ── PAGES ── */
+    /* ?? PAGES ?? */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ═══════════════════════════════════
-       PAGE 1 — 할일 대시보드
-    ═══════════════════════════════════ */
+    /* ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??
+       PAGE 1 ???좎씪 ??쒕낫??
+    ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??*/
     .page-header-main { background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); padding: 48px 40px 40px; color: #fff; }
     .page-header-inner { max-width: 1200px; margin: 0 auto; }
     .header-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; opacity: 0.85; margin-bottom: 12px; }
@@ -107,7 +107,7 @@
 
     .summary-box { background: linear-gradient(135deg, #f0f9ff 0%, #eef2ff 100%); border: 1px solid #bae6fd; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px; }
     .summary-box p { font-size: 14px; color: #374151; line-height: 1.7; padding-left: 18px; position: relative; }
-    .summary-box p::before { content: '•'; position: absolute; left: 0; color: #0ea5e9; font-weight: 700; }
+    .summary-box p::before { content: '??; position: absolute; left: 0; color: #0ea5e9; font-weight: 700; }
     .summary-box p + p { margin-top: 6px; }
 
     .table-wrap { overflow-x: auto; }
@@ -180,15 +180,15 @@
     .task-item:hover { opacity: 0.85; }
     .task-item .check-box { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #d1d5db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #fff; transition: all 0.2s; background: #fff; }
     .task-item.done .check-box { background: #10b981; border-color: #10b981; }
-    .task-item.done .check-box::after { content: '✓'; }
+    .task-item.done .check-box::after { content: '??; }
     .task-item.done .step-text,
     .task-item.done .task-item-label { text-decoration: line-through; color: #9ca3af; }
     .task-item.done { background: rgba(16,185,129,0.07) !important; }
     .table-status { cursor: pointer; user-select: none; }
 
-    /* ═══════════════════════════════════
-       PAGE 2 — 치과 레퍼런스
-    ═══════════════════════════════════ */
+    /* ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??
+       PAGE 2 ??移섍낵 ?덊띁?곗뒪
+    ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??*/
     .page-header-dental { background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); padding: 48px 40px 40px; color: #fff; }
     .page-header-dental h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
     .page-header-dental p { margin-top: 10px; font-size: 14px; opacity: 0.8; }
@@ -261,83 +261,83 @@
 <!-- TOP NAV -->
 <nav class="topbar">
   <span class="topbar-brand">
-    <span class="brand-main" id="nav-brand">은영의 대시보드</span>
+    <span class="brand-main" id="nav-brand">??곸쓽 ??쒕낫??/span>
   </span>
   <div class="tab-nav">
-    <button class="tab-btn active-main" onclick="switchTab('main', this)">📋 내 할일</button>
-    <button class="tab-btn" onclick="switchTab('dental', this)">🦷 치과 레퍼런스</button>
-    <button class="tab-btn" onclick="switchTab('fm', this)">🧬 기능의학</button>
+    <button class="tab-btn active-main" onclick="switchTab('main', this)">?뱥 ???좎씪</button>
+    <button class="tab-btn" onclick="switchTab('dental', this)">?┠ 移섍낵 ?덊띁?곗뒪</button>
+    <button class="tab-btn" onclick="switchTab('fm', this)">?㎚ 湲곕뒫?섑븰</button>
   </div>
   <div class="topbar-actions">
-    <a href="profile.html" class="btn btn-outline">🌿 내 소개 페이지</a>
-    <button class="btn btn-outline" onclick="window.print()">🖨 PDF 저장</button>
-    <button class="btn btn-primary-main" id="scroll-btn" onclick="document.getElementById('calendar').scrollIntoView({behavior:'smooth'})">📅 일정 보기</button>
+    <a href="profile.html" class="btn btn-outline">?뙼 ???뚭컻 ?섏씠吏</a>
+    <button class="btn btn-outline" onclick="window.print()">?뼥 PDF ???/button>
+    <button class="btn btn-primary-main" id="scroll-btn" onclick="document.getElementById('calendar').scrollIntoView({behavior:'smooth'})">?뱟 ?쇱젙 蹂닿린</button>
   </div>
 </nav>
 
-<!-- ═══════════════════════════════════════
-     PAGE 1 — 내 할일
-════════════════════════════════════════ -->
+<!-- ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??
+     PAGE 1 ?????좎씪
+?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧 -->
 <div id="page-main" class="page active">
 
   <header class="page-header-main">
     <div class="page-header-inner">
       <div class="header-meta">
-        <span>📅 2026년 5월 19일 (화) — 5월 4주차</span>
-        <span>👤 은영</span>
-        <span>📌 주간 할일 2건</span>
+        <span>?뱟 2026??5??19??(?? ??5??4二쇱감</span>
+        <span>?뫀 ???/span>
+        <span>?뱦 二쇨컙 ?좎씪 2嫄?/span>
       </div>
-      <h1>5월 4주차<br>은영이의 할일</h1>
+      <h1>5??4二쇱감<br>??곸씠???좎씪</h1>
     </div>
   </header>
 
   <div class="highlight-wrap">
     <div class="highlight-card">
-      <div class="highlight-icon">⚡</div>
+      <div class="highlight-icon">??/div>
       <div>
-        <div class="highlight-label">이번 주 핵심</div>
-        <div class="highlight-text">AFMCP Chapter 3·4 수강 → 정리 &nbsp;|&nbsp; PT 2회 진행 &nbsp;|&nbsp; 유산소 2회 진행</div>
+        <div class="highlight-label">?대쾲 二??듭떖</div>
+        <div class="highlight-text">AFMCP Chapter 3쨌4 ?섍컯 ???뺣━ &nbsp;|&nbsp; PT 2??吏꾪뻾 &nbsp;|&nbsp; ?좎궛??2??吏꾪뻾</div>
       </div>
     </div>
   </div>
 
   <main class="main">
     <div id="overview" class="stat-grid">
-      <div class="stat-card"><div class="stat-icon sky">📚</div><div><div class="stat-num sky">4</div><div class="stat-label">학습 세부 단계</div></div></div>
-      <div class="stat-card"><div class="stat-icon indigo">🏋️</div><div><div class="stat-num indigo">2<span style="font-size:14px;font-weight:500"> 회</span></div><div class="stat-label">PT 목표</div></div></div>
-      <div class="stat-card"><div class="stat-icon green">🏃</div><div><div class="stat-num green">2<span style="font-size:14px;font-weight:500"> 회</span></div><div class="stat-label">유산소 목표</div></div></div>
-      <div class="stat-card"><div class="stat-icon amber">📋</div><div><div class="stat-num amber">8</div><div class="stat-label">전체 할 일</div></div></div>
+      <div class="stat-card"><div class="stat-icon sky">?뱴</div><div><div class="stat-num sky">4</div><div class="stat-label">?숈뒿 ?몃? ?④퀎</div></div></div>
+      <div class="stat-card"><div class="stat-icon indigo">?룍截?/div><div><div class="stat-num indigo">2<span style="font-size:14px;font-weight:500"> ??/span></div><div class="stat-label">PT 紐⑺몴</div></div></div>
+      <div class="stat-card"><div class="stat-icon green">?룂</div><div><div class="stat-num green">2<span style="font-size:14px;font-weight:500"> ??/span></div><div class="stat-label">?좎궛??紐⑺몴</div></div></div>
+      <div class="stat-card"><div class="stat-icon amber">?뱥</div><div><div class="stat-num amber">8</div><div class="stat-label">?꾩껜 ????/div></div></div>
     </div>
 
-    <div class="section-title">📝 핵심 요약</div>
+    <div class="section-title">?뱷 ?듭떖 ?붿빟</div>
     <div class="summary-box">
-      <p>이번 주 핵심 세 가지 — AFMCP Chapter 3·4 수강 후 각각 정리, PT 2회, 유산소 2회.</p>
-      <p>학습은 수강 → 정리 순서로 Chapter 3 먼저 완료 후 Chapter 4 진행.</p>
-      <p>운동은 PT·유산소 각 2회씩, 이번 주 안에 반드시 완료하는 것이 목표.</p>
+      <p>?대쾲 二??듭떖 ??媛吏 ??AFMCP Chapter 3쨌4 ?섍컯 ??媛곴컖 ?뺣━, PT 2?? ?좎궛??2??</p>
+      <p>?숈뒿? ?섍컯 ???뺣━ ?쒖꽌濡?Chapter 3 癒쇱? ?꾨즺 ??Chapter 4 吏꾪뻾.</p>
+      <p>?대룞? PT쨌?좎궛??媛?2?뚯뵫, ?대쾲 二??덉뿉 諛섎뱶???꾨즺?섎뒗 寃껋씠 紐⑺몴.</p>
     </div>
 
-    <div id="tasks"><div class="section-title">📋 할 일 상세</div>
+    <div id="tasks"><div class="section-title">?뱥 ?????곸꽭</div>
       <div class="two-col">
         <div class="card">
-          <div class="card-header"><div class="card-title">📚 AFMCP Chapter 3</div><span class="card-count indigo">2단계</span></div>
+          <div class="card-header"><div class="card-title">?뱴 AFMCP Chapter 3</div><span class="card-count indigo">2?④퀎</span></div>
           <div class="card-body">
             <div class="task-block study">
               <div class="task-steps">
-                <div class="step-item task-item" data-id="t1" onclick="toggleTask('t1')"><div class="check-box"></div><div class="step-num sky">1</div><div class="step-text task-item-label">Chapter 3 수강</div></div>
-                <div class="step-arrow">↓</div>
-                <div class="step-item task-item" data-id="t2" onclick="toggleTask('t2')"><div class="check-box"></div><div class="step-num indigo">2</div><div class="step-text task-item-label">Chapter 3 정리</div></div>
+                <div class="step-item task-item" data-id="t1" onclick="toggleTask('t1')"><div class="check-box"></div><div class="step-num sky">1</div><div class="step-text task-item-label">Chapter 3 ?섍컯</div></div>
+                <div class="step-arrow">??/div>
+                <div class="step-item task-item" data-id="t2" onclick="toggleTask('t2')"><div class="check-box"></div><div class="step-num indigo">2</div><div class="step-text task-item-label">Chapter 3 ?뺣━</div></div>
               </div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-title">📚 AFMCP Chapter 4</div><span class="card-count indigo">2단계</span></div>
+          <div class="card-header"><div class="card-title">?뱴 AFMCP Chapter 4</div><span class="card-count indigo">2?④퀎</span></div>
           <div class="card-body">
             <div class="task-block study">
               <div class="task-steps">
-                <div class="step-item task-item" data-id="t3" onclick="toggleTask('t3')"><div class="check-box"></div><div class="step-num sky">1</div><div class="step-text task-item-label">Chapter 4 수강</div></div>
-                <div class="step-arrow">↓</div>
-                <div class="step-item task-item" data-id="t4" onclick="toggleTask('t4')"><div class="check-box"></div><div class="step-num indigo">2</div><div class="step-text task-item-label">Chapter 4 정리</div></div>
+                <div class="step-item task-item" data-id="t3" onclick="toggleTask('t3')"><div class="check-box"></div><div class="step-num sky">1</div><div class="step-text task-item-label">Chapter 4 ?섍컯</div></div>
+                <div class="step-arrow">??/div>
+                <div class="step-item task-item" data-id="t4" onclick="toggleTask('t4')"><div class="check-box"></div><div class="step-num indigo">2</div><div class="step-text task-item-label">Chapter 4 ?뺣━</div></div>
               </div>
             </div>
           </div>
@@ -345,31 +345,31 @@
       </div>
       <div class="two-col" style="margin-top:20px;">
         <div class="card">
-          <div class="card-header"><div class="card-title">🏋️ PT 2회 진행</div><span class="card-count green">이번 주</span></div>
+          <div class="card-header"><div class="card-title">?룍截?PT 2??吏꾪뻾</div><span class="card-count green">?대쾲 二?/span></div>
           <div class="card-body">
             <div class="task-block fitness">
               <div class="step-item task-item" data-id="t5" onclick="toggleTask('t5')" style="background:rgba(255,255,255,0.75);margin-bottom:8px;">
                 <div class="check-box"></div>
-                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">1회차</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#10b981;">PT 1회차 완료</div></div>
+                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">1?뚯감</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#10b981;">PT 1?뚯감 ?꾨즺</div></div>
               </div>
               <div class="step-item task-item" data-id="t6" onclick="toggleTask('t6')" style="background:rgba(255,255,255,0.75);">
                 <div class="check-box"></div>
-                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">2회차</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#10b981;">PT 2회차 완료</div></div>
+                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">2?뚯감</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#10b981;">PT 2?뚯감 ?꾨즺</div></div>
               </div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-title">🏃 유산소 2회 진행</div><span class="card-count sky">이번 주</span></div>
+          <div class="card-header"><div class="card-title">?룂 ?좎궛??2??吏꾪뻾</div><span class="card-count sky">?대쾲 二?/span></div>
           <div class="card-body">
             <div class="task-block" style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;">
               <div class="step-item task-item" data-id="t7" onclick="toggleTask('t7')" style="background:rgba(255,255,255,0.75);margin-bottom:8px;">
                 <div class="check-box"></div>
-                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">1회차</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#0ea5e9;">유산소 1회차 완료</div></div>
+                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">1?뚯감</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#0ea5e9;">?좎궛??1?뚯감 ?꾨즺</div></div>
               </div>
               <div class="step-item task-item" data-id="t8" onclick="toggleTask('t8')" style="background:rgba(255,255,255,0.75);">
                 <div class="check-box"></div>
-                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">2회차</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#0ea5e9;">유산소 2회차 완료</div></div>
+                <div><div style="font-size:12px;color:#6b7280;margin-bottom:2px;font-weight:600;">2?뚯감</div><div class="task-item-label" style="font-size:13.5px;font-weight:700;color:#0ea5e9;">?좎궛??2?뚯감 ?꾨즺</div></div>
               </div>
             </div>
           </div>
@@ -379,517 +379,517 @@
 
     <div class="two-col">
       <div class="card">
-        <div class="card-header"><div class="card-title">✅ 결정사항</div><span class="card-count sky">3건</span></div>
+        <div class="card-header"><div class="card-title">??寃곗젙?ы빆</div><span class="card-count sky">3嫄?/span></div>
         <div class="card-body"><div class="check-list">
-          <div class="check-item"><span class="check-icon">📚</span><span>AFMCP Chapter 3 — 수강 → 정리 순서로 이번 주 완료</span></div>
-          <div class="check-item"><span class="check-icon">📚</span><span>AFMCP Chapter 4 — 수강 → 정리 순서로 이번 주 완료</span></div>
-          <div class="check-item"><span class="check-icon">🏋️</span><span>PT 2회 + 유산소 2회 — 이번 주 안에 모두 진행</span></div>
+          <div class="check-item"><span class="check-icon">?뱴</span><span>AFMCP Chapter 3 ???섍컯 ???뺣━ ?쒖꽌濡??대쾲 二??꾨즺</span></div>
+          <div class="check-item"><span class="check-icon">?뱴</span><span>AFMCP Chapter 4 ???섍컯 ???뺣━ ?쒖꽌濡??대쾲 二??꾨즺</span></div>
+          <div class="check-item"><span class="check-icon">?룍截?/span><span>PT 2??+ ?좎궛??2?????대쾲 二??덉뿉 紐⑤몢 吏꾪뻾</span></div>
         </div></div>
       </div>
       <div class="card">
-        <div class="card-header"><div class="card-title">🔍 다음 주 전 확인할 것</div><span class="card-count green">8건</span></div>
+        <div class="card-header"><div class="card-title">?뵇 ?ㅼ쓬 二????뺤씤??寃?/div><span class="card-count green">8嫄?/span></div>
         <div class="card-body"><div class="check-list">
-          <div class="check-item task-item" data-id="t1" onclick="toggleTask('t1')"><div class="check-box"></div><span class="task-item-label">AFMCP Chapter 3 수강 완료 여부</span></div>
-          <div class="check-item task-item" data-id="t2" onclick="toggleTask('t2')"><div class="check-box"></div><span class="task-item-label">Chapter 3 정리 노트 작성 완료 여부</span></div>
-          <div class="check-item task-item" data-id="t3" onclick="toggleTask('t3')"><div class="check-box"></div><span class="task-item-label">AFMCP Chapter 4 수강 완료 여부</span></div>
-          <div class="check-item task-item" data-id="t4" onclick="toggleTask('t4')"><div class="check-box"></div><span class="task-item-label">Chapter 4 정리 노트 작성 완료 여부</span></div>
-          <div class="check-item task-item" data-id="t5" onclick="toggleTask('t5')"><div class="check-box"></div><span class="task-item-label">PT 1회차 실행 여부</span></div>
-          <div class="check-item task-item" data-id="t6" onclick="toggleTask('t6')"><div class="check-box"></div><span class="task-item-label">PT 2회차 실행 여부</span></div>
-          <div class="check-item task-item" data-id="t7" onclick="toggleTask('t7')"><div class="check-box"></div><span class="task-item-label">유산소 1회차 실행 여부</span></div>
-          <div class="check-item task-item" data-id="t8" onclick="toggleTask('t8')"><div class="check-box"></div><span class="task-item-label">유산소 2회차 실행 여부</span></div>
+          <div class="check-item task-item" data-id="t1" onclick="toggleTask('t1')"><div class="check-box"></div><span class="task-item-label">AFMCP Chapter 3 ?섍컯 ?꾨즺 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t2" onclick="toggleTask('t2')"><div class="check-box"></div><span class="task-item-label">Chapter 3 ?뺣━ ?명듃 ?묒꽦 ?꾨즺 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t3" onclick="toggleTask('t3')"><div class="check-box"></div><span class="task-item-label">AFMCP Chapter 4 ?섍컯 ?꾨즺 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t4" onclick="toggleTask('t4')"><div class="check-box"></div><span class="task-item-label">Chapter 4 ?뺣━ ?명듃 ?묒꽦 ?꾨즺 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t5" onclick="toggleTask('t5')"><div class="check-box"></div><span class="task-item-label">PT 1?뚯감 ?ㅽ뻾 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t6" onclick="toggleTask('t6')"><div class="check-box"></div><span class="task-item-label">PT 2?뚯감 ?ㅽ뻾 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t7" onclick="toggleTask('t7')"><div class="check-box"></div><span class="task-item-label">?좎궛??1?뚯감 ?ㅽ뻾 ?щ?</span></div>
+          <div class="check-item task-item" data-id="t8" onclick="toggleTask('t8')"><div class="check-box"></div><span class="task-item-label">?좎궛??2?뚯감 ?ㅽ뻾 ?щ?</span></div>
         </div></div>
       </div>
     </div>
 
-    <div id="calendar"><div class="section-title">📅 5월 4주차 일정</div>
+    <div id="calendar"><div class="section-title">?뱟 5??4二쇱감 ?쇱젙</div>
       <div class="calendar-grid">
-        <div class="card"><div class="card-header"><div class="card-title">2026년 5월</div></div>
+        <div class="card"><div class="card-header"><div class="card-title">2026??5??/div></div>
           <div class="card-body">
             <table class="cal-table">
-              <thead class="cal-head"><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead>
+              <thead class="cal-head"><tr><th>??/th><th>??/th><th>??/th><th>??/th><th>紐?/th><th>湲?/th><th>??/th></tr></thead>
               <tbody class="cal-body">
                 <tr><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td>1</td><td>2</td></tr>
                 <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
                 <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
-                <tr><td>17</td><td>18</td><td class="today" title="오늘">19<br><span style="font-size:9px">오늘</span></td><td class="week3">20</td><td class="week3">21</td><td class="week3">22</td><td class="week3">23</td></tr>
-                <tr><td class="week3">24</td><td class="goal" title="목표 마감">25<br><span style="font-size:9px">목표</span></td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+                <tr><td>17</td><td>18</td><td class="today" title="?ㅻ뒛">19<br><span style="font-size:9px">?ㅻ뒛</span></td><td class="week3">20</td><td class="week3">21</td><td class="week3">22</td><td class="week3">23</td></tr>
+                <tr><td class="week3">24</td><td class="goal" title="紐⑺몴 留덇컧">25<br><span style="font-size:9px">紐⑺몴</span></td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
                 <tr><td>31</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
               </tbody>
             </table>
             <div class="cal-legend">
-              <div class="legend-item"><div class="legend-dot today"></div>오늘 (5/19)</div>
-              <div class="legend-item"><div class="legend-dot week3"></div>4주차 진행 기간</div>
-              <div class="legend-item"><div class="legend-dot goal"></div>주간 목표 마감 (5/25)</div>
+              <div class="legend-item"><div class="legend-dot today"></div>?ㅻ뒛 (5/19)</div>
+              <div class="legend-item"><div class="legend-dot week3"></div>4二쇱감 吏꾪뻾 湲곌컙</div>
+              <div class="legend-item"><div class="legend-dot goal"></div>二쇨컙 紐⑺몴 留덇컧 (5/25)</div>
             </div>
           </div>
         </div>
-        <div class="card"><div class="card-header"><div class="card-title">주요 일정</div></div>
+        <div class="card"><div class="card-header"><div class="card-title">二쇱슂 ?쇱젙</div></div>
           <div class="card-body"><div class="upcoming-list">
-            <div class="upcoming-item"><div class="date-badge sky"><div class="month">MAY</div><div class="day">19</div></div><div class="upcoming-text"><div class="ev-title">AFMCP Chapter 3 수강 시작</div><div class="ev-sub">오늘부터 — 수강 후 정리까지 이어서</div></div></div>
-            <div class="upcoming-item"><div class="date-badge sky"><div class="month">MAY</div><div class="day">21</div></div><div class="upcoming-text"><div class="ev-title">AFMCP Chapter 4 수강</div><div class="ev-sub">Chapter 3 완료 후 바로 이어서</div></div></div>
-            <div class="upcoming-item"><div class="date-badge green"><div class="month">MAY</div><div class="day">19</div></div><div class="upcoming-text"><div class="ev-title">PT 2회 + 유산소 2회 진행</div><div class="ev-sub">이번 주 안에 모두 완료</div></div></div>
-            <div class="upcoming-item"><div class="date-badge indigo"><div class="month">MAY</div><div class="day">25</div></div><div class="upcoming-text"><div class="ev-title">주간 목표 마감</div><div class="ev-sub">Ch3·4 정리 + PT·유산소 완료 확인</div></div></div>
+            <div class="upcoming-item"><div class="date-badge sky"><div class="month">MAY</div><div class="day">19</div></div><div class="upcoming-text"><div class="ev-title">AFMCP Chapter 3 ?섍컯 ?쒖옉</div><div class="ev-sub">?ㅻ뒛遺?????섍컯 ???뺣━源뚯? ?댁뼱??/div></div></div>
+            <div class="upcoming-item"><div class="date-badge sky"><div class="month">MAY</div><div class="day">21</div></div><div class="upcoming-text"><div class="ev-title">AFMCP Chapter 4 ?섍컯</div><div class="ev-sub">Chapter 3 ?꾨즺 ??諛붾줈 ?댁뼱??/div></div></div>
+            <div class="upcoming-item"><div class="date-badge green"><div class="month">MAY</div><div class="day">19</div></div><div class="upcoming-text"><div class="ev-title">PT 2??+ ?좎궛??2??吏꾪뻾</div><div class="ev-sub">?대쾲 二??덉뿉 紐⑤몢 ?꾨즺</div></div></div>
+            <div class="upcoming-item"><div class="date-badge indigo"><div class="month">MAY</div><div class="day">25</div></div><div class="upcoming-text"><div class="ev-title">二쇨컙 紐⑺몴 留덇컧</div><div class="ev-sub">Ch3쨌4 ?뺣━ + PT쨌?좎궛???꾨즺 ?뺤씤</div></div></div>
           </div></div>
         </div>
       </div>
     </div>
 
-    <div id="table"><div class="section-title">👤 업무표</div>
+    <div id="table"><div class="section-title">?뫀 ?낅Т??/div>
       <div class="card full-col"><div class="table-wrap"><table>
-        <thead><tr><th>담당자</th><th>할 일</th><th>순서</th><th>마감일</th><th>상태</th></tr></thead>
+        <thead><tr><th>?대떦??/th><th>????/th><th>?쒖꽌</th><th>留덇컧??/th><th>?곹깭</th></tr></thead>
         <tbody>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>AFMCP Chapter 3 수강</td><td><span class="badge badge-seq">1단계</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t1" onclick="toggleTask('t1')" id="status-t1">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>Chapter 3 내용 정리</td><td><span class="badge badge-seq">2단계</span></td><td><span class="badge badge-date">수강 직후</span></td><td><span class="badge table-status" data-id="t2" onclick="toggleTask('t2')" id="status-t2">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>AFMCP Chapter 4 수강</td><td><span class="badge badge-seq">3단계</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t3" onclick="toggleTask('t3')" id="status-t3">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>Chapter 4 내용 정리</td><td><span class="badge badge-seq">4단계</span></td><td><span class="badge badge-date">수강 직후</span></td><td><span class="badge table-status" data-id="t4" onclick="toggleTask('t4')" id="status-t4">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>🏋️ PT 1회차</td><td><span class="badge" style="background:#dcfce7;color:#166534">독립</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t5" onclick="toggleTask('t5')" id="status-t5">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>🏋️ PT 2회차</td><td><span class="badge" style="background:#dcfce7;color:#166534">독립</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t6" onclick="toggleTask('t6')" id="status-t6">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>🏃 유산소 1회차</td><td><span class="badge" style="background:#e0f2fe;color:#0369a1;">독립</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t7" onclick="toggleTask('t7')" id="status-t7">미완료</span></td></tr>
-          <tr><td><div class="person-cell"><div class="mini-avatar">은</div>은영</div></td><td>🏃 유산소 2회차</td><td><span class="badge" style="background:#e0f2fe;color:#0369a1;">독립</span></td><td><span class="badge badge-date">5월 4주차 내</span></td><td><span class="badge table-status" data-id="t8" onclick="toggleTask('t8')" id="status-t8">미완료</span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>AFMCP Chapter 3 ?섍컯</td><td><span class="badge badge-seq">1?④퀎</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t1" onclick="toggleTask('t1')" id="status-t1">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>Chapter 3 ?댁슜 ?뺣━</td><td><span class="badge badge-seq">2?④퀎</span></td><td><span class="badge badge-date">?섍컯 吏곹썑</span></td><td><span class="badge table-status" data-id="t2" onclick="toggleTask('t2')" id="status-t2">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>AFMCP Chapter 4 ?섍컯</td><td><span class="badge badge-seq">3?④퀎</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t3" onclick="toggleTask('t3')" id="status-t3">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>Chapter 4 ?댁슜 ?뺣━</td><td><span class="badge badge-seq">4?④퀎</span></td><td><span class="badge badge-date">?섍컯 吏곹썑</span></td><td><span class="badge table-status" data-id="t4" onclick="toggleTask('t4')" id="status-t4">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>?룍截?PT 1?뚯감</td><td><span class="badge" style="background:#dcfce7;color:#166534">?낅┰</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t5" onclick="toggleTask('t5')" id="status-t5">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>?룍截?PT 2?뚯감</td><td><span class="badge" style="background:#dcfce7;color:#166534">?낅┰</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t6" onclick="toggleTask('t6')" id="status-t6">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>?룂 ?좎궛??1?뚯감</td><td><span class="badge" style="background:#e0f2fe;color:#0369a1;">?낅┰</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t7" onclick="toggleTask('t7')" id="status-t7">誘몄셿猷?/span></td></tr>
+          <tr><td><div class="person-cell"><div class="mini-avatar">?</div>???/div></td><td>?룂 ?좎궛??2?뚯감</td><td><span class="badge" style="background:#e0f2fe;color:#0369a1;">?낅┰</span></td><td><span class="badge badge-date">5??4二쇱감 ??/span></td><td><span class="badge table-status" data-id="t8" onclick="toggleTask('t8')" id="status-t8">誘몄셿猷?/span></td></tr>
         </tbody>
       </table></div></div>
     </div>
 
-    <div id="health"><div class="section-title">🩺 건강검진 결과 (2026.02.20)</div>
+    <div id="health"><div class="section-title">?㈉ 嫄닿컯寃吏?寃곌낵 (2026.02.20)</div>
       <div class="summary-box" style="margin-bottom:20px;border-color:#fde68a;background:linear-gradient(135deg,#fffbeb,#fef3c7);">
-        <p style="color:#92400e;"><strong>2024 → 2026 종합판정:</strong> 정상B → 정상B(경계) &nbsp;|&nbsp; 이완기 혈압 상승(67→82) 주의 · LDL 158 경계이상 · 빈혈 완전 개선 ✅</p>
+        <p style="color:#92400e;"><strong>2024 ??2026 醫낇빀?먯젙:</strong> ?뺤긽B ???뺤긽B(寃쎄퀎) &nbsp;|&nbsp; ?댁셿湲??덉븬 ?곸듅(67??2) 二쇱쓽 쨌 LDL 158 寃쎄퀎?댁긽 쨌 鍮덊삁 ?꾩쟾 媛쒖꽑 ??/p>
       </div>
       <div class="health-grid">
-        <div class="health-card warn"><div class="health-label">이완기 혈압</div><div class="health-val warn">82<span class="health-unit">mmHg</span></div><div class="health-ref">기준 80 미만</div><span class="health-tag warn">고혈압전단계</span><div class="compare-row">2024: 67 <span class="compare-arrow up">↑ +15</span></div></div>
-        <div class="health-card bad"><div class="health-label">LDL 콜레스테롤</div><div class="health-val bad">158<span class="health-unit">mg/dL</span></div><div class="health-ref">기준 130 미만</div><span class="health-tag bad">경계이상</span><div class="compare-row"><span class="compare-arrow same">— 신규측정</span></div></div>
-        <div class="health-card ok"><div class="health-label">혈색소 (빈혈)</div><div class="health-val ok">14.1<span class="health-unit">g/dL</span></div><div class="health-ref">기준 12.0~15.5</div><span class="health-tag ok">정상 ✅</span><div class="compare-row">2024: 11.2 <span class="compare-arrow down">↑ 개선</span></div></div>
-        <div class="health-card ok"><div class="health-label">공복혈당</div><div class="health-val ok">83<span class="health-unit">mg/dL</span></div><div class="health-ref">기준 100 미만</div><span class="health-tag ok">정상</span><div class="compare-row">2024: 85 <span class="compare-arrow down">↓ 개선</span></div></div>
+        <div class="health-card warn"><div class="health-label">?댁셿湲??덉븬</div><div class="health-val warn">82<span class="health-unit">mmHg</span></div><div class="health-ref">湲곗? 80 誘몃쭔</div><span class="health-tag warn">怨좏삁?뺤쟾?④퀎</span><div class="compare-row">2024: 67 <span class="compare-arrow up">??+15</span></div></div>
+        <div class="health-card bad"><div class="health-label">LDL 肄쒕젅?ㅽ뀒濡?/div><div class="health-val bad">158<span class="health-unit">mg/dL</span></div><div class="health-ref">湲곗? 130 誘몃쭔</div><span class="health-tag bad">寃쎄퀎?댁긽</span><div class="compare-row"><span class="compare-arrow same">???좉퇋痢≪젙</span></div></div>
+        <div class="health-card ok"><div class="health-label">?덉깋??(鍮덊삁)</div><div class="health-val ok">14.1<span class="health-unit">g/dL</span></div><div class="health-ref">湲곗? 12.0~15.5</div><span class="health-tag ok">?뺤긽 ??/span><div class="compare-row">2024: 11.2 <span class="compare-arrow down">??媛쒖꽑</span></div></div>
+        <div class="health-card ok"><div class="health-label">怨듬났?덈떦</div><div class="health-val ok">83<span class="health-unit">mg/dL</span></div><div class="health-ref">湲곗? 100 誘몃쭔</div><span class="health-tag ok">?뺤긽</span><div class="compare-row">2024: 85 <span class="compare-arrow down">??媛쒖꽑</span></div></div>
       </div>
       <div class="two-col">
-        <div class="card"><div class="card-header"><div class="card-title">🩸 이상지질혈증</div><span class="card-count indigo">3항목</span></div>
+        <div class="card"><div class="card-header"><div class="card-title">?㈇ ?댁긽吏吏덊삁利?/div><span class="card-count indigo">3??ぉ</span></div>
           <div class="card-body"><div class="check-list">
-            <div class="check-item" style="justify-content:space-between;"><span>중성지방 (TG)</span><span style="font-weight:700;color:#10b981;">49 mg/dL <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:20px;font-weight:700;">정상</span></span></div>
-            <div class="check-item" style="justify-content:space-between;"><span>HDL 콜레스테롤</span><span style="font-weight:700;color:#10b981;">89 mg/dL <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:20px;font-weight:700;">정상</span></span></div>
-            <div class="check-item" style="justify-content:space-between;"><span>LDL 콜레스테롤</span><span style="font-weight:700;color:#ef4444;">158 mg/dL <span style="font-size:11px;background:#fee2e2;color:#991b1b;padding:2px 7px;border-radius:20px;font-weight:700;">경계이상 ⚠️</span></span></div>
+            <div class="check-item" style="justify-content:space-between;"><span>以묒꽦吏諛?(TG)</span><span style="font-weight:700;color:#10b981;">49 mg/dL <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:20px;font-weight:700;">?뺤긽</span></span></div>
+            <div class="check-item" style="justify-content:space-between;"><span>HDL 肄쒕젅?ㅽ뀒濡?/span><span style="font-weight:700;color:#10b981;">89 mg/dL <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:20px;font-weight:700;">?뺤긽</span></span></div>
+            <div class="check-item" style="justify-content:space-between;"><span>LDL 肄쒕젅?ㅽ뀒濡?/span><span style="font-weight:700;color:#ef4444;">158 mg/dL <span style="font-size:11px;background:#fee2e2;color:#991b1b;padding:2px 7px;border-radius:20px;font-weight:700;">寃쎄퀎?댁긽 ?좑툘</span></span></div>
           </div></div>
         </div>
-        <div class="card"><div class="card-header"><div class="card-title">📊 신체계측 비교</div><span class="card-count sky">2024 vs 2026</span></div>
+        <div class="card"><div class="card-header"><div class="card-title">?뱤 ?좎껜怨꾩륫 鍮꾧탳</div><span class="card-count sky">2024 vs 2026</span></div>
           <div class="card-body"><div class="table-wrap"><table>
-            <thead><tr><th>항목</th><th>2024</th><th>2026</th><th>변화</th></tr></thead>
+            <thead><tr><th>??ぉ</th><th>2024</th><th>2026</th><th>蹂??/th></tr></thead>
             <tbody>
-              <tr><td>몸무게 (kg)</td><td>53.2</td><td>51.9</td><td style="color:#10b981;font-weight:700;">▼ 1.3</td></tr>
-              <tr><td>BMI</td><td>21.1</td><td>20.9</td><td style="color:#10b981;font-weight:700;">▼ 0.2</td></tr>
-              <tr><td>허리둘레 (cm)</td><td>66.0</td><td>70.0</td><td style="color:#f59e0b;font-weight:700;">▲ 4.0 ⚠️</td></tr>
-              <tr><td>수축기 혈압</td><td>119</td><td>111</td><td style="color:#10b981;font-weight:700;">▼ 8</td></tr>
-              <tr><td>이완기 혈압</td><td>67</td><td>82</td><td style="color:#ef4444;font-weight:700;">▲ 15 ⚠️</td></tr>
+              <tr><td>紐몃Т寃?(kg)</td><td>53.2</td><td>51.9</td><td style="color:#10b981;font-weight:700;">??1.3</td></tr>
+              <tr><td>BMI</td><td>21.1</td><td>20.9</td><td style="color:#10b981;font-weight:700;">??0.2</td></tr>
+              <tr><td>?덈━?섎젅 (cm)</td><td>66.0</td><td>70.0</td><td style="color:#f59e0b;font-weight:700;">??4.0 ?좑툘</td></tr>
+              <tr><td>?섏텞湲??덉븬</td><td>119</td><td>111</td><td style="color:#10b981;font-weight:700;">??8</td></tr>
+              <tr><td>?댁셿湲??덉븬</td><td>67</td><td>82</td><td style="color:#ef4444;font-weight:700;">??15 ?좑툘</td></tr>
             </tbody>
           </table></div></div>
         </div>
       </div>
     </div>
   </main>
-  <div class="footer">은영의 주간 대시보드 &nbsp;|&nbsp; 5월 4주차 (2026.05.19 ~ 05.25)</div>
+  <div class="footer">??곸쓽 二쇨컙 ??쒕낫??&nbsp;|&nbsp; 5??4二쇱감 (2026.05.19 ~ 05.25)</div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PAGE 2 — 치과 레퍼런스
-════════════════════════════════════════ -->
+<!-- ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??
+     PAGE 2 ??移섍낵 ?덊띁?곗뒪
+?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧 -->
 <div id="page-dental" class="page">
 
   <header class="page-header-dental">
     <div class="page-header-inner">
       <div class="header-meta" style="font-size:13px;opacity:0.85;margin-bottom:12px;display:flex;gap:20px;flex-wrap:wrap;">
-        <span>🦷 외국인 환자 대응 + 최신 트렌드</span>
-        <span>📅 2024–2026</span>
+        <span>?┠ ?멸뎅???섏옄 ???+ 理쒖떊 ?몃젋??/span>
+        <span>?뱟 2024??026</span>
       </div>
-      <h1>치과 레퍼런스 대시보드</h1>
-      <p>외국인 환자 응대 영어 문장 100개 · 최신 치과계 동향 · 주요 논문</p>
+      <h1>移섍낵 ?덊띁?곗뒪 ??쒕낫??/h1>
+      <p>?멸뎅???섏옄 ?묐? ?곸뼱 臾몄옣 100媛?쨌 理쒖떊 移섍낵怨??숉뼢 쨌 二쇱슂 ?쇰Ц</p>
     </div>
   </header>
 
   <main class="main">
 
-    <div id="english" class="section-title" style="margin-top:8px">💬 외국인 환자 응대 영어 문장 100</div>
+    <div id="english" class="section-title" style="margin-top:8px">?뮠 ?멸뎅???섏옄 ?묐? ?곸뼱 臾몄옣 100</div>
     <div class="card">
-      <div class="card-header"><div class="card-title">🗣 Clinical English Phrases</div><span class="card-count teal">100개</span></div>
+      <div class="card-header"><div class="card-title">?뿣 Clinical English Phrases</div><span class="card-count teal">100媛?/span></div>
       <div class="card-body">
         <div class="search-wrap">
-          <input class="search-input" type="text" id="phraseSearch" placeholder="영어 또는 한국어로 검색... (예: pain, 통증, extraction)" oninput="filterPhrases()" />
+          <input class="search-input" type="text" id="phraseSearch" placeholder="?곸뼱 ?먮뒗 ?쒓뎅?대줈 寃??.. (?? pain, ?듭쬆, extraction)" oninput="filterPhrases()" />
         </div>
         <div class="cat-tabs">
-          <div class="cat-tab active" onclick="filterCat('all', this)">전체</div>
-          <div class="cat-tab" onclick="filterCat('체크인', this)">체크인</div>
-          <div class="cat-tab" onclick="filterCat('검진', this)">검진</div>
-          <div class="cat-tab" onclick="filterCat('엑스레이', this)">엑스레이</div>
-          <div class="cat-tab" onclick="filterCat('마취', this)">마취</div>
-          <div class="cat-tab" onclick="filterCat('스케일링', this)">스케일링</div>
-          <div class="cat-tab" onclick="filterCat('충전', this)">충전</div>
-          <div class="cat-tab" onclick="filterCat('신경치료', this)">신경치료</div>
-          <div class="cat-tab" onclick="filterCat('크라운', this)">크라운</div>
-          <div class="cat-tab" onclick="filterCat('발치', this)">발치</div>
-          <div class="cat-tab" onclick="filterCat('임플란트', this)">임플란트</div>
-          <div class="cat-tab" onclick="filterCat('구강위생', this)">구강위생</div>
-          <div class="cat-tab" onclick="filterCat('술후주의', this)">술후주의</div>
-          <div class="cat-tab" onclick="filterCat('원무', this)">원무</div>
+          <div class="cat-tab active" onclick="filterCat('all', this)">?꾩껜</div>
+          <div class="cat-tab" onclick="filterCat('泥댄겕??, this)">泥댄겕??/div>
+          <div class="cat-tab" onclick="filterCat('寃吏?, this)">寃吏?/div>
+          <div class="cat-tab" onclick="filterCat('?묒뒪?덉씠', this)">?묒뒪?덉씠</div>
+          <div class="cat-tab" onclick="filterCat('留덉랬', this)">留덉랬</div>
+          <div class="cat-tab" onclick="filterCat('?ㅼ??쇰쭅', this)">?ㅼ??쇰쭅</div>
+          <div class="cat-tab" onclick="filterCat('異⑹쟾', this)">異⑹쟾</div>
+          <div class="cat-tab" onclick="filterCat('?좉꼍移섎즺', this)">?좉꼍移섎즺</div>
+          <div class="cat-tab" onclick="filterCat('?щ씪??, this)">?щ씪??/div>
+          <div class="cat-tab" onclick="filterCat('諛쒖튂', this)">諛쒖튂</div>
+          <div class="cat-tab" onclick="filterCat('?꾪뵆???, this)">?꾪뵆???/div>
+          <div class="cat-tab" onclick="filterCat('援ш컯?꾩깮', this)">援ш컯?꾩깮</div>
+          <div class="cat-tab" onclick="filterCat('?좏썑二쇱쓽', this)">?좏썑二쇱쓽</div>
+          <div class="cat-tab" onclick="filterCat('?먮Т', this)">?먮Т</div>
         </div>
         <div class="phrase-table-wrap">
           <table class="phrase-table" id="phraseTable">
-            <thead><tr><th style="width:40px">#</th><th style="width:120px">카테고리</th><th>영어</th><th>한국어</th></tr></thead>
+            <thead><tr><th style="width:40px">#</th><th style="width:120px">移댄뀒怨좊━</th><th>?곸뼱</th><th>?쒓뎅??/th></tr></thead>
             <tbody id="phraseBody">
-              <tr data-cat="체크인"><td class="phrase-num">1</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Please have a seat. I'll be with you shortly.</td><td class="phrase-ko">잠깐 앉아서 기다려 주세요.</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">2</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">What brings you in today?</td><td class="phrase-ko">오늘 어떻게 오셨나요?</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">3</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you here for a checkup or do you have a specific problem?</td><td class="phrase-ko">정기검진으로 오셨나요, 아니면 특별히 불편한 부분이 있으신가요?</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">4</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Do you have any allergies to medications, especially antibiotics or painkillers?</td><td class="phrase-ko">약물 알레르기가 있으신가요? 특히 항생제나 진통제요.</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">5</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you currently taking any medications?</td><td class="phrase-ko">현재 복용 중인 약이 있으신가요?</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">6</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">When did you last visit a dentist?</td><td class="phrase-ko">마지막으로 치과에 오신 게 언제였나요?</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">7</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Do you have any medical conditions I should be aware of?</td><td class="phrase-ko">제가 알아야 할 기저질환이 있으신가요?</td></tr>
-              <tr data-cat="체크인"><td class="phrase-num">8</td><td><span class="phrase-cat cat-check">체크인</span></td><td class="phrase-en">Are you pregnant or breastfeeding?</td><td class="phrase-ko">임신 중이시거나 모유수유 중이신가요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">9</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Please open your mouth wide.</td><td class="phrase-ko">입을 크게 벌려 주세요.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">10</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Where does it hurt? Can you point to it?</td><td class="phrase-ko">어디가 아프세요? 가리켜 주실 수 있나요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">11</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">On a scale of 1 to 10, how bad is the pain?</td><td class="phrase-ko">1에서 10 사이로 통증이 어느 정도인가요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">12</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Is the pain constant or does it come and go?</td><td class="phrase-ko">통증이 계속 있나요, 아니면 왔다 갔다 하나요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">13</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Does it hurt when you bite down?</td><td class="phrase-ko">씹을 때 아프신가요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">14</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Is it sensitive to hot or cold?</td><td class="phrase-ko">뜨겁거나 차가운 것에 시리신가요?</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">15</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Let me check your gums.</td><td class="phrase-ko">잇몸을 확인해 볼게요.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">16</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">I'm going to probe around your gums. You may feel some pressure.</td><td class="phrase-ko">잇몸 주변을 검사할 거예요. 압박감이 느껴질 수 있어요.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">17</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">Your gums look a bit inflamed.</td><td class="phrase-ko">잇몸이 약간 염증이 있어 보여요.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">18</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">There's a cavity on this tooth.</td><td class="phrase-ko">이 치아에 충치가 있습니다.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">19</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">This tooth has a crack.</td><td class="phrase-ko">이 치아에 금이 갔습니다.</td></tr>
-              <tr data-cat="검진"><td class="phrase-num">20</td><td><span class="phrase-cat cat-exam">검진</span></td><td class="phrase-en">I can see some plaque and tartar buildup.</td><td class="phrase-ko">치태와 치석이 쌓여 있는 게 보입니다.</td></tr>
-              <tr data-cat="엑스레이"><td class="phrase-num">21</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">I need to take some X-rays.</td><td class="phrase-ko">엑스레이를 찍어야 합니다.</td></tr>
-              <tr data-cat="엑스레이"><td class="phrase-num">22</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">Please bite down gently on this sensor.</td><td class="phrase-ko">이 센서를 살짝 물어 주세요.</td></tr>
-              <tr data-cat="엑스레이"><td class="phrase-num">23</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">Stay still for a moment while I take the X-ray.</td><td class="phrase-ko">엑스레이 찍는 동안 잠깐 움직이지 마세요.</td></tr>
-              <tr data-cat="엑스레이"><td class="phrase-num">24</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">The X-ray shows some bone loss around this tooth.</td><td class="phrase-ko">엑스레이에 이 치아 주변에 골흡수가 보입니다.</td></tr>
-              <tr data-cat="엑스레이"><td class="phrase-num">25</td><td><span class="phrase-cat cat-xray">엑스레이</span></td><td class="phrase-en">There's a shadow under the filling — it may be decay.</td><td class="phrase-ko">충전물 아래에 음영이 있어요 — 충치일 수 있습니다.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">26</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">I'm going to numb the area first.</td><td class="phrase-ko">먼저 이 부위를 마취할게요.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">27</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">You'll feel a small pinch from the needle.</td><td class="phrase-ko">바늘이 살짝 따끔할 거예요.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">28</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">The injection may sting for a second, then it should go numb.</td><td class="phrase-ko">주사 순간 따끔하고 곧 마취될 거예요.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">29</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">Is the area numb yet? Do you feel this?</td><td class="phrase-ko">마취가 됐나요? 이거 느껴지세요?</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">30</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">You may feel pressure, but you shouldn't feel pain. Let me know if you do.</td><td class="phrase-ko">압박감은 느껴질 수 있지만 통증은 없어야 해요. 아프시면 말씀해 주세요.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">31</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">The numbness will wear off in about 2–3 hours.</td><td class="phrase-ko">마취는 2~3시간 후에 풀립니다.</td></tr>
-              <tr data-cat="마취"><td class="phrase-num">32</td><td><span class="phrase-cat cat-anesthesia">마취</span></td><td class="phrase-en">Be careful not to bite your cheek or lip while you're numb.</td><td class="phrase-ko">마취 중에 볼이나 입술을 깨물지 않도록 주의하세요.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">33</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">I'm going to clean your teeth now.</td><td class="phrase-ko">지금 스케일링을 해드릴게요.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">34</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">You have quite a bit of tartar buildup — this may take a little longer.</td><td class="phrase-ko">치석이 꽤 많이 쌓여 있어서 시간이 좀 걸릴 수 있어요.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">35</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">This may feel a bit sensitive.</td><td class="phrase-ko">약간 시릴 수 있어요.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">36</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">Your gums may bleed a little — that's normal if they're inflamed.</td><td class="phrase-ko">잇몸에서 피가 약간 날 수 있어요 — 염증이 있으면 정상입니다.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">37</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">You need a deep cleaning — scaling and root planing.</td><td class="phrase-ko">치주 스케일링(치근면 활택술)이 필요합니다.</td></tr>
-              <tr data-cat="스케일링"><td class="phrase-num">38</td><td><span class="phrase-cat cat-cleaning">스케일링</span></td><td class="phrase-en">I recommend coming back every 6 months for a cleaning.</td><td class="phrase-ko">6개월마다 스케일링을 받으시길 권장합니다.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">39</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">I'm going to fill this cavity.</td><td class="phrase-ko">충치를 때울게요.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">40</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">I'll drill out the decayed part first.</td><td class="phrase-ko">먼저 썩은 부분을 갈아낼게요.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">41</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">We'll use a tooth-colored composite filling.</td><td class="phrase-ko">치아색 레진으로 충전할게요.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">42</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Please don't eat or drink for at least 1 hour.</td><td class="phrase-ko">최소 1시간은 드시지 마세요.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">43</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Avoid very hard or sticky foods for a day.</td><td class="phrase-ko">하루 동안은 딱딱하거나 끈적한 음식을 피하세요.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">44</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">The filling may feel slightly sensitive for a few days — that's normal.</td><td class="phrase-ko">며칠 동안 약간 시릴 수 있는데 정상입니다.</td></tr>
-              <tr data-cat="충전"><td class="phrase-num">45</td><td><span class="phrase-cat cat-filling">충전</span></td><td class="phrase-en">Does the bite feel even? Tap your teeth together.</td><td class="phrase-ko">교합이 자연스러운가요? 이를 맞물어 보세요.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">46</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">This tooth needs a root canal treatment.</td><td class="phrase-ko">이 치아는 신경치료가 필요합니다.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">47</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">The nerve inside the tooth is infected.</td><td class="phrase-ko">치아 안의 신경이 감염되었습니다.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">48</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">I'll remove the infected pulp and clean the root canals.</td><td class="phrase-ko">감염된 신경을 제거하고 근관을 세정할게요.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">49</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">This procedure usually takes about an hour.</td><td class="phrase-ko">이 시술은 보통 1시간 정도 걸립니다.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">50</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">You'll need a crown on this tooth after the root canal.</td><td class="phrase-ko">신경치료 후 이 치아에 크라운이 필요합니다.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">51</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">You may have some soreness for a day or two — take the prescribed pain reliever.</td><td class="phrase-ko">하루이틀 정도 뻐근할 수 있어요 — 처방받은 진통제 복용하세요.</td></tr>
-              <tr data-cat="신경치료"><td class="phrase-num">52</td><td><span class="phrase-cat cat-rct">신경치료</span></td><td class="phrase-en">We may need 2–3 appointments to complete the root canal.</td><td class="phrase-ko">신경치료 완료까지 2~3번 오셔야 할 수 있어요.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">53</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">You need a crown on this tooth.</td><td class="phrase-ko">이 치아에 크라운이 필요합니다.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">54</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">I'll shape the tooth to fit the crown.</td><td class="phrase-ko">크라운이 맞도록 치아를 삭제할게요.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">55</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">We'll place a temporary crown today.</td><td class="phrase-ko">오늘은 임시 크라운을 붙여드릴게요.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">56</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Your permanent crown will be ready in about 1–2 weeks.</td><td class="phrase-ko">최종 크라운은 1~2주 후에 완성됩니다.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">57</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Does the crown feel comfortable when you bite?</td><td class="phrase-ko">크라운을 물었을 때 편안한가요?</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">58</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">The bite feels a bit high — I'll adjust it.</td><td class="phrase-ko">교합이 약간 높은 것 같아요 — 조정할게요.</td></tr>
-              <tr data-cat="크라운"><td class="phrase-num">59</td><td><span class="phrase-cat cat-crown">크라운</span></td><td class="phrase-en">Be gentle with the temporary crown — avoid sticky or hard foods.</td><td class="phrase-ko">임시 크라운은 조심하세요 — 끈적하거나 딱딱한 음식은 피하세요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">60</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">This tooth needs to be extracted — it's too damaged to save.</td><td class="phrase-ko">이 치아는 발치해야 합니다 — 살리기 어려운 상태예요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">61</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">You'll feel pressure, but you shouldn't feel pain.</td><td class="phrase-ko">압박감은 느껴지지만 통증은 없어야 해요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">62</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">I'm going to rock the tooth back and forth to loosen it.</td><td class="phrase-ko">치아를 앞뒤로 움직여 빼낼 거예요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">63</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Bite down firmly on this gauze for 30 minutes.</td><td class="phrase-ko">이 거즈를 30분간 꽉 물고 계세요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">64</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Don't rinse, spit, or use a straw for 24 hours.</td><td class="phrase-ko">24시간 동안 헹구거나 침 뱉거나 빨대 사용을 삼가세요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">65</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Avoid smoking for at least 48 hours — it can delay healing.</td><td class="phrase-ko">48시간은 금연하세요 — 치유가 늦어질 수 있어요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">66</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Apply ice on and off for the first few hours to reduce swelling.</td><td class="phrase-ko">처음 몇 시간은 얼음찜질을 반복해서 붓기를 줄이세요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">67</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Eat soft foods for a few days.</td><td class="phrase-ko">며칠간 부드러운 음식을 드세요.</td></tr>
-              <tr data-cat="발치"><td class="phrase-num">68</td><td><span class="phrase-cat cat-extraction">발치</span></td><td class="phrase-en">Call us immediately if you experience heavy bleeding or severe pain.</td><td class="phrase-ko">출혈이 심하거나 통증이 심하면 즉시 연락 주세요.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">69</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">We recommend a dental implant to replace the missing tooth.</td><td class="phrase-ko">결손치 수복을 위해 임플란트를 권장합니다.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">70</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">The implant is placed into the jawbone and acts as an artificial root.</td><td class="phrase-ko">임플란트는 턱뼈에 심어 인공 치근 역할을 합니다.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">71</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">The healing and integration process takes about 3–6 months.</td><td class="phrase-ko">치유 및 골유착 과정에 3~6개월이 걸립니다.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">72</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">We'll attach the crown once the implant has integrated with the bone.</td><td class="phrase-ko">임플란트가 뼈와 유착된 후 크라운을 연결합니다.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">73</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">You may need a bone graft first if there isn't enough bone.</td><td class="phrase-ko">뼈가 부족하면 먼저 골이식이 필요할 수 있습니다.</td></tr>
-              <tr data-cat="임플란트"><td class="phrase-num">74</td><td><span class="phrase-cat cat-implant">임플란트</span></td><td class="phrase-en">Do you smoke? Smoking can significantly reduce implant success rates.</td><td class="phrase-ko">흡연하시나요? 흡연은 임플란트 성공률을 크게 낮출 수 있습니다.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">75</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Brush your teeth at least twice a day — morning and before bed.</td><td class="phrase-ko">하루 최소 두 번 — 아침과 자기 전에 양치하세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">76</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Use a soft-bristled toothbrush.</td><td class="phrase-ko">부드러운 칫솔을 사용하세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">77</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Floss at least once a day — preferably before bedtime.</td><td class="phrase-ko">하루 한 번 이상, 가능하면 자기 전에 치실을 사용하세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">78</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Use fluoride toothpaste.</td><td class="phrase-ko">불소 치약을 사용하세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">79</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">An electric toothbrush can be more effective at removing plaque.</td><td class="phrase-ko">전동칫솔이 치태 제거에 더 효과적일 수 있어요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">80</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Try to use an interdental brush or water flosser between the teeth.</td><td class="phrase-ko">치간칫솔이나 워터픽도 사용해 보세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">81</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Rinse with an antiseptic mouthwash to reduce bacteria.</td><td class="phrase-ko">항균 구강청결제로 헹구어 세균을 줄이세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">82</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Replace your toothbrush every 3 months.</td><td class="phrase-ko">칫솔은 3개월마다 교체하세요.</td></tr>
-              <tr data-cat="구강위생"><td class="phrase-num">83</td><td><span class="phrase-cat cat-hygiene">구강위생</span></td><td class="phrase-en">Limit sugary and acidic drinks — they accelerate tooth decay.</td><td class="phrase-ko">단 음료와 산성 음료는 줄이세요 — 충치를 빠르게 진행시킵니다.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">84</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Take the medication as prescribed — even if the pain goes away.</td><td class="phrase-ko">통증이 없어져도 처방대로 약을 복용하세요.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">85</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Some swelling and soreness for 2–3 days is completely normal.</td><td class="phrase-ko">2~3일 정도 붓고 뻐근한 것은 정상입니다.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">86</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Avoid hot food and drinks today.</td><td class="phrase-ko">오늘은 뜨거운 음식과 음료를 피하세요.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">87</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Do not touch the surgical area with your finger or tongue.</td><td class="phrase-ko">손이나 혀로 시술 부위를 건드리지 마세요.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">88</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">If bleeding doesn't stop after 1 hour, call us.</td><td class="phrase-ko">1시간이 지나도 출혈이 멈추지 않으면 연락 주세요.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">89</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Come back if you have fever, severe swelling, or worsening pain.</td><td class="phrase-ko">발열, 심한 부기, 또는 악화되는 통증이 있으면 다시 오세요.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">90</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">You can take ibuprofen or acetaminophen for mild pain.</td><td class="phrase-ko">가벼운 통증에는 이부프로펜이나 타이레놀을 드셔도 됩니다.</td></tr>
-              <tr data-cat="술후주의"><td class="phrase-num">91</td><td><span class="phrase-cat cat-postop">술후주의</span></td><td class="phrase-en">Keep the area clean, but brush gently near the treated tooth.</td><td class="phrase-ko">청결하게 유지하되 치료 부위 근처는 살살 닦으세요.</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">92</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Would you like to schedule your next appointment?</td><td class="phrase-ko">다음 예약을 잡으시겠어요?</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">93</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">We'll see you in 6 months for your next checkup.</td><td class="phrase-ko">6개월 후에 정기검진으로 오세요.</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">94</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Please call us if you have any concerns before your next visit.</td><td class="phrase-ko">다음 내원 전에 걱정되는 게 있으면 연락 주세요.</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">95</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Here is your treatment plan and the estimated cost.</td><td class="phrase-ko">치료 계획서와 예상 비용입니다.</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">96</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Do you have dental insurance?</td><td class="phrase-ko">치과 보험이 있으신가요?</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">97</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">I'd like to refer you to a specialist for this.</td><td class="phrase-ko">이 부분은 전문의에게 의뢰해 드리겠습니다.</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">98</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Is there anything else I can help you with today?</td><td class="phrase-ko">오늘 다른 불편하신 점은 없으신가요?</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">99</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Thank you for coming in. Take care!</td><td class="phrase-ko">내원해 주셔서 감사합니다. 건강하세요!</td></tr>
-              <tr data-cat="원무"><td class="phrase-num">100</td><td><span class="phrase-cat cat-admin">원무</span></td><td class="phrase-en">Do you have any questions before you leave?</td><td class="phrase-ko">가시기 전에 궁금하신 점 있으신가요?</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">1</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Please have a seat. I'll be with you shortly.</td><td class="phrase-ko">?좉퉸 ?됱븘??湲곕떎??二쇱꽭??</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">2</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">What brings you in today?</td><td class="phrase-ko">?ㅻ뒛 ?대뼸寃??ㅼ뀲?섏슂?</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">3</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Are you here for a checkup or do you have a specific problem?</td><td class="phrase-ko">?뺢린寃吏꾩쑝濡??ㅼ뀲?섏슂, ?꾨땲硫??밸퀎??遺덊렪??遺遺꾩씠 ?덉쑝?좉???</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">4</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Do you have any allergies to medications, especially antibiotics or painkillers?</td><td class="phrase-ko">?쎈Ъ ?뚮젅瑜닿린媛 ?덉쑝?좉??? ?뱁엳 ??깮?쒕굹 吏꾪넻?쒖슂.</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">5</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Are you currently taking any medications?</td><td class="phrase-ko">?꾩옱 蹂듭슜 以묒씤 ?쎌씠 ?덉쑝?좉???</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">6</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">When did you last visit a dentist?</td><td class="phrase-ko">留덉?留됱쑝濡?移섍낵???ㅼ떊 寃??몄젣??섏슂?</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">7</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Do you have any medical conditions I should be aware of?</td><td class="phrase-ko">?쒓? ?뚯븘????湲곗?吏덊솚???덉쑝?좉???</td></tr>
+              <tr data-cat="泥댄겕??><td class="phrase-num">8</td><td><span class="phrase-cat cat-check">泥댄겕??/span></td><td class="phrase-en">Are you pregnant or breastfeeding?</td><td class="phrase-ko">?꾩떊 以묒씠?쒓굅??紐⑥쑀?섏쑀 以묒씠?좉???</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">9</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Please open your mouth wide.</td><td class="phrase-ko">?낆쓣 ?ш쾶 踰뚮젮 二쇱꽭??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">10</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Where does it hurt? Can you point to it?</td><td class="phrase-ko">?대뵒媛 ?꾪봽?몄슂? 媛由ъ폒 二쇱떎 ???덈굹??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">11</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">On a scale of 1 to 10, how bad is the pain?</td><td class="phrase-ko">1?먯꽌 10 ?ъ씠濡??듭쬆???대뒓 ?뺣룄?멸???</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">12</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Is the pain constant or does it come and go?</td><td class="phrase-ko">?듭쬆??怨꾩냽 ?덈굹?? ?꾨땲硫??붾떎 媛붾떎 ?섎굹??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">13</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Does it hurt when you bite down?</td><td class="phrase-ko">?뱀쓣 ???꾪봽?좉???</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">14</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Is it sensitive to hot or cold?</td><td class="phrase-ko">?④쾪嫄곕굹 李④???寃껋뿉 ?쒕━?좉???</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">15</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Let me check your gums.</td><td class="phrase-ko">?뉖じ???뺤씤??蹂쇨쾶??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">16</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">I'm going to probe around your gums. You may feel some pressure.</td><td class="phrase-ko">?뉖じ 二쇰???寃?ы븷 嫄곗삁?? ?뺣컯媛먯씠 ?먭뺨吏????덉뼱??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">17</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">Your gums look a bit inflamed.</td><td class="phrase-ko">?뉖じ???쎄컙 ?쇱쬆???덉뼱 蹂댁뿬??</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">18</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">There's a cavity on this tooth.</td><td class="phrase-ko">??移섏븘??異⑹튂媛 ?덉뒿?덈떎.</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">19</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">This tooth has a crack.</td><td class="phrase-ko">??移섏븘??湲덉씠 媛붿뒿?덈떎.</td></tr>
+              <tr data-cat="寃吏?><td class="phrase-num">20</td><td><span class="phrase-cat cat-exam">寃吏?/span></td><td class="phrase-en">I can see some plaque and tartar buildup.</td><td class="phrase-ko">移섑깭? 移섏꽍???볦뿬 ?덈뒗 寃?蹂댁엯?덈떎.</td></tr>
+              <tr data-cat="?묒뒪?덉씠"><td class="phrase-num">21</td><td><span class="phrase-cat cat-xray">?묒뒪?덉씠</span></td><td class="phrase-en">I need to take some X-rays.</td><td class="phrase-ko">?묒뒪?덉씠瑜?李띿뼱???⑸땲??</td></tr>
+              <tr data-cat="?묒뒪?덉씠"><td class="phrase-num">22</td><td><span class="phrase-cat cat-xray">?묒뒪?덉씠</span></td><td class="phrase-en">Please bite down gently on this sensor.</td><td class="phrase-ko">???쇱꽌瑜??댁쭩 臾쇱뼱 二쇱꽭??</td></tr>
+              <tr data-cat="?묒뒪?덉씠"><td class="phrase-num">23</td><td><span class="phrase-cat cat-xray">?묒뒪?덉씠</span></td><td class="phrase-en">Stay still for a moment while I take the X-ray.</td><td class="phrase-ko">?묒뒪?덉씠 李띾뒗 ?숈븞 ?좉퉸 ?吏곸씠吏 留덉꽭??</td></tr>
+              <tr data-cat="?묒뒪?덉씠"><td class="phrase-num">24</td><td><span class="phrase-cat cat-xray">?묒뒪?덉씠</span></td><td class="phrase-en">The X-ray shows some bone loss around this tooth.</td><td class="phrase-ko">?묒뒪?덉씠????移섏븘 二쇰???怨⑦씉?섍? 蹂댁엯?덈떎.</td></tr>
+              <tr data-cat="?묒뒪?덉씠"><td class="phrase-num">25</td><td><span class="phrase-cat cat-xray">?묒뒪?덉씠</span></td><td class="phrase-en">There's a shadow under the filling ??it may be decay.</td><td class="phrase-ko">異⑹쟾臾??꾨옒???뚯쁺???덉뼱????異⑹튂?????덉뒿?덈떎.</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">26</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">I'm going to numb the area first.</td><td class="phrase-ko">癒쇱? ??遺?꾨? 留덉랬?좉쾶??</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">27</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">You'll feel a small pinch from the needle.</td><td class="phrase-ko">諛붾뒛???댁쭩 ?곕걫??嫄곗삁??</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">28</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">The injection may sting for a second, then it should go numb.</td><td class="phrase-ko">二쇱궗 ?쒓컙 ?곕걫?섍퀬 怨?留덉랬??嫄곗삁??</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">29</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">Is the area numb yet? Do you feel this?</td><td class="phrase-ko">留덉랬媛 ?먮굹?? ?닿굅 ?먭뺨吏?몄슂?</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">30</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">You may feel pressure, but you shouldn't feel pain. Let me know if you do.</td><td class="phrase-ko">?뺣컯媛먯? ?먭뺨吏????덉?留??듭쬆? ?놁뼱???댁슂. ?꾪봽?쒕㈃ 留먯???二쇱꽭??</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">31</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">The numbness will wear off in about 2?? hours.</td><td class="phrase-ko">留덉랬??2~3?쒓컙 ?꾩뿉 ?由쎈땲??</td></tr>
+              <tr data-cat="留덉랬"><td class="phrase-num">32</td><td><span class="phrase-cat cat-anesthesia">留덉랬</span></td><td class="phrase-en">Be careful not to bite your cheek or lip while you're numb.</td><td class="phrase-ko">留덉랬 以묒뿉 蹂쇱씠???낆닠??源⑤Ъ吏 ?딅룄濡?二쇱쓽?섏꽭??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">33</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">I'm going to clean your teeth now.</td><td class="phrase-ko">吏湲??ㅼ??쇰쭅???대뱶由닿쾶??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">34</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">You have quite a bit of tartar buildup ??this may take a little longer.</td><td class="phrase-ko">移섏꽍??苑?留롮씠 ?볦뿬 ?덉뼱???쒓컙??醫 嫄몃┫ ???덉뼱??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">35</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">This may feel a bit sensitive.</td><td class="phrase-ko">?쎄컙 ?쒕┫ ???덉뼱??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">36</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">Your gums may bleed a little ??that's normal if they're inflamed.</td><td class="phrase-ko">?뉖じ?먯꽌 ?쇨? ?쎄컙 ?????덉뼱?????쇱쬆???덉쑝硫??뺤긽?낅땲??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">37</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">You need a deep cleaning ??scaling and root planing.</td><td class="phrase-ko">移섏＜ ?ㅼ??쇰쭅(移섍렐硫??쒗깮?????꾩슂?⑸땲??</td></tr>
+              <tr data-cat="?ㅼ??쇰쭅"><td class="phrase-num">38</td><td><span class="phrase-cat cat-cleaning">?ㅼ??쇰쭅</span></td><td class="phrase-en">I recommend coming back every 6 months for a cleaning.</td><td class="phrase-ko">6媛쒖썡留덈떎 ?ㅼ??쇰쭅??諛쏆쑝?쒓만 沅뚯옣?⑸땲??</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">39</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">I'm going to fill this cavity.</td><td class="phrase-ko">異⑹튂瑜??뚯슱寃뚯슂.</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">40</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">I'll drill out the decayed part first.</td><td class="phrase-ko">癒쇱? ?⑹? 遺遺꾩쓣 媛덉븘?쇨쾶??</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">41</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">We'll use a tooth-colored composite filling.</td><td class="phrase-ko">移섏븘???덉쭊?쇰줈 異⑹쟾?좉쾶??</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">42</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">Please don't eat or drink for at least 1 hour.</td><td class="phrase-ko">理쒖냼 1?쒓컙? ?쒖떆吏 留덉꽭??</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">43</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">Avoid very hard or sticky foods for a day.</td><td class="phrase-ko">?섎（ ?숈븞? ?깅뵳?섍굅???덉쟻???뚯떇???쇳븯?몄슂.</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">44</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">The filling may feel slightly sensitive for a few days ??that's normal.</td><td class="phrase-ko">硫곗튌 ?숈븞 ?쎄컙 ?쒕┫ ???덈뒗???뺤긽?낅땲??</td></tr>
+              <tr data-cat="異⑹쟾"><td class="phrase-num">45</td><td><span class="phrase-cat cat-filling">異⑹쟾</span></td><td class="phrase-en">Does the bite feel even? Tap your teeth together.</td><td class="phrase-ko">援먰빀???먯뿰?ㅻ윭?닿??? ?대? 留욌Ъ??蹂댁꽭??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">46</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">This tooth needs a root canal treatment.</td><td class="phrase-ko">??移섏븘???좉꼍移섎즺媛 ?꾩슂?⑸땲??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">47</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">The nerve inside the tooth is infected.</td><td class="phrase-ko">移섏븘 ?덉쓽 ?좉꼍??媛먯뿼?섏뿀?듬땲??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">48</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">I'll remove the infected pulp and clean the root canals.</td><td class="phrase-ko">媛먯뿼???좉꼍???쒓굅?섍퀬 洹쇨????몄젙?좉쾶??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">49</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">This procedure usually takes about an hour.</td><td class="phrase-ko">???쒖닠? 蹂댄넻 1?쒓컙 ?뺣룄 嫄몃┰?덈떎.</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">50</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">You'll need a crown on this tooth after the root canal.</td><td class="phrase-ko">?좉꼍移섎즺 ????移섏븘???щ씪?댁씠 ?꾩슂?⑸땲??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">51</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">You may have some soreness for a day or two ??take the prescribed pain reliever.</td><td class="phrase-ko">?섎（?댄? ?뺣룄 六먭렐?????덉뼱????泥섎갑諛쏆? 吏꾪넻??蹂듭슜?섏꽭??</td></tr>
+              <tr data-cat="?좉꼍移섎즺"><td class="phrase-num">52</td><td><span class="phrase-cat cat-rct">?좉꼍移섎즺</span></td><td class="phrase-en">We may need 2?? appointments to complete the root canal.</td><td class="phrase-ko">?좉꼍移섎즺 ?꾨즺源뚯? 2~3踰??ㅼ뀛???????덉뼱??</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">53</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">You need a crown on this tooth.</td><td class="phrase-ko">??移섏븘???щ씪?댁씠 ?꾩슂?⑸땲??</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">54</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">I'll shape the tooth to fit the crown.</td><td class="phrase-ko">?щ씪?댁씠 留욌룄濡?移섏븘瑜???젣?좉쾶??</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">55</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">We'll place a temporary crown today.</td><td class="phrase-ko">?ㅻ뒛? ?꾩떆 ?щ씪?댁쓣 遺숈뿬?쒕┫寃뚯슂.</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">56</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">Your permanent crown will be ready in about 1?? weeks.</td><td class="phrase-ko">理쒖쥌 ?щ씪?댁? 1~2二??꾩뿉 ?꾩꽦?⑸땲??</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">57</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">Does the crown feel comfortable when you bite?</td><td class="phrase-ko">?щ씪?댁쓣 臾쇱뿀?????몄븞?쒓???</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">58</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">The bite feels a bit high ??I'll adjust it.</td><td class="phrase-ko">援먰빀???쎄컙 ?믪? 寃?媛숈븘????議곗젙?좉쾶??</td></tr>
+              <tr data-cat="?щ씪??><td class="phrase-num">59</td><td><span class="phrase-cat cat-crown">?щ씪??/span></td><td class="phrase-en">Be gentle with the temporary crown ??avoid sticky or hard foods.</td><td class="phrase-ko">?꾩떆 ?щ씪?댁? 議곗떖?섏꽭?????덉쟻?섍굅???깅뵳???뚯떇? ?쇳븯?몄슂.</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">60</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">This tooth needs to be extracted ??it's too damaged to save.</td><td class="phrase-ko">??移섏븘??諛쒖튂?댁빞 ?⑸땲?????대━湲??대젮???곹깭?덉슂.</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">61</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">You'll feel pressure, but you shouldn't feel pain.</td><td class="phrase-ko">?뺣컯媛먯? ?먭뺨吏吏留??듭쬆? ?놁뼱???댁슂.</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">62</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">I'm going to rock the tooth back and forth to loosen it.</td><td class="phrase-ko">移섏븘瑜??욌뮘濡??吏곸뿬 鍮쇰궪 嫄곗삁??</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">63</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Bite down firmly on this gauze for 30 minutes.</td><td class="phrase-ko">??嫄곗쫰瑜?30遺꾧컙 苑?臾쇨퀬 怨꾩꽭??</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">64</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Don't rinse, spit, or use a straw for 24 hours.</td><td class="phrase-ko">24?쒓컙 ?숈븞 ?밴뎄嫄곕굹 移?諭됯굅??鍮⑤? ?ъ슜???쇨??몄슂.</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">65</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Avoid smoking for at least 48 hours ??it can delay healing.</td><td class="phrase-ko">48?쒓컙? 湲덉뿰?섏꽭????移섏쑀媛 ??뼱吏????덉뼱??</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">66</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Apply ice on and off for the first few hours to reduce swelling.</td><td class="phrase-ko">泥섏쓬 紐??쒓컙? ?쇱쓬李쒖쭏??諛섎났?댁꽌 遺볤린瑜?以꾩씠?몄슂.</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">67</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Eat soft foods for a few days.</td><td class="phrase-ko">硫곗튌媛?遺?쒕윭???뚯떇???쒖꽭??</td></tr>
+              <tr data-cat="諛쒖튂"><td class="phrase-num">68</td><td><span class="phrase-cat cat-extraction">諛쒖튂</span></td><td class="phrase-en">Call us immediately if you experience heavy bleeding or severe pain.</td><td class="phrase-ko">異쒗삁???ы븯嫄곕굹 ?듭쬆???ы븯硫?利됱떆 ?곕씫 二쇱꽭??</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">69</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">We recommend a dental implant to replace the missing tooth.</td><td class="phrase-ko">寃곗넀移??섎났???꾪빐 ?꾪뵆??몃? 沅뚯옣?⑸땲??</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">70</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">The implant is placed into the jawbone and acts as an artificial root.</td><td class="phrase-ko">?꾪뵆??몃뒗 ?깅펷???ъ뼱 ?멸났 移섍렐 ??븷???⑸땲??</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">71</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">The healing and integration process takes about 3?? months.</td><td class="phrase-ko">移섏쑀 諛?怨⑥쑀李?怨쇱젙??3~6媛쒖썡??嫄몃┰?덈떎.</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">72</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">We'll attach the crown once the implant has integrated with the bone.</td><td class="phrase-ko">?꾪뵆??멸? 堉덉? ?좎갑?????щ씪?댁쓣 ?곌껐?⑸땲??</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">73</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">You may need a bone graft first if there isn't enough bone.</td><td class="phrase-ko">堉덇? 遺議깊븯硫?癒쇱? 怨⑥씠?앹씠 ?꾩슂?????덉뒿?덈떎.</td></tr>
+              <tr data-cat="?꾪뵆???><td class="phrase-num">74</td><td><span class="phrase-cat cat-implant">?꾪뵆???/span></td><td class="phrase-en">Do you smoke? Smoking can significantly reduce implant success rates.</td><td class="phrase-ko">?≪뿰?섏떆?섏슂? ?≪뿰? ?꾪뵆????깃났瑜좎쓣 ?ш쾶 ??텧 ???덉뒿?덈떎.</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">75</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Brush your teeth at least twice a day ??morning and before bed.</td><td class="phrase-ko">?섎（ 理쒖냼 ??踰????꾩묠怨??먭린 ?꾩뿉 ?묒튂?섏꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">76</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Use a soft-bristled toothbrush.</td><td class="phrase-ko">遺?쒕윭??移レ넄???ъ슜?섏꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">77</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Floss at least once a day ??preferably before bedtime.</td><td class="phrase-ko">?섎（ ??踰??댁긽, 媛?ν븯硫??먭린 ?꾩뿉 移섏떎???ъ슜?섏꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">78</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Use fluoride toothpaste.</td><td class="phrase-ko">遺덉냼 移섏빟???ъ슜?섏꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">79</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">An electric toothbrush can be more effective at removing plaque.</td><td class="phrase-ko">?꾨룞移レ넄??移섑깭 ?쒓굅?????④낵?곸씪 ???덉뼱??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">80</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Try to use an interdental brush or water flosser between the teeth.</td><td class="phrase-ko">移섍컙移レ넄?대굹 ?뚰꽣?쎈룄 ?ъ슜??蹂댁꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">81</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Rinse with an antiseptic mouthwash to reduce bacteria.</td><td class="phrase-ko">??퇏 援ш컯泥?껐?쒕줈 ?밴뎄???멸퇏??以꾩씠?몄슂.</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">82</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Replace your toothbrush every 3 months.</td><td class="phrase-ko">移レ넄? 3媛쒖썡留덈떎 援먯껜?섏꽭??</td></tr>
+              <tr data-cat="援ш컯?꾩깮"><td class="phrase-num">83</td><td><span class="phrase-cat cat-hygiene">援ш컯?꾩깮</span></td><td class="phrase-en">Limit sugary and acidic drinks ??they accelerate tooth decay.</td><td class="phrase-ko">???뚮즺? ?곗꽦 ?뚮즺??以꾩씠?몄슂 ??異⑹튂瑜?鍮좊Ⅴ寃?吏꾪뻾?쒗궢?덈떎.</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">84</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Take the medication as prescribed ??even if the pain goes away.</td><td class="phrase-ko">?듭쬆???놁뼱?몃룄 泥섎갑?濡??쎌쓣 蹂듭슜?섏꽭??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">85</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Some swelling and soreness for 2?? days is completely normal.</td><td class="phrase-ko">2~3???뺣룄 遺볤퀬 六먭렐??寃껋? ?뺤긽?낅땲??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">86</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Avoid hot food and drinks today.</td><td class="phrase-ko">?ㅻ뒛? ?④굅???뚯떇怨??뚮즺瑜??쇳븯?몄슂.</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">87</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Do not touch the surgical area with your finger or tongue.</td><td class="phrase-ko">?먯씠???濡??쒖닠 遺?꾨? 嫄대뱶由ъ? 留덉꽭??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">88</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">If bleeding doesn't stop after 1 hour, call us.</td><td class="phrase-ko">1?쒓컙??吏?섎룄 異쒗삁??硫덉텛吏 ?딆쑝硫??곕씫 二쇱꽭??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">89</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Come back if you have fever, severe swelling, or worsening pain.</td><td class="phrase-ko">諛쒖뿴, ?ы븳 遺湲? ?먮뒗 ?낇솕?섎뒗 ?듭쬆???덉쑝硫??ㅼ떆 ?ㅼ꽭??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">90</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">You can take ibuprofen or acetaminophen for mild pain.</td><td class="phrase-ko">媛踰쇱슫 ?듭쬆?먮뒗 ?대??꾨줈?쒖씠????대젅????쒖뀛???⑸땲??</td></tr>
+              <tr data-cat="?좏썑二쇱쓽"><td class="phrase-num">91</td><td><span class="phrase-cat cat-postop">?좏썑二쇱쓽</span></td><td class="phrase-en">Keep the area clean, but brush gently near the treated tooth.</td><td class="phrase-ko">泥?껐?섍쾶 ?좎??섎릺 移섎즺 遺??洹쇱쿂???댁궡 ??쑝?몄슂.</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">92</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Would you like to schedule your next appointment?</td><td class="phrase-ko">?ㅼ쓬 ?덉빟???≪쑝?쒓쿋?댁슂?</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">93</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">We'll see you in 6 months for your next checkup.</td><td class="phrase-ko">6媛쒖썡 ?꾩뿉 ?뺢린寃吏꾩쑝濡??ㅼ꽭??</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">94</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Please call us if you have any concerns before your next visit.</td><td class="phrase-ko">?ㅼ쓬 ?댁썝 ?꾩뿉 嫄깆젙?섎뒗 寃??덉쑝硫??곕씫 二쇱꽭??</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">95</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Here is your treatment plan and the estimated cost.</td><td class="phrase-ko">移섎즺 怨꾪쉷?쒖? ?덉긽 鍮꾩슜?낅땲??</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">96</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Do you have dental insurance?</td><td class="phrase-ko">移섍낵 蹂댄뿕???덉쑝?좉???</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">97</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">I'd like to refer you to a specialist for this.</td><td class="phrase-ko">??遺遺꾩? ?꾨Ц?섏뿉寃??섎ː???쒕━寃좎뒿?덈떎.</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">98</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Is there anything else I can help you with today?</td><td class="phrase-ko">?ㅻ뒛 ?ㅻⅨ 遺덊렪?섏떊 ?먯? ?놁쑝?좉???</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">99</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Thank you for coming in. Take care!</td><td class="phrase-ko">?댁썝??二쇱뀛??媛먯궗?⑸땲?? 嫄닿컯?섏꽭??</td></tr>
+              <tr data-cat="?먮Т"><td class="phrase-num">100</td><td><span class="phrase-cat cat-admin">?먮Т</span></td><td class="phrase-en">Do you have any questions before you leave?</td><td class="phrase-ko">媛?쒓린 ?꾩뿉 沅곴툑?섏떊 ???덉쑝?좉???</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <div class="section-title" style="margin-top:28px">📊 2024–2026 치과계 주요 트렌드 & 이슈</div>
+    <div class="section-title" style="margin-top:28px">?뱤 2024??026 移섍낵怨?二쇱슂 ?몃젋??& ?댁뒋</div>
     <div class="trend-grid">
-      <div class="trend-card"><div class="trend-year">2024–2026 핵심 트렌드</div><div class="trend-title">🤖 AI & 디지털 진단</div><ul class="trend-list"><li><span class="trend-dot"></span>AI가 X-ray·파노라마·CBCT에서 충치, 골흡수, 해부학적 위험 자동 감지 (민감도 80~92%)</li><li><span class="trend-dot"></span>2026년 AI 진단 보조 소프트웨어가 주요 치과 체인에 본격 도입</li><li><span class="trend-dot"></span>클라우드 기반 치과 소프트웨어 급성장 — 예약·EMR·영상 통합 관리</li><li><span class="trend-dot"></span>LLM 기반 환자 정보 제공 도구 연구 증가 (Frontiers, 2025)</li></ul></div>
-      <div class="trend-card violet"><div class="trend-year">2024–2026 핵심 트렌드</div><div class="trend-title">📡 디지털 워크플로우</div><ul class="trend-list"><li><span class="trend-dot violet"></span>구강 내 스캐너 보급률 미국·북유럽 60% 초과 — 표준 진료로 자리잡는 중</li><li><span class="trend-dot violet"></span>TRIOS 스캐너 2025년 3,500만 환자 스캔 (전년 대비 24% 증가)</li><li><span class="trend-dot violet"></span>당일 수복(Same-day dentistry) 확산 — 의자 옆 밀링 시스템으로 단일 내원 완료</li><li><span class="trend-dot violet"></span>3D 프린팅: 임시 보철·수술 가이드·덴처 적용 확대</li></ul></div>
-      <div class="trend-card amber"><div class="trend-year">2024–2026 핵심 트렌드</div><div class="trend-title">🔩 임플란트 & 재생</div><ul class="trend-list"><li><span class="trend-dot amber"></span>지르코니아·티타늄지르코늄 합금 임플란트 임상 적용 증가</li><li><span class="trend-dot amber"></span>가이디드 임플란트 수술: CBCT + 디지털 계획 → 정확도 향상</li><li><span class="trend-dot amber"></span>소켓쉴드 테크닉 연구 급증 — 1999~2024년 415편 논문</li><li><span class="trend-dot amber"></span>스마트 임플란트(실시간 센서) 연구 중, 임상 검증 미흡</li></ul></div>
-      <div class="trend-card rose"><div class="trend-year">2024–2026 주요 이슈</div><div class="trend-title">⚠️ 한계 & 과제</div><ul class="trend-list"><li><span class="trend-dot rose"></span>AI 임상 검증 부족 — 표준화 데이터셋 없고, 편향·투명성 문제</li><li><span class="trend-dot rose"></span>환자 데이터 프라이버시 규제 강화 (의료 마이데이터 정책)</li><li><span class="trend-dot rose"></span>디지털 기기 도입 비용 — 중소 치과 의원 접근성 격차</li><li><span class="trend-dot rose"></span>AI 보조 진단의 법적 책임 소재 불명확</li></ul></div>
+      <div class="trend-card"><div class="trend-year">2024??026 ?듭떖 ?몃젋??/div><div class="trend-title">?쨼 AI & ?붿???吏꾨떒</div><ul class="trend-list"><li><span class="trend-dot"></span>AI媛 X-ray쨌?뚮끂?쇰쭏쨌CBCT?먯꽌 異⑹튂, 怨⑦씉?? ?대??숈쟻 ?꾪뿕 ?먮룞 媛먯? (誘쇨컧??80~92%)</li><li><span class="trend-dot"></span>2026??AI 吏꾨떒 蹂댁“ ?뚰봽?몄썾?닿? 二쇱슂 移섍낵 泥댁씤??蹂멸꺽 ?꾩엯</li><li><span class="trend-dot"></span>?대씪?곕뱶 湲곕컲 移섍낵 ?뚰봽?몄썾??湲됱꽦?????덉빟쨌EMR쨌?곸긽 ?듯빀 愿由?/li><li><span class="trend-dot"></span>LLM 湲곕컲 ?섏옄 ?뺣낫 ?쒓났 ?꾧뎄 ?곌뎄 利앷? (Frontiers, 2025)</li></ul></div>
+      <div class="trend-card violet"><div class="trend-year">2024??026 ?듭떖 ?몃젋??/div><div class="trend-title">?뱻 ?붿????뚰겕?뚮줈??/div><ul class="trend-list"><li><span class="trend-dot violet"></span>援ш컯 ???ㅼ틦??蹂닿툒瑜?誘멸뎅쨌遺곸쑀??60% 珥덇낵 ???쒖? 吏꾨즺濡??먮━?〓뒗 以?/li><li><span class="trend-dot violet"></span>TRIOS ?ㅼ틦??2025??3,500留??섏옄 ?ㅼ틪 (?꾨뀈 ?鍮?24% 利앷?)</li><li><span class="trend-dot violet"></span>?뱀씪 ?섎났(Same-day dentistry) ?뺤궛 ???섏옄 ??諛留??쒖뒪?쒖쑝濡??⑥씪 ?댁썝 ?꾨즺</li><li><span class="trend-dot violet"></span>3D ?꾨┛?? ?꾩떆 蹂댁쿋쨌?섏닠 媛?대뱶쨌?댁쿂 ?곸슜 ?뺣?</li></ul></div>
+      <div class="trend-card amber"><div class="trend-year">2024??026 ?듭떖 ?몃젋??/div><div class="trend-title">?뵫 ?꾪뵆???& ?ъ깮</div><ul class="trend-list"><li><span class="trend-dot amber"></span>吏瑜댁퐫?덉븘쨌?고??꾩?瑜댁퐫???⑷툑 ?꾪뵆????꾩긽 ?곸슜 利앷?</li><li><span class="trend-dot amber"></span>媛?대뵒???꾪뵆????섏닠: CBCT + ?붿???怨꾪쉷 ???뺥솗???μ긽</li><li><span class="trend-dot amber"></span>?뚯폆?대뱶 ?뚰겕???곌뎄 湲됱쬆 ??1999~2024??415???쇰Ц</li><li><span class="trend-dot amber"></span>?ㅻ쭏???꾪뵆????ㅼ떆媛??쇱꽌) ?곌뎄 以? ?꾩긽 寃利?誘명씉</li></ul></div>
+      <div class="trend-card rose"><div class="trend-year">2024??026 二쇱슂 ?댁뒋</div><div class="trend-title">?좑툘 ?쒓퀎 & 怨쇱젣</div><ul class="trend-list"><li><span class="trend-dot rose"></span>AI ?꾩긽 寃利?遺議????쒖????곗씠?곗뀑 ?녾퀬, ?명뼢쨌?щ챸??臾몄젣</li><li><span class="trend-dot rose"></span>?섏옄 ?곗씠???꾨씪?대쾭??洹쒖젣 媛뺥솕 (?섎즺 留덉씠?곗씠???뺤콉)</li><li><span class="trend-dot rose"></span>?붿???湲곌린 ?꾩엯 鍮꾩슜 ??以묒냼 移섍낵 ?섏썝 ?묎렐??寃⑹감</li><li><span class="trend-dot rose"></span>AI 蹂댁“ 吏꾨떒??踰뺤쟻 梨낆엫 ?뚯옱 遺덈챸??/li></ul></div>
     </div>
 
-    <div class="section-title">📄 주목받는 논문</div>
-    <div class="card"><div class="card-header"><div class="card-title">📚 분야별 주요 논문 요약</div><span class="card-count teal">참고용</span></div>
+    <div class="section-title">?뱞 二쇰ぉ諛쏅뒗 ?쇰Ц</div>
+    <div class="card"><div class="card-header"><div class="card-title">?뱴 遺꾩빞蹂?二쇱슂 ?쇰Ц ?붿빟</div><span class="card-count teal">李멸퀬??/span></div>
       <div class="card-body"><div style="overflow-x:auto"><table class="paper-table">
-        <thead><tr><th>분야</th><th>논문 / 연구</th><th>핵심 내용</th><th>저널</th></tr></thead>
+        <thead><tr><th>遺꾩빞</th><th>?쇰Ц / ?곌뎄</th><th>?듭떖 ?댁슜</th><th>???/th></tr></thead>
         <tbody>
-          <tr><td><span class="field-badge" style="background:#eff6ff;color:#1d4ed8">임플란트·AI</span></td><td><div class="paper-title">AI-Powered Predictive Models in Implant Dentistry</div><div class="paper-journal">J. Clinical Medicine, 2025</div></td><td>임플란트 계획·위험평가·결과 예측에 AI 적용 — 진단부터 장기 추적까지</td><td>MDPI</td></tr>
-          <tr><td><span class="field-badge" style="background:#f5f3ff;color:#5b21b6">디지털</span></td><td><div class="paper-title">The Future of Dental Implants: Trends, Technologies, and Patient Considerations</div><div class="paper-journal">PMC Narrative Review, 2025</div></td><td>지르코니아·Ti-Zr 합금 임플란트, 스마트 임플란트, 디지털 가이드 수술 종합 리뷰</td><td>PMC</td></tr>
-          <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">AI 진단</span></td><td><div class="paper-title">Artificial Intelligence in Dentistry and Dental Biomaterials</div><div class="paper-journal">Frontiers in Dental Medicine, 2024</div></td><td>치과 AI 전반 현황 리뷰; 편향·데이터 품질 문제 강조</td><td>Frontiers</td></tr>
-          <tr><td><span class="field-badge" style="background:#fef3c7;color:#92400e">근관치료</span></td><td><div class="paper-title">Top 100 Most-Cited Articles in Regenerative Endodontics 2019–2023</div><div class="paper-journal">PubMed Bibliometric, 2024</div></td><td>재생 근관치료 인용 논문 분석 — MTA·바이오세라믹 소재 연구 상위권</td><td>PubMed</td></tr>
-          <tr><td><span class="field-badge" style="background:#fdf4ff;color:#7e22ce">LLM·AI</span></td><td><div class="paper-title">Enhancing Patient-Centered Information on Implant Dentistry through Prompt Engineering</div><div class="paper-journal">Frontiers in Oral Health, 2025</div></td><td>ChatGPT·Claude 등 4개 LLM 비교 — 임플란트 환자 설명 정확도·신뢰도 평가</td><td>Frontiers</td></tr>
-          <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">치주</span></td><td><div class="paper-title">치주·임플란트 분야가 치과 인용 논문 최다 차지</div><div class="paper-journal">Bibliometric 종합, 2020 Update</div></td><td>1위 치주(32,410회), 2위 임플란트(15,592회) — J. Dental Research·J. Periodontology 주도</td><td>MDPI/PMC</td></tr>
+          <tr><td><span class="field-badge" style="background:#eff6ff;color:#1d4ed8">?꾪뵆??맞텮I</span></td><td><div class="paper-title">AI-Powered Predictive Models in Implant Dentistry</div><div class="paper-journal">J. Clinical Medicine, 2025</div></td><td>?꾪뵆???怨꾪쉷쨌?꾪뿕?됯?쨌寃곌낵 ?덉륫??AI ?곸슜 ??吏꾨떒遺???κ린 異붿쟻源뚯?</td><td>MDPI</td></tr>
+          <tr><td><span class="field-badge" style="background:#f5f3ff;color:#5b21b6">?붿???/span></td><td><div class="paper-title">The Future of Dental Implants: Trends, Technologies, and Patient Considerations</div><div class="paper-journal">PMC Narrative Review, 2025</div></td><td>吏瑜댁퐫?덉븘쨌Ti-Zr ?⑷툑 ?꾪뵆??? ?ㅻ쭏???꾪뵆??? ?붿???媛?대뱶 ?섏닠 醫낇빀 由щ럭</td><td>PMC</td></tr>
+          <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">AI 吏꾨떒</span></td><td><div class="paper-title">Artificial Intelligence in Dentistry and Dental Biomaterials</div><div class="paper-journal">Frontiers in Dental Medicine, 2024</div></td><td>移섍낵 AI ?꾨컲 ?꾪솴 由щ럭; ?명뼢쨌?곗씠???덉쭏 臾몄젣 媛뺤“</td><td>Frontiers</td></tr>
+          <tr><td><span class="field-badge" style="background:#fef3c7;color:#92400e">洹쇨?移섎즺</span></td><td><div class="paper-title">Top 100 Most-Cited Articles in Regenerative Endodontics 2019??023</div><div class="paper-journal">PubMed Bibliometric, 2024</div></td><td>?ъ깮 洹쇨?移섎즺 ?몄슜 ?쇰Ц 遺꾩꽍 ??MTA쨌諛붿씠?ㅼ꽭?쇰? ?뚯옱 ?곌뎄 ?곸쐞沅?/td><td>PubMed</td></tr>
+          <tr><td><span class="field-badge" style="background:#fdf4ff;color:#7e22ce">LLM쨌AI</span></td><td><div class="paper-title">Enhancing Patient-Centered Information on Implant Dentistry through Prompt Engineering</div><div class="paper-journal">Frontiers in Oral Health, 2025</div></td><td>ChatGPT쨌Claude ??4媛?LLM 鍮꾧탳 ???꾪뵆????섏옄 ?ㅻ챸 ?뺥솗?꽷룹떊猶곕룄 ?됯?</td><td>Frontiers</td></tr>
+          <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">移섏＜</span></td><td><div class="paper-title">移섏＜쨌?꾪뵆???遺꾩빞媛 移섍낵 ?몄슜 ?쇰Ц 理쒕떎 李⑥?</div><div class="paper-journal">Bibliometric 醫낇빀, 2020 Update</div></td><td>1??移섏＜(32,410??, 2???꾪뵆???15,592?? ??J. Dental Research쨌J. Periodontology 二쇰룄</td><td>MDPI/PMC</td></tr>
         </tbody>
       </table></div>
-      <p style="font-size:12px;color:#9ca3af;margin-top:12px">* 최신 논문은 PubMed, Google Scholar에서 직접 검색 권장. 2026년 5월 기준.</p>
+      <p style="font-size:12px;color:#9ca3af;margin-top:12px">* 理쒖떊 ?쇰Ц? PubMed, Google Scholar?먯꽌 吏곸젒 寃??沅뚯옣. 2026??5??湲곗?.</p>
       </div>
     </div>
 
-    <!-- ── 항균제 기전 ── -->
-    <div class="section-title" style="margin-top:4px">🧪 항균제 기전 — 헥사메딘(CHX) vs H₂O₂</div>
+    <!-- ?? ??퇏??湲곗쟾 ?? -->
+    <div class="section-title" style="margin-top:4px">?㎦ ??퇏??湲곗쟾 ???μ궗硫붾뵖(CHX) vs H?괥??/div>
 
     <div class="card" style="margin-bottom:16px">
-      <div class="card-header"><div class="card-title">🔵 CHX vs 🟣 H₂O₂ 기전 & 임상 비교</div></div>
+      <div class="card-header"><div class="card-title">?뵷 CHX vs ?윢 H?괥??湲곗쟾 & ?꾩긽 鍮꾧탳</div></div>
       <div class="card-body">
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:16px">
           <div>
-            <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.06em;margin-bottom:8px">클로르헥시딘 (CHX)</div>
+            <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.06em;margin-bottom:8px">?대줈瑜댄뿥?쒕뵖 (CHX)</div>
             <div style="display:flex;flex-direction:column;gap:6px">
-              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">① 흡착</strong> — 양이온성 분자 → 세균 세포벽 음이온에 정전기 결합</div>
-              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">② 막 투과</strong> — 인지질 이중층 삽입 → 세포막 투과성 파괴</div>
-              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">③ 유출</strong> — K⁺ 누출 → <em>저농도: bacteriostatic</em></div>
-              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">④ 응고</strong> — 세포질 단백·핵산 응고 → <em>고농도: bactericidal</em></div>
-              <div style="background:#fef3c7;border-radius:8px;padding:10px 12px;border-left:3px solid #d97706;font-size:13px;color:#374151"><strong style="color:#d97706">⭐ Substantivity</strong> — 구강 점막에 흡착 후 <strong>8–12시간 서서히 방출</strong></div>
+              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">???≪갑</strong> ???묒씠?⑥꽦 遺꾩옄 ???멸퇏 ?명룷踰??뚯씠?⑥뿉 ?뺤쟾湲?寃고빀</div>
+              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">??留??ш낵</strong> ???몄?吏??댁쨷痢??쎌엯 ???명룷留??ш낵???뚭눼</div>
+              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">???좎텧</strong> ??K???꾩텧 ??<em>??띾룄: bacteriostatic</em></div>
+              <div style="background:#ecfeff;border-radius:8px;padding:10px 12px;border-left:3px solid #0891b2;font-size:13px;color:#374151"><strong style="color:#0891b2">???묎퀬</strong> ???명룷吏??⑤갚쨌?듭궛 ?묎퀬 ??<em>怨좊냽?? bactericidal</em></div>
+              <div style="background:#fef3c7;border-radius:8px;padding:10px 12px;border-left:3px solid #d97706;font-size:13px;color:#374151"><strong style="color:#d97706">狩?Substantivity</strong> ??援ш컯 ?먮쭑???≪갑 ??<strong>8??2?쒓컙 ?쒖꽌??諛⑹텧</strong></div>
             </div>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.06em;margin-bottom:8px">과산화수소 (H₂O₂)</div>
+            <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.06em;margin-bottom:8px">怨쇱궛?붿닔??(H?괥??</div>
             <div style="display:flex;flex-direction:column;gap:6px">
-              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">① ROS 생성</strong> — H₂O₂ → OH· (하이드록실 라디칼) + O₂</div>
-              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">② 산화 손상</strong> — DNA·단백질·세포막 지질 비선택적 산화</div>
-              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">③ 혐기성균</strong> — 카탈라아제·SOD 없는 혐기균에 특히 강력</div>
-              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">④ 물리 세정</strong> — O₂ 발포로 괴사조직·debris 기계적 제거</div>
+              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">??ROS ?앹꽦</strong> ??H?괥????OH쨌 (?섏씠?쒕줉???쇰뵒移? + O??/div>
+              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">???고솕 ?먯긽</strong> ??DNA쨌?⑤갚吏댟룹꽭?щ쭑 吏吏?鍮꾩꽑?앹쟻 ?고솕</div>
+              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">???먭린?깃퇏</strong> ??移댄깉?쇱븘?쑣톁OD ?녿뒗 ?먭린洹좎뿉 ?뱁엳 媛뺣젰</div>
+              <div style="background:#f5f3ff;border-radius:8px;padding:10px 12px;border-left:3px solid #7c3aed;font-size:13px;color:#374151"><strong style="color:#7c3aed">??臾쇰━ ?몄젙</strong> ??O??諛쒗룷濡?愿댁궗議곗쭅쨌debris 湲곌퀎???쒓굅</div>
             </div>
           </div>
         </div>
 
         <div style="overflow-x:auto;margin-bottom:14px">
           <table class="paper-table">
-            <thead><tr><th>항목</th><th>CHX (헥사메딘)</th><th>H₂O₂</th></tr></thead>
+            <thead><tr><th>??ぉ</th><th>CHX (?μ궗硫붾뵖)</th><th>H?괥??/th></tr></thead>
             <tbody>
-              <tr><td style="font-weight:600">지속성</td><td><strong style="color:#0891b2">8–12시간</strong></td><td>즉각 분해, 거의 없음</td></tr>
-              <tr><td style="font-weight:600">스펙트럼</td><td>G+/G−/진균/일부 바이러스</td><td>광범위, 혐기균 특히 강력</td></tr>
-              <tr><td style="font-weight:600">바이오필름</td><td>형성 억제 강력</td><td>표면 제한적</td></tr>
-              <tr><td style="font-weight:600">조직 독성</td><td>낮음 (0.12–0.2%)</td><td>고농도 시 섬유아세포 손상</td></tr>
-              <tr><td style="font-weight:600">착색</td><td><span style="color:#dc2626">장기 사용 시 착색</span></td><td>없음 (미백 작용)</td></tr>
-              <tr><td style="font-weight:600">주요 용도</td><td>수술 전후, 임플란트 주위</td><td>NUG, 괴사조직, 근관 (1–3%)</td></tr>
+              <tr><td style="font-weight:600">吏?띿꽦</td><td><strong style="color:#0891b2">8??2?쒓컙</strong></td><td>利됯컖 遺꾪빐, 嫄곗쓽 ?놁쓬</td></tr>
+              <tr><td style="font-weight:600">?ㅽ럺?몃읆</td><td>G+/G??吏꾧퇏/?쇰? 諛붿씠?ъ뒪</td><td>愿묐쾾?? ?먭린洹??뱁엳 媛뺣젰</td></tr>
+              <tr><td style="font-weight:600">諛붿씠?ㅽ븘由?/td><td>?뺤꽦 ?듭젣 媛뺣젰</td><td>?쒕㈃ ?쒗븳??/td></tr>
+              <tr><td style="font-weight:600">議곗쭅 ?낆꽦</td><td>??쓬 (0.12??.2%)</td><td>怨좊냽?????ъ쑀?꾩꽭???먯긽</td></tr>
+              <tr><td style="font-weight:600">李⑹깋</td><td><span style="color:#dc2626">?κ린 ?ъ슜 ??李⑹깋</span></td><td>?놁쓬 (誘몃갚 ?묒슜)</td></tr>
+              <tr><td style="font-weight:600">二쇱슂 ?⑸룄</td><td>?섏닠 ?꾪썑, ?꾪뵆???二쇱쐞</td><td>NUG, 愿댁궗議곗쭅, 洹쇨? (1??%)</td></tr>
             </tbody>
           </table>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
-          <div style="background:#fef2f2;border-radius:8px;padding:12px;border-left:3px solid #dc2626"><div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:4px">⛔ CHX + NaOCl 금기</div><div style="font-size:13px;color:#374151">갈색 침전물 형성 → 근관 치료 시 절대 혼용 금지</div></div>
-          <div style="background:#f0fdf4;border-radius:8px;padding:12px;border-left:3px solid #16a34a"><div style="font-size:11px;font-weight:700;color:#14532d;margin-bottom:4px">✅ CHX + H₂O₂ 순서 주의</div><div style="font-size:13px;color:#374151">H₂O₂가 CHX를 불활성화 → 시간 간격 두거나 순서 고려</div></div>
-          <div style="background:#eff6ff;border-radius:8px;padding:12px;border-left:3px solid #2563eb"><div style="font-size:11px;font-weight:700;color:#1e3a8a;margin-bottom:4px">💡 CHX 선택 상황</div><div style="font-size:13px;color:#374151">수술 후, 임플란트 주위 → Substantivity가 핵심</div></div>
-          <div style="background:#fdf4ff;border-radius:8px;padding:12px;border-left:3px solid #9333ea"><div style="font-size:11px;font-weight:700;color:#581c87;margin-bottom:4px">💡 H₂O₂ 선택 상황</div><div style="font-size:13px;color:#374151">NUG 급성기, 근관: NaOCl → H₂O₂ 교대로 세정 효율 ↑</div></div>
+          <div style="background:#fef2f2;border-radius:8px;padding:12px;border-left:3px solid #dc2626"><div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:4px">??CHX + NaOCl 湲덇린</div><div style="font-size:13px;color:#374151">媛덉깋 移⑥쟾臾??뺤꽦 ??洹쇨? 移섎즺 ???덈? ?쇱슜 湲덉?</div></div>
+          <div style="background:#f0fdf4;border-radius:8px;padding:12px;border-left:3px solid #16a34a"><div style="font-size:11px;font-weight:700;color:#14532d;margin-bottom:4px">??CHX + H?괥???쒖꽌 二쇱쓽</div><div style="font-size:13px;color:#374151">H?괥?귢? CHX瑜?遺덊솢?깊솕 ???쒓컙 媛꾧꺽 ?먭굅???쒖꽌 怨좊젮</div></div>
+          <div style="background:#eff6ff;border-radius:8px;padding:12px;border-left:3px solid #2563eb"><div style="font-size:11px;font-weight:700;color:#1e3a8a;margin-bottom:4px">?뮕 CHX ?좏깮 ?곹솴</div><div style="font-size:13px;color:#374151">?섏닠 ?? ?꾪뵆???二쇱쐞 ??Substantivity媛 ?듭떖</div></div>
+          <div style="background:#fdf4ff;border-radius:8px;padding:12px;border-left:3px solid #9333ea"><div style="font-size:11px;font-weight:700;color:#581c87;margin-bottom:4px">?뮕 H?괥???좏깮 ?곹솴</div><div style="font-size:13px;color:#374151">NUG 湲됱꽦湲? 洹쇨?: NaOCl ??H?괥??援먮?濡??몄젙 ?⑥쑉 ??/div></div>
         </div>
       </div>
     </div>
 
-    <!-- ── 구내염 ── -->
-    <div class="section-title">🔴 구내염 — 분류 & 연령별 접근</div>
+    <!-- ?? 援щ궡???? -->
+    <div class="section-title">?뵶 援щ궡????遺꾨쪟 & ?곕졊蹂??묎렐</div>
 
     <div class="card" style="margin-bottom:16px">
-      <div class="card-header"><div class="card-title">📊 빠른 분류 & 핵심 감별 포인트</div></div>
+      <div class="card-header"><div class="card-title">?뱤 鍮좊Ⅸ 遺꾨쪟 & ?듭떖 媛먮퀎 ?ъ씤??/div></div>
       <div class="card-body">
         <div style="overflow-x:auto;margin-bottom:14px">
           <table class="paper-table">
-            <thead><tr><th>카테고리</th><th>대표 질환</th><th>핵심 특징</th></tr></thead>
+            <thead><tr><th>移댄뀒怨좊━</th><th>???吏덊솚</th><th>?듭떖 ?뱀쭠</th></tr></thead>
             <tbody>
-              <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">아프타성</span></td><td>Minor / Major / Herpetiform</td><td>가장 흔함, <strong>비각화점막</strong>, 원인 불명</td></tr>
-              <tr><td><span class="field-badge" style="background:#eff6ff;color:#1d4ed8">바이러스성</span></td><td>HSV-1, VZV, 수족구, 포진성구협염</td><td>발열 동반, 군집성 수포, <strong>각화점막 가능</strong></td></tr>
-              <tr><td><span class="field-badge" style="background:#fdf4ff;color:#7e22ce">진균성</span></td><td>구강 칸디다증</td><td>백색 위막, 닦이면 벗겨짐</td></tr>
-              <tr><td><span class="field-badge" style="background:#f4f5f7;color:#374151">외상성</span></td><td>의치·교정·볼깨물기</td><td>원인 부위 일치</td></tr>
-              <tr><td><span class="field-badge" style="background:#fef3c7;color:#92400e">전신질환</span></td><td>Behcet, Crohn, 셀리악, SLE</td><td>반복+다발+전신증상</td></tr>
-              <tr><td><span class="field-badge" style="background:#fff7ed;color:#9a3412">약물성</span></td><td>NSAIDs, 항생제, 항암제</td><td>복약력 확인</td></tr>
-              <tr><td><span class="field-badge" style="background:#fef2f2;color:#991b1b">악성</span></td><td>SCC</td><td><strong style="color:#dc2626">3주 이상 + 경결 + 무통 → 즉시 조직검사</strong></td></tr>
+              <tr><td><span class="field-badge" style="background:#ecfdf5;color:#065f46">?꾪봽???/span></td><td>Minor / Major / Herpetiform</td><td>媛???뷀븿, <strong>鍮꾧컖?붿젏留?/strong>, ?먯씤 遺덈챸</td></tr>
+              <tr><td><span class="field-badge" style="background:#eff6ff;color:#1d4ed8">諛붿씠?ъ뒪??/span></td><td>HSV-1, VZV, ?섏”援? ?ъ쭊?깃뎄?묒뿼</td><td>諛쒖뿴 ?숇컲, 援곗쭛???섑룷, <strong>媛곹솕?먮쭑 媛??/strong></td></tr>
+              <tr><td><span class="field-badge" style="background:#fdf4ff;color:#7e22ce">吏꾧퇏??/span></td><td>援ш컯 移몃뵒?ㅼ쬆</td><td>諛깆깋 ?꾨쭑, ??씠硫?踰쀪꺼吏?/td></tr>
+              <tr><td><span class="field-badge" style="background:#f4f5f7;color:#374151">?몄긽??/span></td><td>?섏튂쨌援먯젙쨌蹂쇨묠臾쇨린</td><td>?먯씤 遺???쇱튂</td></tr>
+              <tr><td><span class="field-badge" style="background:#fef3c7;color:#92400e">?꾩떊吏덊솚</span></td><td>Behcet, Crohn, ?由ъ븙, SLE</td><td>諛섎났+?ㅻ컻+?꾩떊利앹긽</td></tr>
+              <tr><td><span class="field-badge" style="background:#fff7ed;color:#9a3412">?쎈Ъ??/span></td><td>NSAIDs, ??깮?? ??븫??/td><td>蹂듭빟???뺤씤</td></tr>
+              <tr><td><span class="field-badge" style="background:#fef2f2;color:#991b1b">?낆꽦</span></td><td>SCC</td><td><strong style="color:#dc2626">3二??댁긽 + 寃쎄껐 + 臾댄넻 ??利됱떆 議곗쭅寃??/strong></td></tr>
             </tbody>
           </table>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
           <div style="background:#f0f9ff;border-radius:8px;padding:12px;border-left:3px solid #0891b2">
-            <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:4px">아프타 vs HSV 핵심 구분</div>
-            <div style="font-size:12.5px;color:#374151;line-height:1.6"><strong>아프타</strong>: 볼·혀·구강저·연구개 (비각화)<br><strong>HSV</strong>: 입술·경구개·부착치은 (각화)</div>
+            <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:4px">?꾪봽? vs HSV ?듭떖 援щ텇</div>
+            <div style="font-size:12.5px;color:#374151;line-height:1.6"><strong>?꾪봽?</strong>: 蹂셋룻?쨌援ш컯?쨌?곌뎄媛?(鍮꾧컖??<br><strong>HSV</strong>: ?낆닠쨌寃쎄뎄媛쑣룸?李⑹튂? (媛곹솕)</div>
           </div>
           <div style="background:#fef2f2;border-radius:8px;padding:12px;border-left:3px solid #dc2626">
-            <div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:4px">⚠️ 3주 룰</div>
-            <div style="font-size:12.5px;color:#374151;line-height:1.6">3주 이상 + 경결 + 무통<br>→ <strong>SCC 즉시 조직검사 or 구강외과 의뢰</strong></div>
+            <div style="font-size:11px;font-weight:700;color:#991b1b;margin-bottom:4px">?좑툘 3二?猷?/div>
+            <div style="font-size:12.5px;color:#374151;line-height:1.6">3二??댁긽 + 寃쎄껐 + 臾댄넻<br>??<strong>SCC 利됱떆 議곗쭅寃??or 援ш컯?멸낵 ?섎ː</strong></div>
           </div>
           <div style="background:#f0fdf4;border-radius:8px;padding:12px;border-left:3px solid #16a34a">
-            <div style="font-size:11px;font-weight:700;color:#14532d;margin-bottom:4px">재발성 아프타 워크업</div>
-            <div style="font-size:12.5px;color:#374151;line-height:1.6">월 2회↑ → CBC, Fe, Ferritin,<br>B12, Folate, Zn, TSH 검사</div>
+            <div style="font-size:11px;font-weight:700;color:#14532d;margin-bottom:4px">?щ컻???꾪봽? ?뚰겕??/div>
+            <div style="font-size:12.5px;color:#374151;line-height:1.6">??2?뚢넁 ??CBC, Fe, Ferritin,<br>B12, Folate, Zn, TSH 寃??/div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card" style="margin-bottom:16px">
-      <div class="card-header"><div class="card-title">연령별 접근법 — 치과 / 의과 / 기능의학</div></div>
+      <div class="card-header"><div class="card-title">?곕졊蹂??묎렐踰???移섍낵 / ?섍낵 / 湲곕뒫?섑븰</div></div>
       <div class="card-body">
 
         <div class="cat-tabs" style="margin-bottom:16px">
-          <div class="cat-tab active" onclick="switchAge('infant',this)">👶 영유아 0–5세</div>
-          <div class="cat-tab" onclick="switchAge('child',this)">🧒 소아청소년 6–18세</div>
-          <div class="cat-tab" onclick="switchAge('adult',this)">🧑 성인 19–50세</div>
-          <div class="cat-tab" onclick="switchAge('elder',this)">👴 노인 50세↑</div>
+          <div class="cat-tab active" onclick="switchAge('infant',this)">?뫔 ?곸쑀??0????/div>
+          <div class="cat-tab" onclick="switchAge('child',this)">?쭜 ?뚯븘泥?냼??6??8??/div>
+          <div class="cat-tab" onclick="switchAge('adult',this)">?쭛 ?깆씤 19??0??/div>
+          <div class="cat-tab" onclick="switchAge('elder',this)">?뫒 ?몄씤 50?멤넁</div>
         </div>
 
         <div id="stom-infant" class="stom-age">
-          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>흔한 병변:</strong> 헤르페스 치은구내염(초감염), 수족구병(EV71), 포진성구협염, 아구창</div>
+          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>?뷀븳 蹂묐?:</strong> ?ㅻⅤ?섏뒪 移섏?援щ궡??珥덇컧??, ?섏”援щ퀝(EV71), ?ъ쭊?깃뎄?묒뿼, ?꾧뎄李?/div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #0891b2">
-              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">🦷 치과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">?┠ 移섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>헤르페스 초감염: 전체 구강점막+잇몸 동시 침범, 고열 → 발치·스케일링 연기</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>아구창: 백색 위막, 닦이면 벗겨짐 → 니스타틴 현탁액</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>수족구: 연구개·편도 주변 수포 → 손발 발진 확인, 격리 안내</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?ㅻⅤ?섏뒪 珥덇컧?? ?꾩껜 援ш컯?먮쭑+?뉖じ ?숈떆 移⑤쾾, 怨좎뿴 ??諛쒖튂쨌?ㅼ??쇰쭅 ?곌린</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?꾧뎄李? 諛깆깋 ?꾨쭑, ??씠硫?踰쀪꺼吏????덉뒪????꾪긽??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?섏”援? ?곌뎄媛쑣룻렪??二쇰? ?섑룷 ???먮컻 諛쒖쭊 ?뺤씤, 寃⑸━ ?덈궡</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #7c3aed">
-              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">🏥 의과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">?룯 ?섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>헤르페스 초감염: Acyclovir 경구 5일 (72시간 이내 투여)</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>아구창 반복: HIV·스테로이드흡입제 → 면역저하 감별</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>수족구 EV71: 고열 지속·구토·기면 → 뇌염 주의, 즉시 입원</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?ㅻⅤ?섏뒪 珥덇컧?? Acyclovir 寃쎄뎄 5??(72?쒓컙 ?대궡 ?ъ뿬)</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?꾧뎄李?諛섎났: HIV쨌?ㅽ뀒濡쒖씠?쒗씉?낆젣 ??硫댁뿭???媛먮퀎</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?섏”援?EV71: 怨좎뿴 吏?띉룰뎄?졖룰린硫????뚯뿼 二쇱쓽, 利됱떆 ?낆썝</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #16a34a">
-              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">🧬 기능의학</div>
+              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">?㎚ 湲곕뒫?섑븰</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>모유수유 산모-영아 칸디다 재감염 cycle 확인</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>항생제 노출 → 장내 세균총 미성숙 → L. reuteri 프로바이오틱스</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>비타민 D 결핍 (영아 D 보충제 여부 확인)</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>紐⑥쑀?섏쑀 ?곕え-?곸븘 移몃뵒???ш컧??cycle ?뺤씤</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>??깮???몄텧 ???λ궡 ?멸퇏珥?誘몄꽦????L. reuteri ?꾨줈諛붿씠?ㅽ떛??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>鍮꾪?誘?D 寃고븤 (?곸븘 D 蹂댁땐???щ? ?뺤씤)</span></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div id="stom-child" class="stom-age hidden">
-          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>흔한 병변:</strong> Minor 아프타, 외상성, 교정장치 관련, PFAPA 증후군</div>
+          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>?뷀븳 蹂묐?:</strong> Minor ?꾪봽?, ?몄긽?? 援먯젙?μ튂 愿?? PFAPA 利앺썑援?/div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #0891b2">
-              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">🦷 치과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">?┠ 移섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>Minor 아프타: &lt;10mm, 2주 내 자연치유 → Triamcinolone 0.1% paste</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>교정 관련: 브라켓 날카로운 면 → Dental wax + 구내염 연고</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>RAS (월 2회↑): 전신 원인 스크리닝 시작</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>Minor ?꾪봽?: &lt;10mm, 2二????먯뿰移섏쑀 ??Triamcinolone 0.1% paste</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>援먯젙 愿?? 釉뚮씪耳??좎뭅濡쒖슫 硫???Dental wax + 援щ궡???곌퀬</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>RAS (??2?뚢넁): ?꾩떊 ?먯씤 ?ㅽ겕由щ떇 ?쒖옉</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #7c3aed">
-              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">🏥 의과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">?룯 ?섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>RAS + 생식기 궤양 + 피부 → Behcet병 의심 (청소년기 발병多)</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>피로 + 빈혈 + 설사 → 셀리악병 (anti-tTG IgA 검사)</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>RAS + 발열 + 경부림프절 → PFAPA 증후군 (소아과 의뢰)</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>RAS + ?앹떇湲?沅ㅼ뼇 + ?쇰? ??Behcet蹂??섏떖 (泥?냼?꾧린 諛쒕퀝鸚?</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?쇰줈 + 鍮덊삁 + ?ㅼ궗 ???由ъ븙蹂?(anti-tTG IgA 寃??</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>RAS + 諛쒖뿴 + 寃쎈?由쇳봽????PFAPA 利앺썑援?(?뚯븘怨??섎ː)</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #16a34a">
-              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">🧬 기능의학</div>
+              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">?㎚ 湲곕뒫?섑븰</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>시험 스트레스 → 코티솔 ↑ → 국소 면역 ↓ → 아프타 트리거</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>정크푸드 과잉: B2·B12·Zn 부족 → 영양 평가</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>글루텐 민감성 (셀리악 음성이어도) → 밀·보리 2주 제거 후 호전 여부</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?쒗뿕 ?ㅽ듃?덉뒪 ??肄뷀떚??????援?냼 硫댁뿭 ?????꾪봽? ?몃━嫄?/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?뺥겕?몃뱶 怨쇱엵: B2쨌B12쨌Zn 遺議????곸뼇 ?됯?</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>湲猷⑦뀗 誘쇨컧??(?由ъ븙 ?뚯꽦?댁뼱?? ??諛쨌蹂대━ 2二??쒓굅 ???몄쟾 ?щ?</span></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div id="stom-adult" class="stom-age hidden">
-          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>흔한 병변:</strong> RAS(재발성 아프타), HSV 재활성, 약물성, 전신질환 관련</div>
+          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>?뷀븳 蹂묐?:</strong> RAS(?щ컻???꾪봽?), HSV ?ы솢?? ?쎈Ъ?? ?꾩떊吏덊솚 愿??/div>
           <div style="overflow-x:auto;margin-bottom:12px">
             <table class="paper-table">
-              <thead><tr><th>종류</th><th>크기</th><th>개수</th><th>위치</th><th>치유 기간</th></tr></thead>
+              <thead><tr><th>醫낅쪟</th><th>?ш린</th><th>媛쒖닔</th><th>?꾩튂</th><th>移섏쑀 湲곌컙</th></tr></thead>
               <tbody>
-                <tr><td>Minor 아프타</td><td>&lt;10mm</td><td>1–5개</td><td>비각화점막</td><td>1–2주</td></tr>
-                <tr><td>Major 아프타</td><td>&gt;10mm</td><td>1–3개</td><td>어디든</td><td>수주–수개월, 반흔</td></tr>
-                <tr><td>Herpetiform</td><td>1–3mm</td><td>10–100개 군집</td><td>비각화점막</td><td>1–2주</td></tr>
-                <tr><td>HSV 재활성</td><td>수포→궤양</td><td>군집</td><td>각화점막 (입술·경구개)</td><td>1–2주</td></tr>
+                <tr><td>Minor ?꾪봽?</td><td>&lt;10mm</td><td>1??媛?/td><td>鍮꾧컖?붿젏留?/td><td>1??二?/td></tr>
+                <tr><td>Major ?꾪봽?</td><td>&gt;10mm</td><td>1??媛?/td><td>?대뵒??/td><td>?섏＜?볦닔媛쒖썡, 諛섑쓷</td></tr>
+                <tr><td>Herpetiform</td><td>1??mm</td><td>10??00媛?援곗쭛</td><td>鍮꾧컖?붿젏留?/td><td>1??二?/td></tr>
+                <tr><td>HSV ?ы솢??/td><td>?섑룷?믨땄??/td><td>援곗쭛</td><td>媛곹솕?먮쭑 (?낆닠쨌寃쎄뎄媛?</td><td>1??二?/td></tr>
               </tbody>
             </table>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #0891b2">
-              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">🦷 치과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">?┠ 移섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>Triamcinolone paste / Dexamethasone 가글 / 2% Lidocaine viscous</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>CHX 가글 보조 (단기 사용)</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>Major 아프타: 전신 스테로이드 단기 + 의과 협진</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>Triamcinolone paste / Dexamethasone 媛湲 / 2% Lidocaine viscous</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>CHX 媛湲 蹂댁“ (?④린 ?ъ슜)</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>Major ?꾪봽?: ?꾩떊 ?ㅽ뀒濡쒖씠???④린 + ?섍낵 ?묒쭊</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #7c3aed">
-              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">🏥 의과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">?룯 ?섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>RAS 워크업: CBC, Fe/Ferritin, B12, Folate, Zn, TSH</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>Behcet(류마티스) / IBD(소화기내과) / 셀리악 감별</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>HSV 잦은 재활성: Acyclovir 400mg bid 예방적 장기 투여</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>RAS ?뚰겕?? CBC, Fe/Ferritin, B12, Folate, Zn, TSH</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>Behcet(瑜섎쭏?곗뒪) / IBD(?뚰솕湲곕궡怨? / ?由ъ븙 媛먮퀎</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>HSV ??? ?ы솢?? Acyclovir 400mg bid ?덈갑???κ린 ?ъ뿬</span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #16a34a">
-              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">🧬 기능의학</div>
+              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">?㎚ 湲곕뒫?섑븰</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>B12 &lt;300pg/mL → methylcobalamin 보충 / Ferritin &lt;20 → 철 보충</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>장-구강 축 dysbiosis → 전신 염증 → 구강 점막 취약</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>음식 트리거: 토마토·견과류·초콜릿·글루텐 → 음식 일기 2주</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>여성: 월경 전 악화 → 에스트로겐 변동 연관</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>B12 &lt;300pg/mL ??methylcobalamin 蹂댁땐 / Ferritin &lt;20 ??泥?蹂댁땐</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>??援ш컯 異?dysbiosis ???꾩떊 ?쇱쬆 ??援ш컯 ?먮쭑 痍⑥빟</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?뚯떇 ?몃━嫄? ?좊쭏?졖룰껄怨쇰쪟쨌珥덉퐳由온룰?猷⑦뀗 ???뚯떇 ?쇨린 2二?/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?ъ꽦: ?붽꼍 ???낇솕 ???먯뒪?몃줈寃?蹂???곌?</span></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div id="stom-elder" class="stom-age hidden">
-          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>흔한 병변:</strong> 의치성 궤양, 대상포진(VZV) 구강형, 칸디다, 약물성, 악성 감별 필수</div>
+          <div style="background:#ecfeff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#0e7490"><strong>?뷀븳 蹂묐?:</strong> ?섏튂??沅ㅼ뼇, ??곹룷吏?VZV) 援ш컯?? 移몃뵒?? ?쎈Ъ?? ?낆꽦 媛먮퀎 ?꾩닔</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #0891b2">
-              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">🦷 치과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#0891b2;margin-bottom:8px">?┠ 移섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>의치성 외상: 변연 맞닿는 부위 → 조정 후 1–2주, 안 나으면 조직검사</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>대상포진: 삼차신경 분포, 한쪽만, 작열감 먼저 수포 나중 → 즉각 항바이러스</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>칸디다: Fluconazole 150mg 1회 or 50mg × 7일</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span><strong style="color:#dc2626">3주↑ + 경결 + 무통 → SCC 즉시 조직검사</strong></span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?섏튂???몄긽: 蹂??留욌떯??遺????議곗젙 ??1??二? ???섏쑝硫?議곗쭅寃??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>??곹룷吏? ?쇱감?좉꼍 遺꾪룷, ?쒖そ留? ?묒뿴媛?癒쇱? ?섑룷 ?섏쨷 ??利됯컖 ??컮?대윭??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>移몃뵒?? Fluconazole 150mg 1??or 50mg 횞 7??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span><strong style="color:#dc2626">3二쇄넁 + 寃쎄껐 + 臾댄넻 ??SCC 利됱떆 議곗쭅寃??/strong></span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #7c3aed">
-              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">🏥 의과적 접근</div>
+              <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">?룯 ?섍낵???묎렐</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>면역저하 확인: HbA1c, HIV, 혈액암, 면역억제제</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>대상포진 후 신경통(PHN): Valacyclovir 조기 투여 + 신경과</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>항콜린성 약물 → 타액 감소 → 칸디다·궤양 악화 → 약물 재검토</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>硫댁뿭????뺤씤: HbA1c, HIV, ?덉븸?? 硫댁뿭?듭젣??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>??곹룷吏????좉꼍??PHN): Valacyclovir 議곌린 ?ъ뿬 + ?좉꼍怨?/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>??퐳由곗꽦 ?쎈Ъ ?????媛먯냼 ??移몃뵒?ㅒ룰땄???낇솕 ???쎈Ъ ?ш???/span></li>
               </ul>
             </div>
             <div style="background:#f9fafb;border-radius:10px;padding:14px;border-top:3px solid #16a34a">
-              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">🧬 기능의학</div>
+              <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">?㎚ 湲곕뒫?섑븰</div>
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px">
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>위산 저하(노화) → B12 흡수 불량 → 구강점막 이영양</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>비타민 D 저하 (노인 평균 20ng/mL 이하) → 점막 면역 저하</span></li>
-                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>•</span><span>폴리파마시 → 약물-약물 상호작용 → 구강 부작용 복합 발생</span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?꾩궛 ????명솕) ??B12 ?≪닔 遺덈웾 ??援ш컯?먮쭑 ?댁쁺??/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>鍮꾪?誘?D ???(?몄씤 ?됯퇏 20ng/mL ?댄븯) ???먮쭑 硫댁뿭 ???/span></li>
+                <li style="font-size:13px;color:#374151;display:flex;gap:6px"><span>??/span><span>?대━?뚮쭏?????쎈Ъ-?쎈Ъ ?곹샇?묒슜 ??援ш컯 遺?묒슜 蹂듯빀 諛쒖깮</span></li>
               </ul>
             </div>
           </div>
@@ -899,20 +899,20 @@
     </div>
 
     <div class="card" style="margin-bottom:16px">
-      <div class="card-header"><div class="card-title">💊 구내염 처방 빠른 참조</div></div>
+      <div class="card-header"><div class="card-title">?뭻 援щ궡??泥섎갑 鍮좊Ⅸ 李몄“</div></div>
       <div class="card-body" style="padding-top:12px">
         <div style="overflow-x:auto">
           <table class="paper-table">
-            <thead><tr><th>상황</th><th>약물</th><th>용량·방법</th></tr></thead>
+            <thead><tr><th>?곹솴</th><th>?쎈Ъ</th><th>?⑸웾쨌諛⑸쾿</th></tr></thead>
             <tbody>
-              <tr><td>아프타 (경증)</td><td>Triamcinolone 0.1% paste</td><td>궤양에 얇게 하루 3–4회</td></tr>
-              <tr><td>아프타 (통증)</td><td>2% Lidocaine viscous</td><td>식전 입안 헹굼</td></tr>
-              <tr><td>아프타 (다발·심함)</td><td>Dexamethasone 0.5mg/5ml 용액</td><td>가글 후 뱉기</td></tr>
-              <tr><td>구내염 보조</td><td>CHX 0.12% 가글</td><td>하루 2회 (단기)</td></tr>
-              <tr><td>HSV</td><td>Valacyclovir 500mg</td><td>하루 2회 × 5일</td></tr>
-              <tr><td>칸디다</td><td>Fluconazole 150mg or 50mg</td><td>1회 or 7일</td></tr>
-              <tr><td>대상포진</td><td>Valacyclovir 1000mg</td><td>하루 3회 × 7일 (조기)</td></tr>
-              <tr><td>B12 결핍</td><td>Methylcobalamin 1000mcg</td><td>설하 or 근주</td></tr>
+              <tr><td>?꾪봽? (寃쎌쬆)</td><td>Triamcinolone 0.1% paste</td><td>沅ㅼ뼇???뉕쾶 ?섎（ 3????/td></tr>
+              <tr><td>?꾪봽? (?듭쬆)</td><td>2% Lidocaine viscous</td><td>?앹쟾 ?낆븞 ?밴돔</td></tr>
+              <tr><td>?꾪봽? (?ㅻ컻쨌?ы븿)</td><td>Dexamethasone 0.5mg/5ml ?⑹븸</td><td>媛湲 ??諭됯린</td></tr>
+              <tr><td>援щ궡??蹂댁“</td><td>CHX 0.12% 媛湲</td><td>?섎（ 2??(?④린)</td></tr>
+              <tr><td>HSV</td><td>Valacyclovir 500mg</td><td>?섎（ 2??횞 5??/td></tr>
+              <tr><td>移몃뵒??/td><td>Fluconazole 150mg or 50mg</td><td>1??or 7??/td></tr>
+              <tr><td>??곹룷吏?/td><td>Valacyclovir 1000mg</td><td>?섎（ 3??횞 7??(議곌린)</td></tr>
+              <tr><td>B12 寃고븤</td><td>Methylcobalamin 1000mcg</td><td>?ㅽ븯 or 洹쇱＜</td></tr>
             </tbody>
           </table>
         </div>
@@ -920,18 +920,18 @@
     </div>
 
   </main>
-  <div class="footer">치과 레퍼런스 &nbsp;|&nbsp; 2026년 5월</div>
+  <div class="footer">移섍낵 ?덊띁?곗뒪 &nbsp;|&nbsp; 2026??5??/div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PAGE 3 — 기능의학
-════════════════════════════════════════ -->
+<!-- ?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧??
+     PAGE 3 ??湲곕뒫?섑븰
+?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧?먥븧 -->
 <div id="page-fm" class="page">
   <header class="page-header-dental">
     <div class="page-header-inner">
       <div>
-        <h1 class="page-title" style="color:#15803d;">🧬 기능의학 강의 자료</h1>
-        <p class="page-subtitle" style="color:#166534;">AFMCP 번역 · 요약 · 음성 파일 모음</p>
+        <h1 class="page-title" style="color:#15803d;">?㎚ 湲곕뒫?섑븰 媛뺤쓽 ?먮즺</h1>
+        <p class="page-subtitle" style="color:#166534;">AFMCP 踰덉뿭 쨌 ?붿빟 쨌 ?뚯꽦 ?뚯씪 紐⑥쓬</p>
       </div>
     </div>
   </header>
@@ -966,157 +966,157 @@
       .fm-link.mp3-f  { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
     </style>
 
-    <!-- 챕터 1 -->
+    <!-- 梨뺥꽣 1 -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 1 — 기능의학 임상 적용 입문</div>
+      <div class="fm-section-title">梨뺥꽣 1 ??湲곕뒫?섑븰 ?꾩긽 ?곸슜 ?낅Ц</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP 챕터 1 전체 번역</div>
-        <div class="fm-card-desc">기능의학의 핵심 원리, GOTOIT 방법론 소개, 기능의학 매트릭스, 임상 적용 개요</div>
+        <div class="fm-card-title">AFMCP 梨뺥꽣 1 ?꾩껜 踰덉뿭</div>
+        <div class="fm-card-desc">湲곕뒫?섑븰???듭떖 ?먮━, GOTOIT 諛⑸쾿濡??뚭컻, 湲곕뒫?섑븰 留ㅽ듃由?뒪, ?꾩긽 ?곸슜 媛쒖슂</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chapter1_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chapter1_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chapter1_번역.mp3">🎧 음성 듣기</a>
-          <a class="fm-link mp3-f" href="음성/AFMCP_Chapter1_번역_1.5배속.mp3">⚡ 1.5배속</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chapter1_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chapter1_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chapter1_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
+          <a class="fm-link mp3-f" href="?뚯꽦/AFMCP_Chapter1_踰덉뿭_1.5諛곗냽.mp3">??1.5諛곗냽</a>
         </div>
       </div>
     </div>
 
-    <!-- 챕터 2 파트 1 -->
+    <!-- 梨뺥꽣 2 ?뚰듃 1 -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 2 파트 1 — GOTOIT: Gather · Organize</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?뚰듃 1 ??GOTOIT: Gather 쨌 Organize</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP 챕터 2 전체 번역 (파트 1)</div>
-        <div class="fm-card-desc">Gather (병력 수집, 타임라인 작성), Organize (기능의학 매트릭스 활용), GOTOIT 1·2단계 심화</div>
+        <div class="fm-card-title">AFMCP 梨뺥꽣 2 ?꾩껜 踰덉뿭 (?뚰듃 1)</div>
+        <div class="fm-card-desc">Gather (蹂묐젰 ?섏쭛, ??꾨씪???묒꽦), Organize (湲곕뒫?섑븰 留ㅽ듃由?뒪 ?쒖슜), GOTOIT 1쨌2?④퀎 ?ы솕</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chapter2_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chapter2_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chapter2_번역.mp3">🎧 음성 듣기</a>
-          <a class="fm-link mp3-f" href="음성/AFMCP_Chapter2_번역_1.5배속.mp3">⚡ 1.5배속</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chapter2_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chapter2_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chapter2_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
+          <a class="fm-link mp3-f" href="?뚯꽦/AFMCP_Chapter2_踰덉뿭_1.5諛곗냽.mp3">??1.5諛곗냽</a>
         </div>
       </div>
     </div>
 
-    <!-- 챕터 2 파트 2 -->
+    <!-- 梨뺥꽣 2 ?뚰듃 2 -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 2 파트 2 — GOTOIT: Tell · Order · 치료적 파트너십</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?뚰듃 2 ??GOTOIT: Tell 쨌 Order 쨌 移섎즺???뚰듃?덉떗</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP 챕터 2 전체 번역 (파트 2)</div>
+        <div class="fm-card-title">AFMCP 梨뺥꽣 2 ?꾩껜 踰덉뿭 (?뚰듃 2)</div>
         <div class="fm-card-desc">
-          Tell (환자 이야기 다시 들려주기 · 의료인이 첫 번째 치료제), Order (개입 순서 공동 결정 · 프로차스카 변화 단계 · SMART 목표),
-          치료적 파트너십 패널 (Joel Evans · Monique Class), 변화 동기부여 패널 (Bob Rountree · Monique Class),
-          전인 건강 모델 (Tracy Gaudet), 코칭 사례 — 제임스 이야기
+          Tell (?섏옄 ?댁빞湲??ㅼ떆 ?ㅻ젮二쇨린 쨌 ?섎즺?몄씠 泥?踰덉㎏ 移섎즺??, Order (媛쒖엯 ?쒖꽌 怨듬룞 寃곗젙 쨌 ?꾨줈李⑥뒪移?蹂???④퀎 쨌 SMART 紐⑺몴),
+          移섎즺???뚰듃?덉떗 ?⑤꼸 (Joel Evans 쨌 Monique Class), 蹂???숆린遺???⑤꼸 (Bob Rountree 쨌 Monique Class),
+          ?꾩씤 嫄닿컯 紐⑤뜽 (Tracy Gaudet), 肄붿묶 ?щ? ???쒖엫???댁빞湲?
         </div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chapter2_Part2_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chapter2_Part2_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chapter2_Part2_번역.mp3">🎧 음성 듣기</a>
-          <a class="fm-link mp3-f" href="음성/AFMCP_Chapter2_Part2_번역_1.5배속.mp3">⚡ 1.5배속</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 챕터 2 파트 3: Center of Matrix -->
-    <div class="fm-section">
-      <div class="fm-section-title">챕터 2 파트 3 — 매트릭스의 중심 (정신·감정·영적 요소)</div>
-      <div class="fm-card">
-        <div class="fm-card-title">AFMCP — 매트릭스의 중심 번역 (Dr. Joel Evans)</div>
-        <div class="fm-card-desc">정신적·감정적·영적 요소가 GOTOIT 각 단계에 적용되는 방법. 통찰의 환경 만들기, 영성 평가, 장-뇌 연결, 치료 계획 공동 창작</div>
-        <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chap2_Center_of_Matrix_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chap2_Center_of_Matrix_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chap2_Center_of_Matrix_번역.mp3">🎧 음성 듣기</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chapter2_Part2_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chapter2_Part2_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chapter2_Part2_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
+          <a class="fm-link mp3-f" href="?뚯꽦/AFMCP_Chapter2_Part2_踰덉뿭_1.5諛곗냽.mp3">??1.5諛곗냽</a>
         </div>
       </div>
     </div>
 
-    <!-- 챕터 2 파트 4: Initiate -->
+    <!-- 梨뺥꽣 2 ?뚰듃 3: Center of Matrix -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 2 파트 4 — GOTOIT: Initiate(시작) 단계</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?뚰듃 3 ??留ㅽ듃由?뒪??以묒떖 (?뺤떊쨌媛먯젙쨌?곸쟻 ?붿냼)</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP — Initiate 단계 번역 (Dr. James Carter Jr.)</div>
-        <div class="fm-card-desc">협력 진료팀 구성, 긴급 의뢰 적신호 (흉통·체중감소·발열·신경증상 등), 치료 시작 우선순위 (촉발요인 제거 → 생활방식 → 장 건강 → 검사/보충제)</div>
+        <div class="fm-card-title">AFMCP ??留ㅽ듃由?뒪??以묒떖 踰덉뿭 (Dr. Joel Evans)</div>
+        <div class="fm-card-desc">?뺤떊?겶룰컧?뺤쟻쨌?곸쟻 ?붿냼媛 GOTOIT 媛??④퀎???곸슜?섎뒗 諛⑸쾿. ?듭같???섍꼍 留뚮뱾湲? ?곸꽦 ?됯?, ?????곌껐, 移섎즺 怨꾪쉷 怨듬룞 李쎌옉</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chap2_Initiate_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chap2_Initiate_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chap2_Initiate_번역.mp3">🎧 음성 듣기</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chap2_Center_of_Matrix_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chap2_Center_of_Matrix_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chap2_Center_of_Matrix_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
         </div>
       </div>
     </div>
 
-    <!-- 챕터 2 파트 5: Track -->
+    <!-- 梨뺥꽣 2 ?뚰듃 4: Initiate -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 2 파트 5 — GOTOIT: Track(추적) 단계</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?뚰듃 4 ??GOTOIT: Initiate(?쒖옉) ?④퀎</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP — Track 단계 번역 (Monique Class)</div>
-        <div class="fm-card-desc">환자 목표 모니터링, MSQ·PROMIS·식품 일지·웨어러블·검사실 추적 도구, 협력팀 역할 (기능 치과의사 포함 — 구강 마이크로바이옴 ↔ 전신 염증)</div>
+        <div class="fm-card-title">AFMCP ??Initiate ?④퀎 踰덉뿭 (Dr. James Carter Jr.)</div>
+        <div class="fm-card-desc">?묐젰 吏꾨즺? 援ъ꽦, 湲닿툒 ?섎ː ?곸떊??(?됲넻쨌泥댁쨷媛먯냼쨌諛쒖뿴쨌?좉꼍利앹긽 ??, 移섎즺 ?쒖옉 ?곗꽑?쒖쐞 (珥됰컻?붿씤 ?쒓굅 ???앺솢諛⑹떇 ????嫄닿컯 ??寃??蹂댁땐??</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="AFMCP_Chap2_Track_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="AFMCP_Chap2_Track_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="AFMCP_Chap2_Track_번역.mp3">🎧 음성 듣기</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chap2_Initiate_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chap2_Initiate_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chap2_Initiate_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
         </div>
       </div>
     </div>
 
-    <!-- 치료적 파트너십 실제 사례 -->
+    <!-- 梨뺥꽣 2 ?뚰듃 5: Track -->
     <div class="fm-section">
-      <div class="fm-section-title">특강 — 치료적 파트너십의 힘 (실제 사례)</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?뚰듃 5 ??GOTOIT: Track(異붿쟻) ?④퀎</div>
       <div class="fm-card">
-        <div class="fm-card-title">Menjivar &amp; McCord — 치료적 파트너십 번역</div>
-        <div class="fm-card-desc">의료 난민에서 박사로: Cristina의 실제 이야기. 브레인 포그·자궁내막증·만성 피로 극복 → 치료적 파트너십 주제로 박사 취득. '들어주는 것'이 첫 번째 치료</div>
+        <div class="fm-card-title">AFMCP ??Track ?④퀎 踰덉뿭 (Monique Class)</div>
+        <div class="fm-card-desc">?섏옄 紐⑺몴 紐⑤땲?곕쭅, MSQ쨌PROMIS쨌?앺뭹 ?쇱?쨌?⑥뼱?щ툝쨌寃?ъ떎 異붿쟻 ?꾧뎄, ?묐젰? ??븷 (湲곕뒫 移섍낵?섏궗 ?ы븿 ??援ш컯 留덉씠?щ줈諛붿씠?????꾩떊 ?쇱쬆)</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="Menjivar_McCord_치료적파트너십_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="Menjivar_McCord_치료적파트너십_요약.pdf" target="_blank">📋 요약 PDF</a>
-          <a class="fm-link mp3"   href="Menjivar_McCord_치료적파트너십_번역.mp3">🎧 음성 듣기</a>
+          <a class="fm-link pdf-t" href="AFMCP_Chap2_Track_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="AFMCP_Chap2_Track_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="AFMCP_Chap2_Track_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 移섎즺???뚰듃?덉떗 ?ㅼ젣 ?щ? -->
+    <div class="fm-section">
+      <div class="fm-section-title">?밴컯 ??移섎즺???뚰듃?덉떗????(?ㅼ젣 ?щ?)</div>
+      <div class="fm-card">
+        <div class="fm-card-title">Menjivar &amp; McCord ??移섎즺???뚰듃?덉떗 踰덉뿭</div>
+        <div class="fm-card-desc">?섎즺 ?쒕??먯꽌 諛뺤궗濡? Cristina???ㅼ젣 ?댁빞湲? 釉뚮젅???ш렇쨌?먭턿?대쭑利씲룸쭔???쇰줈 洹밸났 ??移섎즺???뚰듃?덉떗 二쇱젣濡?諛뺤궗 痍⑤뱷. '?ㅼ뼱二쇰뒗 寃???泥?踰덉㎏ 移섎즺</div>
+        <div class="fm-links">
+          <a class="fm-link pdf-t" href="Menjivar_McCord_移섎즺?곹뙆?몃꼫??踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="Menjivar_McCord_移섎즺?곹뙆?몃꼫???붿빟.pdf">?뱥 ?붿빟 PDF</a>
+          <a class="fm-link mp3"   href="Menjivar_McCord_移섎즺?곹뙆?몃꼫??踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
         </div>
       </div>
     </div>
 
     <!-- Panel: What Matters to Patient -->
     <div class="fm-section">
-      <div class="fm-section-title">챕터 2 특별편 — 환자에게 중요한 것 (패널 토론)</div>
+      <div class="fm-section-title">梨뺥꽣 2 ?밸퀎?????섏옄?먭쾶 以묒슂??寃?(?⑤꼸 ?좊줎)</div>
       <div class="fm-card">
-        <div class="fm-card-title">AFMCP — 환자에게 중요한 것 번역 (패널 토론)</div>
-        <div class="fm-card-desc">챕터 2 패널 토론: 환자 중심 진료에서 '무엇이 중요한가'. 환자의 가치관·목표·선호도를 GOTOIT에 통합하는 방법, 치료 관계에서 경청의 역할</div>
+        <div class="fm-card-title">AFMCP ???섏옄?먭쾶 以묒슂??寃?踰덉뿭 (?⑤꼸 ?좊줎)</div>
+        <div class="fm-card-desc">梨뺥꽣 2 ?⑤꼸 ?좊줎: ?섏옄 以묒떖 吏꾨즺?먯꽌 '臾댁뾿??以묒슂?쒓?'. ?섏옄??媛移섍?쨌紐⑺몴쨌?좏샇?꾨? GOTOIT???듯빀?섎뒗 諛⑸쾿, 移섎즺 愿怨꾩뿉??寃쎌껌????븷</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="Panel_환자에게중요한것_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="Panel_환자에게중요한것_요약.pdf" target="_blank">📋 요약 PDF</a>
+          <a class="fm-link pdf-t" href="Panel_?섏옄?먭쾶以묒슂?쒓쾬_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="Panel_?섏옄?먭쾶以묒슂?쒓쾬_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
         </div>
       </div>
     </div>
 
     <!-- Miller: Using Center of Matrix -->
     <div class="fm-section">
-      <div class="fm-section-title">특강 — 매트릭스 중심 활용 임상사례 (Miller)</div>
+      <div class="fm-section-title">?밴컯 ??留ㅽ듃由?뒪 以묒떖 ?쒖슜 ?꾩긽?щ? (Miller)</div>
       <div class="fm-card">
-        <div class="fm-card-title">Miller — 매트릭스 중심 활용 임상사례 번역</div>
-        <div class="fm-card-desc">매트릭스 중심(정신·감정·영적 요소)을 실제 환자 케어에 적용하는 방법. 임상 사례를 통해 마음-몸 연결, 의미·목적 탐색, 환자 참여를 이끄는 대화 기술</div>
+        <div class="fm-card-title">Miller ??留ㅽ듃由?뒪 以묒떖 ?쒖슜 ?꾩긽?щ? 踰덉뿭</div>
+        <div class="fm-card-desc">留ㅽ듃由?뒪 以묒떖(?뺤떊쨌媛먯젙쨌?곸쟻 ?붿냼)???ㅼ젣 ?섏옄 耳?댁뿉 ?곸슜?섎뒗 諛⑸쾿. ?꾩긽 ?щ?瑜??듯빐 留덉쓬-紐??곌껐, ?섎?쨌紐⑹쟻 ?먯깋, ?섏옄 李몄뿬瑜??대걚?????湲곗닠</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="Miller_매트릭스중심_임상사례_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link pdf-s" href="Miller_매트릭스중심_임상사례_요약.pdf" target="_blank">📋 요약 PDF</a>
+          <a class="fm-link pdf-t" href="Miller_留ㅽ듃由?뒪以묒떖_?꾩긽?щ?_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link pdf-s" href="Miller_留ㅽ듃由?뒪以묒떖_?꾩긽?щ?_?붿빟.pdf">?뱥 ?붿빟 PDF</a>
         </div>
       </div>
     </div>
 
     <!-- Kaplan -->
     <div class="fm-section">
-      <div class="fm-section-title">특강 — 기능의학 엘리베이터 스피치</div>
+      <div class="fm-section-title">?밴컯 ??湲곕뒫?섑븰 ?섎━踰좎씠???ㅽ뵾移?/div>
       <div class="fm-card">
-        <div class="fm-card-title">Kaplan — 기능의학 엘리베이터 스피치</div>
-        <div class="fm-card-desc">환자·동료에게 기능의학을 1~2분 안에 설명하는 법. 간결한 핵심 메시지 구성과 실전 표현</div>
+        <div class="fm-card-title">Kaplan ??湲곕뒫?섑븰 ?섎━踰좎씠???ㅽ뵾移?/div>
+        <div class="fm-card-desc">?섏옄쨌?숇즺?먭쾶 湲곕뒫?섑븰??1~2遺??덉뿉 ?ㅻ챸?섎뒗 踰? 媛꾧껐???듭떖 硫붿떆吏 援ъ꽦怨??ㅼ쟾 ?쒗쁽</div>
         <div class="fm-links">
-          <a class="fm-link pdf-t" href="Kaplan_기능의학_엘리베이터스피치_번역.pdf" target="_blank">📄 번역 PDF</a>
-          <a class="fm-link mp3"   href="Kaplan_기능의학_엘리베이터스피치_번역.mp3">🎧 음성 듣기</a>
-          <a class="fm-link mp3-f" href="음성/Kaplan_기능의학_엘리베이터스피치_번역_1.5배속.mp3">⚡ 1.5배속</a>
+          <a class="fm-link pdf-t" href="Kaplan_湲곕뒫?섑븰_?섎━踰좎씠?곗뒪?쇱튂_踰덉뿭.pdf">?뱞 踰덉뿭 PDF</a>
+          <a class="fm-link mp3"   href="Kaplan_湲곕뒫?섑븰_?섎━踰좎씠?곗뒪?쇱튂_踰덉뿭.mp3">?렒 ?뚯꽦 ?ｊ린</a>
+          <a class="fm-link mp3-f" href="?뚯꽦/Kaplan_湲곕뒫?섑븰_?섎━踰좎씠?곗뒪?쇱튂_踰덉뿭_1.5諛곗냽.mp3">??1.5諛곗냽</a>
         </div>
       </div>
     </div>
 
   </main>
-  <div class="footer">기능의학 강의 자료 &nbsp;|&nbsp; AFMCP 2025–2026</div>
+  <div class="footer">湲곕뒫?섑븰 媛뺤쓽 ?먮즺 &nbsp;|&nbsp; AFMCP 2025??026</div>
 </div>
 
 <script>
-  /* ── 탭 전환 ── */
+  /* ?? ???꾪솚 ?? */
   function switchTab(tab, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-main', 'active-dental', 'active-fm'));
@@ -1134,7 +1134,7 @@
     window.scrollTo(0, 0);
   }
 
-  /* ── 할일 체크 ── */
+  /* ?? ?좎씪 泥댄겕 ?? */
   function toggleTask(id) {
     const saved = JSON.parse(localStorage.getItem('tasks-eunyoung') || '{}');
     saved[id] = !saved[id];
@@ -1148,7 +1148,7 @@
     ['t1','t2','t3','t4','t5','t6'].forEach(id => {
       const b = document.getElementById('status-' + id);
       if (!b) return;
-      b.textContent = saved[id] ? '✅ 완료' : '미완료';
+      b.textContent = saved[id] ? '???꾨즺' : '誘몄셿猷?;
       b.className = 'badge ' + (saved[id] ? 'badge-done' : 'badge-todo');
     });
     const done = Object.values(saved).filter(Boolean).length;
@@ -1158,13 +1158,13 @@
     const lbl  = document.querySelector('.progress-label span:last-child');
     const pt = saved['t4'] ? 1 : 0;
     if (fill) fill.style.width = (pt * 6.25) + '%';
-    if (lbl)  lbl.textContent = pt + ' / 16회';
+    if (lbl)  lbl.textContent = pt + ' / 16??;
   }
   document.addEventListener('DOMContentLoaded', () => {
     applyAll(JSON.parse(localStorage.getItem('tasks-eunyoung') || '{}'));
   });
 
-  /* ── 영어 문장 필터 ── */
+  /* ?? ?곸뼱 臾몄옣 ?꾪꽣 ?? */
   let currentCat = 'all';
   function filterPhrases() {
     const kw = document.getElementById('phraseSearch').value.toLowerCase();
@@ -1196,3 +1196,4 @@
 </script>
 </body>
 </html>
+
