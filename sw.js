@@ -1,6 +1,5 @@
-const CACHE = 'eunyoung-v1';
+const CACHE = 'eunyoung-v2';
 const ASSETS = [
-  './회의록%20페이지.html',
   './manifest.json',
   './icon.svg'
 ];
@@ -20,6 +19,9 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  // PDF 파일은 서비스 워커 거치지 않고 직접 브라우저가 처리
+  if (e.request.url.match(/\.pdf(\?|$)/i)) return;
+
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request))
   );
