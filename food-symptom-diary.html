@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>기능의학 Food &amp; Symptom Diary</title>
+<style>
+@page { size: A4; margin: 10mm 12mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --sage: #6b8f6b;
+  --sage-dark: #3d5c3d;
+  --sage-light: #eef4ee;
+  --sage-mid: #c8dcc8;
+  --warm: #f7f5f0;
+  --border: #ccc;
+  --text: #1a1a1a;
+  --muted: #666;
+}
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-size: 8pt;
+  color: var(--text);
+  background: white;
+  line-height: 1.4;
+}
+
+/* ── COVER ─────────────────────────────── */
+.cover {
+  width: 186mm; height: 277mm;
+  page-break-after: always;
+  background: var(--sage-light);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5mm; text-align: center; overflow: hidden;
+}
+.cover-leaf { margin-bottom: 2mm; }
+.cover-eng {
+  font-size: 9pt; letter-spacing: 3px;
+  color: var(--sage); text-transform: uppercase; font-weight: 400;
+}
+.cover-title {
+  font-size: 28pt; font-weight: 700;
+  color: var(--sage-dark); line-height: 1.15;
+}
+.cover-kr { font-size: 13pt; color: var(--sage); margin-top: -1mm; }
+.cover-rule { width: 28mm; height: 1.5px; background: var(--sage); margin: 3mm auto; }
+.cover-desc {
+  font-size: 8.5pt; color: var(--muted);
+  line-height: 1.9; max-width: 130mm;
+}
+.cover-note {
+  margin-top: 6mm;
+  font-size: 7.5pt; color: var(--muted);
+  border: 1px solid var(--sage-mid);
+  padding: 2.5mm 5mm; border-radius: 2mm;
+  background: white;
+}
+
+/* ── DAILY PAGE ─────────────────────────── */
+.daily-page {
+  width: 186mm; height: 277mm;
+  page-break-after: always; overflow: hidden;
+  display: flex; flex-direction: column; gap: 1.8mm;
+  padding: 0;
+}
+
+.daily-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--sage);
+  padding-bottom: 2.5mm; flex-shrink: 0;
+}
+.date-field {
+  display: flex; align-items: center; gap: 2mm;
+  font-size: 10pt; font-weight: 700; color: var(--sage-dark);
+}
+.date-field .uline {
+  display: inline-block; width: 52mm;
+  border-bottom: 1.5px solid var(--text);
+}
+.header-brand {
+  font-size: 6.5pt; font-weight: 700;
+  color: var(--sage); letter-spacing: 1.5px;
+  text-transform: uppercase; text-align: right;
+  line-height: 1.5;
+}
+
+/* Meal box */
+.meal-box {
+  border: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 65mm;
+  flex-shrink: 0; height: 51mm;
+}
+.meal-food {
+  border-right: 1px solid var(--border);
+  padding: 2mm 3mm;
+  display: flex; flex-direction: column;
+}
+.meal-top {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5mm;
+}
+.meal-name {
+  font-size: 8.5pt; font-weight: 700;
+  color: var(--sage-dark); text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.meal-time {
+  font-size: 7pt; color: var(--muted);
+  display: flex; align-items: center; gap: 1mm;
+}
+.tuline { display: inline-block; width: 14mm; border-bottom: 1px solid #aaa; }
+.wlines { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+.wl { border-bottom: 1px solid #e0e0e0; }
+
+/* Symptoms panel */
+.meal-sym {
+  padding: 2mm 2.5mm;
+  background: var(--warm);
+  display: flex; flex-direction: column;
+}
+.sym-hd {
+  font-size: 5.8pt; font-weight: 700;
+  color: var(--muted); text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 2mm;
+}
+.sym-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2mm 2mm; flex: 1;
+}
+.si {
+  display: flex; align-items: center;
+  gap: 1.2mm; font-size: 7pt;
+  white-space: nowrap;
+}
+.cb {
+  width: 3mm; height: 3mm;
+  border: 1.2px solid #777;
+  display: inline-block; flex-shrink: 0;
+}
+.sev-row {
+  margin-top: 2mm; border-top: 1px solid var(--border);
+  padding-top: 1.5mm;
+}
+.sev-lbl { font-size: 5.5pt; color: var(--muted); margin-bottom: 1mm; }
+.sev-opts { display: flex; gap: 2.5mm; }
+.sev-o { display: flex; align-items: center; gap: 0.8mm; font-size: 6.5pt; }
+.dot { width: 3.5mm; height: 3.5mm; border: 1.2px solid #777; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* Snacks */
+.snacks-box {
+  border: 1px solid var(--border);
+  padding: 2mm 3mm; flex-shrink: 0; height: 19mm;
+  display: flex; align-items: flex-start; gap: 3mm;
+}
+.snacks-name {
+  font-size: 8.5pt; font-weight: 700;
+  color: var(--sage-dark); text-transform: uppercase;
+  letter-spacing: 0.8px; white-space: nowrap;
+  min-width: 22mm;
+}
+.snacks-lines { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; height: 100%; }
+.snack-time { font-size: 7pt; color: var(--muted); display: flex; align-items: center; gap: 1mm; white-space: nowrap; }
+
+/* Daily Trackers */
+.trackers-box {
+  border: 1.5px solid var(--sage);
+  padding: 2.5mm 3mm;
+  background: var(--sage-light);
+  flex: 1; min-height: 0;
+}
+.tr-hd {
+  font-size: 7pt; font-weight: 700;
+  color: var(--sage-dark); text-transform: uppercase;
+  letter-spacing: 1.2px; margin-bottom: 2.5mm;
+  display: flex; align-items: center; gap: 2mm;
+}
+.tr-hd::after { content: ''; flex: 1; height: 1px; background: var(--sage-mid); }
+.tr-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2mm 6mm;
+}
+.tr-row { display: flex; align-items: center; gap: 1.5mm; font-size: 7.5pt; }
+.tr-lbl {
+  font-size: 7pt; font-weight: 700;
+  color: var(--muted); white-space: nowrap; min-width: 20mm;
+}
+.tr-uline { flex: 1; border-bottom: 1px solid #aaa; min-width: 15mm; }
+.circles { display: flex; gap: 1.2mm; }
+.cnum {
+  width: 5.5mm; height: 5.5mm;
+  border: 1.2px solid #888; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6pt; font-weight: 700; color: #555;
+}
+.btypes { display: flex; gap: 0.8mm; }
+.bnum {
+  width: 6.5mm; height: 6.5mm;
+  border: 1.2px solid #888; border-radius: 1.5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6.5pt; font-weight: 700; color: #444;
+}
+.full-col { grid-column: 1 / -1; }
+.med-line { flex: 1; border-bottom: 1px solid #aaa; }
+.notes-line { flex: 1; border-bottom: 1px solid #aaa; margin-top: 2mm; }
+
+/* ── REFERENCE PAGE BASE ────────────────── */
+.ref-page {
+  width: 186mm; height: 277mm;
+  page-break-after: always; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.ref-hdr {
+  background: var(--sage); color: white;
+  padding: 4.5mm 6mm; flex-shrink: 0;
+}
+.ref-title { font-size: 14pt; font-weight: 700; margin-bottom: 0.8mm; }
+.ref-sub { font-size: 7.5pt; opacity: 0.85; line-height: 1.5; }
+.ref-body {
+  flex: 1; padding: 4mm 6mm;
+  display: flex; flex-direction: column; gap: 3mm;
+  overflow: hidden;
+}
+.card {
+  background: var(--sage-light);
+  border-left: 3px solid var(--sage);
+  padding: 2.5mm 3.5mm;
+}
+.card-t {
+  font-size: 8.5pt; font-weight: 700;
+  color: var(--sage-dark); margin-bottom: 1.5mm;
+}
+.card-b { font-size: 7.5pt; color: var(--muted); line-height: 1.65; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm; }
+
+/* ── SLEEP PAGE ─────────────────────────── */
+.sleep-chart {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm;
+}
+.sleep-phase {
+  border: 1px solid var(--border); padding: 2.5mm;
+  background: white; text-align: center;
+}
+.phase-icon { font-size: 18pt; margin-bottom: 1mm; }
+.phase-t { font-size: 7.5pt; font-weight: 700; color: var(--sage-dark); margin-bottom: 1mm; }
+.phase-b { font-size: 6.5pt; color: var(--muted); line-height: 1.5; }
+
+.sleep-tracker-guide {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm;
+}
+.track-item {
+  border: 1px solid var(--border); background: white; padding: 2.5mm;
+}
+.track-t { font-size: 7.5pt; font-weight: 700; color: var(--sage-dark); margin-bottom: 1mm; }
+.track-b { font-size: 7pt; color: var(--muted); line-height: 1.5; }
+
+/* ── BRISTOL PAGE ───────────────────────── */
+.bristol-row {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2mm;
+}
+.bcard {
+  border: 1.5px solid var(--border);
+  padding: 2mm; text-align: center; background: white;
+}
+.bcard-n { font-size: 12pt; font-weight: 700; }
+.bcard-name { font-size: 5.8pt; font-weight: 700; color: var(--muted); margin: 1mm 0 0.5mm; }
+.bcard-desc { font-size: 5.5pt; color: #555; line-height: 1.5; }
+.bcard-tag {
+  font-size: 5.5pt; font-weight: 700;
+  padding: 0.5mm 1.5mm; border-radius: 1mm;
+  display: inline-block; margin-top: 1.5mm;
+}
+.tag-bad { background: #fde8e8; color: #b71c1c; }
+.tag-ok  { background: #e8f5e9; color: #1b5e20; }
+.tag-warn { background: #fff8e1; color: #f57f17; }
+
+.bristol-tip {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm;
+}
+.btip { border: 1px solid var(--border); background: white; padding: 2.5mm; }
+.btip-t { font-size: 7.5pt; font-weight: 700; margin-bottom: 1mm; }
+.btip-b { font-size: 7pt; color: var(--muted); line-height: 1.6; }
+
+/* ── FOODS PAGE ─────────────────────────── */
+.foods-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm; flex: 1;
+}
+.fcat { border: 1px solid var(--border); overflow: hidden; }
+.fcat-hd {
+  background: var(--sage); color: white;
+  padding: 1.5mm 3mm;
+  font-size: 7.5pt; font-weight: 700;
+}
+.fcat-body { padding: 2mm 3mm; background: white; }
+.fitem {
+  display: flex; align-items: flex-start; gap: 1.5mm;
+  font-size: 7pt; color: var(--muted);
+  margin-bottom: 1.2mm; line-height: 1.4;
+}
+.fitem::before { content: '✕'; color: #c62828; font-weight: 700; flex-shrink: 0; }
+
+/* ── SUPPLEMENTS PAGE ──────────────────── */
+.supp-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; }
+.supp-table th {
+  background: var(--sage); color: white;
+  padding: 2mm 3mm; text-align: left;
+  font-size: 7pt; font-weight: 700;
+}
+.supp-table td {
+  padding: 2mm 3mm;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top; line-height: 1.5;
+}
+.supp-table tr:nth-child(even) td { background: var(--warm); }
+.supp-name { font-weight: 700; color: var(--sage-dark); }
+.supp-note { font-size: 6.5pt; color: var(--muted); }
+
+/* ── EXERCISE PAGE ──────────────────────── */
+.zone2-box {
+  background: var(--sage-light);
+  border: 1.5px solid var(--sage);
+  padding: 3mm 4mm; flex-shrink: 0;
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3mm;
+  align-items: center;
+}
+.z2-stat { text-align: center; }
+.z2-big { font-size: 16pt; font-weight: 700; color: var(--sage-dark); display: block; }
+.z2-lbl { font-size: 6.5pt; color: var(--muted); line-height: 1.6; }
+.z2-divider { width: 1px; height: 14mm; background: var(--sage-mid); margin: auto; }
+.ex-section-title {
+  font-size: 8pt; font-weight: 700; color: var(--sage-dark);
+  text-transform: uppercase; letter-spacing: 1px;
+  border-bottom: 1px solid var(--sage-mid); padding-bottom: 1.5mm;
+  flex-shrink: 0;
+}
+.ex-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; flex: 1;
+}
+.ex-card {
+  border: 1px solid var(--border); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.ex-fig {
+  background: var(--sage-light);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2mm; flex: 1;
+}
+.ex-info { padding: 2mm; background: white; }
+.ex-name { font-size: 7.5pt; font-weight: 700; color: var(--sage-dark); margin-bottom: 0.8mm; }
+.ex-desc { font-size: 6pt; color: var(--muted); line-height: 1.5; }
+
+/* 주의 경고 박스 */
+.warn-note {
+  font-size: 6.5pt;
+  color: #bf360c;
+  background: #fff3e0;
+  border-left: 2px solid #ff8f00;
+  padding: 1mm 2mm;
+  margin-top: 1.5mm;
+  line-height: 1.5;
+}
+.warn-tag {
+  display: inline-block;
+  font-size: 6pt;
+  font-weight: 700;
+  background: #ff8f00;
+  color: white;
+  padding: 0 1.5mm;
+  border-radius: 1mm;
+  margin-right: 1mm;
+}
+
+/* 이미지 플레이스홀더 */
+.img-placeholder {
+  background: var(--sage-light);
+  border: 1.5px dashed var(--sage-mid);
+  border-radius: 2mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2mm;
+  text-align: center;
+  padding: 3mm;
+}
+.img-ph-label {
+  font-size: 7pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+}
+.img-ph-desc {
+  font-size: 6pt;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.img-ph-icon {
+  font-size: 18pt;
+  opacity: 0.5;
+}
+
+/* 운동 권장량 박스 */
+.rec-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5mm;
+  flex-shrink: 0;
+}
+.rec-card {
+  border: 1.5px solid var(--sage);
+  border-radius: 2mm;
+  overflow: hidden;
+}
+.rec-card-hd {
+  background: var(--sage);
+  color: white;
+  padding: 2mm 3mm;
+  font-size: 8pt;
+  font-weight: 700;
+}
+.rec-card-body {
+  padding: 2.5mm 3mm;
+  background: white;
+  font-size: 7.5pt;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.rec-highlight {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+  display: block;
+  margin-bottom: 0.5mm;
+}
+
+/* ── PRINT ──────────────────────────────── */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     PAGE 1  COVER / 표지
+════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-leaf">
+    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+      <path d="M30 55 C30 55 8 40 8 22 C8 12 18 5 30 5 C42 5 52 12 52 22 C52 40 30 55 30 55Z" fill="#6b8f6b" opacity="0.25"/>
+      <path d="M30 50 C30 50 12 38 12 24 C12 15 20 8 30 8 C40 8 48 15 48 24 C48 38 30 50 30 50Z" fill="#6b8f6b" opacity="0.45"/>
+      <line x1="30" y1="55" x2="30" y2="20" stroke="#6b8f6b" stroke-width="1.5" opacity="0.6"/>
+      <path d="M30 35 Q22 28 20 20" stroke="#6b8f6b" stroke-width="1.2" fill="none" opacity="0.5"/>
+      <path d="M30 30 Q38 24 40 16" stroke="#6b8f6b" stroke-width="1.2" fill="none" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="cover-eng">Functional Medicine</div>
+  <div class="cover-title">Food &amp; Symptom<br>Diary</div>
+  <div class="cover-kr">기능의학 음식 &amp; 증상 다이어리</div>
+  <div class="cover-rule"></div>
+  <div class="cover-desc">
+    먹은 것을 기록하고 몸의 반응을 추적합니다<br>
+    내 몸에 맞지 않는 음식을 스스로 찾아가는 여정<br>
+    <br>
+    매일 기록  ·  Sleep  ·  Bristol  ·  Stress  ·  Exercise
+  </div>
+  <div class="cover-note">
+    이 다이어리는 필요한 만큼 복사하여 사용하세요<br>
+    일일 기록 페이지(2페이지)를 원하는 날짜만 출력하면 됩니다
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 2  DAILY LOG (메인 기록 페이지)
+════════════════════════════════════════ -->
+<div class="daily-page">
+
+  <!-- Header -->
+  <div class="daily-header">
+    <div class="date-field">
+      DATE&nbsp;<span class="uline"></span>
+    </div>
+    <div class="header-brand">Functional Medicine<br>Food &amp; Symptom Diary</div>
+  </div>
+
+  <!-- BREAKFAST -->
+  <div class="meal-box">
+    <div class="meal-food">
+      <div class="meal-top">
+        <div class="meal-name">Breakfast &nbsp;아침</div>
+        <div class="meal-time">Time <span class="tuline"></span></div>
+      </div>
+      <div class="wlines">
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+      </div>
+    </div>
+    <div class="meal-sym">
+      <div class="sym-hd">Symptoms 증상</div>
+      <div class="sym-grid">
+        <div class="si"><span class="cb"></span>팽만감</div>
+        <div class="si"><span class="cb"></span>두통</div>
+        <div class="si"><span class="cb"></span>복통</div>
+        <div class="si"><span class="cb"></span>피로감</div>
+        <div class="si"><span class="cb"></span>소화불량</div>
+        <div class="si"><span class="cb"></span>피부증상</div>
+        <div class="si"><span class="cb"></span>설사</div>
+        <div class="si"><span class="cb"></span>관절통</div>
+        <div class="si"><span class="cb"></span>변비</div>
+        <div class="si"><span class="cb"></span>기타____</div>
+        <div class="si"><span class="cb"></span>속쓰림</div>
+        <div class="si"><span class="cb"></span>메스꺼움</div>
+      </div>
+      <div class="sev-row">
+        <div class="sev-lbl">Severity 심각도</div>
+        <div class="sev-opts">
+          <div class="sev-o"><span class="dot"></span>없음</div>
+          <div class="sev-o"><span class="dot"></span>약함</div>
+          <div class="sev-o"><span class="dot"></span>보통</div>
+          <div class="sev-o"><span class="dot"></span>심함</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNCH -->
+  <div class="meal-box">
+    <div class="meal-food">
+      <div class="meal-top">
+        <div class="meal-name">Lunch &nbsp;점심</div>
+        <div class="meal-time">Time <span class="tuline"></span></div>
+      </div>
+      <div class="wlines">
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+      </div>
+    </div>
+    <div class="meal-sym">
+      <div class="sym-hd">Symptoms 증상</div>
+      <div class="sym-grid">
+        <div class="si"><span class="cb"></span>팽만감</div>
+        <div class="si"><span class="cb"></span>두통</div>
+        <div class="si"><span class="cb"></span>복통</div>
+        <div class="si"><span class="cb"></span>피로감</div>
+        <div class="si"><span class="cb"></span>소화불량</div>
+        <div class="si"><span class="cb"></span>피부증상</div>
+        <div class="si"><span class="cb"></span>설사</div>
+        <div class="si"><span class="cb"></span>관절통</div>
+        <div class="si"><span class="cb"></span>변비</div>
+        <div class="si"><span class="cb"></span>기타____</div>
+        <div class="si"><span class="cb"></span>속쓰림</div>
+        <div class="si"><span class="cb"></span>메스꺼움</div>
+      </div>
+      <div class="sev-row">
+        <div class="sev-lbl">Severity 심각도</div>
+        <div class="sev-opts">
+          <div class="sev-o"><span class="dot"></span>없음</div>
+          <div class="sev-o"><span class="dot"></span>약함</div>
+          <div class="sev-o"><span class="dot"></span>보통</div>
+          <div class="sev-o"><span class="dot"></span>심함</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DINNER -->
+  <div class="meal-box">
+    <div class="meal-food">
+      <div class="meal-top">
+        <div class="meal-name">Dinner &nbsp;저녁</div>
+        <div class="meal-time">Time <span class="tuline"></span></div>
+      </div>
+      <div class="wlines">
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+        <div class="wl"></div>
+      </div>
+    </div>
+    <div class="meal-sym">
+      <div class="sym-hd">Symptoms 증상</div>
+      <div class="sym-grid">
+        <div class="si"><span class="cb"></span>팽만감</div>
+        <div class="si"><span class="cb"></span>두통</div>
+        <div class="si"><span class="cb"></span>복통</div>
+        <div class="si"><span class="cb"></span>피로감</div>
+        <div class="si"><span class="cb"></span>소화불량</div>
+        <div class="si"><span class="cb"></span>피부증상</div>
+        <div class="si"><span class="cb"></span>설사</div>
+        <div class="si"><span class="cb"></span>관절통</div>
+        <div class="si"><span class="cb"></span>변비</div>
+        <div class="si"><span class="cb"></span>기타____</div>
+        <div class="si"><span class="cb"></span>속쓰림</div>
+        <div class="si"><span class="cb"></span>메스꺼움</div>
+      </div>
+      <div class="sev-row">
+        <div class="sev-lbl">Severity 심각도</div>
+        <div class="sev-opts">
+          <div class="sev-o"><span class="dot"></span>없음</div>
+          <div class="sev-o"><span class="dot"></span>약함</div>
+          <div class="sev-o"><span class="dot"></span>보통</div>
+          <div class="sev-o"><span class="dot"></span>심함</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SNACKS -->
+  <div class="snacks-box">
+    <div class="snacks-name">Snacks&nbsp;간식</div>
+    <div class="snacks-lines">
+      <div class="wl"></div>
+      <div class="wl"></div>
+      <div class="wl"></div>
+    </div>
+    <div style="font-size:7pt;color:var(--muted);white-space:nowrap;min-width:16mm;">
+      증상 <span style="display:inline-block;width:20mm;border-bottom:1px solid #aaa;"></span>
+    </div>
+  </div>
+
+  <!-- DAILY TRACKERS -->
+  <div class="trackers-box">
+    <div class="tr-hd">Daily Tracking</div>
+    <div class="tr-grid">
+
+      <div class="tr-row">
+        <span class="tr-lbl">Sleep 수면</span>
+        <span style="font-size:7pt;color:var(--muted);margin-right:1mm;">____ hrs</span>
+        <span style="font-size:7pt;color:var(--muted);margin-right:1mm;">Quality</span>
+        <div class="circles">
+          <div class="cnum">1</div>
+          <div class="cnum">2</div>
+          <div class="cnum">3</div>
+          <div class="cnum">4</div>
+          <div class="cnum">5</div>
+        </div>
+      </div>
+
+      <div class="tr-row">
+        <span class="tr-lbl">Stress</span>
+        <div class="circles">
+          <div class="cnum">1</div>
+          <div class="cnum">2</div>
+          <div class="cnum">3</div>
+          <div class="cnum">4</div>
+          <div class="cnum">5</div>
+        </div>
+        <span style="font-size:6.5pt;color:var(--muted);margin-left:2mm;">낮음→높음</span>
+      </div>
+
+      <div class="tr-row full-col">
+        <span class="tr-lbl">Bristol Type</span>
+        <div class="btypes">
+          <div class="bnum">1</div>
+          <div class="bnum">2</div>
+          <div class="bnum">3</div>
+          <div class="bnum" style="border-color:var(--sage);color:var(--sage-dark);font-weight:900;">4</div>
+          <div class="bnum">5</div>
+          <div class="bnum">6</div>
+          <div class="bnum">7</div>
+        </div>
+        <span style="font-size:6.5pt;color:var(--muted);margin-left:2mm;">4번이 이상적</span>
+      </div>
+
+      <div class="tr-row full-col">
+        <span class="tr-lbl">Medication<br>Supplements</span>
+        <span class="med-line"></span>
+      </div>
+
+      <div class="tr-row">
+        <span class="tr-lbl">Exercise</span>
+        <span class="tr-uline" style="min-width:22mm;"></span>
+        <span style="font-size:7pt;color:var(--muted);margin:0 1mm;">____min</span>
+        <span class="cb" style="margin-right:0.8mm;"></span>
+        <span style="font-size:6.5pt;">Zone 2</span>
+      </div>
+
+      <div class="tr-row">
+        <span class="tr-lbl">Meditation</span>
+        <span style="font-size:7pt;color:var(--muted);margin-right:1.5mm;">____min</span>
+        <span style="font-size:7pt;color:var(--muted);margin-right:1mm;">방법</span>
+        <span class="tr-uline" style="min-width:28mm;"></span>
+        <div class="circles" style="margin-left:2mm;">
+          <div class="cnum">1</div>
+          <div class="cnum">2</div>
+          <div class="cnum">3</div>
+          <div class="cnum">4</div>
+          <div class="cnum">5</div>
+        </div>
+        <span style="font-size:6pt;color:var(--muted);margin-left:1.5mm;">집중도</span>
+      </div>
+
+      <div class="tr-row">
+        <span class="tr-lbl">Water 수분</span>
+        <div style="display:flex;gap:1mm;">
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+          <span style="font-size:9pt;">💧</span>
+        </div>
+        <span style="font-size:6.5pt;color:var(--muted);margin-left:1.5mm;">(250ml/잔)</span>
+      </div>
+
+      <div class="tr-row full-col" style="align-items:flex-start;">
+        <span class="tr-lbl" style="margin-top:1mm;">Notes 메모</span>
+        <div style="flex:1;border-bottom:1px solid #aaa;margin-bottom:3mm;"></div>
+      </div>
+      <div style="grid-column:1/-1;border-bottom:1px solid #aaa;margin-top:-1mm;"></div>
+
+    </div>
+  </div>
+
+</div><!-- end daily-page -->
+
+
+<!-- ════════════════════════════════════════
+     PAGE 3  SLEEP TRACKER 가이드
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">Sleep Tracker 가이드</div>
+    <div class="ref-sub">수면을 추적하면 무엇이 달라지는가 — 기능의학적 관점</div>
+  </div>
+  <div class="ref-body">
+
+    <div class="card">
+      <div class="card-t">왜 수면을 기록해야 할까?</div>
+      <div class="card-b">수면은 단순한 휴식이 아닙니다. 수면 중 우리 몸은 독소 제거(글림프 시스템), 호르몬 재설정, 장 점막 복구, 면역 강화를 수행합니다.
+      <br>수면 패턴을 추적하면 염증, 혈당 조절, 장 건강, 기분과의 연결고리를 직접 확인할 수 있습니다.</div>
+    </div>
+
+    <div class="sleep-chart">
+      <div class="sleep-phase">
+        <div class="phase-icon">🌙</div>
+        <div class="phase-t">입면 단계<br><span style="font-size:6pt;font-weight:400;">N1 (5-10분)</span></div>
+        <div class="phase-b">의식이 흐려지는 단계. 수면 시작까지 30분 이상 걸린다면 코르티솔 또는 혈당 문제 의심</div>
+      </div>
+      <div class="sleep-phase">
+        <div class="phase-icon">💤</div>
+        <div class="phase-t">얕은 수면<br><span style="font-size:6pt;font-weight:400;">N2 (45-55%)</span></div>
+        <div class="phase-b">기억 정리·학습. 이 단계가 짧으면 다음날 집중력 저하, 두통이 잦음</div>
+      </div>
+      <div class="sleep-phase">
+        <div class="phase-icon">🧠</div>
+        <div class="phase-t">깊은 수면<br><span style="font-size:6pt;font-weight:400;">N3 (20-25%)</span></div>
+        <div class="phase-b">성장호르몬 분비, 세포 복구, 면역 강화. <b>장 점막 재생</b>이 이 단계에 집중됨</div>
+      </div>
+      <div class="sleep-phase">
+        <div class="phase-icon">👁️</div>
+        <div class="phase-t">REM 수면<br><span style="font-size:6pt;font-weight:400;">20-25%)</span></div>
+        <div class="phase-b">감정 처리, 스트레스 해소. REM이 짧으면 불안·우울·음식 갈망 증가</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">수면 트래커로 파악할 수 있는 변화</div>
+      <div class="card-b">
+        <div class="sleep-tracker-guide">
+          <div class="track-item">
+            <div class="track-t">🍽️ 음식 → 수면의 질</div>
+            <div class="track-b">저녁 식사 후 2-3시간 내에 특정 음식(글루텐, 유제품, 설탕)을 먹었을 때 깊은 수면이 줄어드는 패턴을 발견할 수 있음</div>
+          </div>
+          <div class="track-item">
+            <div class="track-t">⏰ 수면 시간과 장 건강</div>
+            <div class="track-b">7시간 미만 수면 → 다음날 장 투과성 증가, 소화 불량, 팽만감 악화. 이 다이어리와 함께 패턴 확인 가능</div>
+          </div>
+          <div class="track-item">
+            <div class="track-t">📈 수면과 혈당</div>
+            <div class="track-b">수면 부족 시 코르티솔 상승 → 혈당 스파이크 → 다음날 설탕·탄수화물 갈망. 식욕 조절 실패의 원인</div>
+          </div>
+          <div class="track-item">
+            <div class="track-t">🦠 수면과 마이크로바이옴</div>
+            <div class="track-b">수면 리듬이 깨지면 장내세균 다양성 감소. 특히 유익균(락토바실러스, 비피도박테리움) 비율 저하</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card" style="border-left-color:#c62828;">
+        <div class="card-t" style="color:#c62828;">⚠️ 수면을 방해하는 것들</div>
+        <div class="card-b">
+          • 취침 3시간 내 음식 섭취 (특히 당분)<br>
+          • 카페인 (오후 2시 이후)<br>
+          • 블루라이트 (자기 1시간 전 스크린)<br>
+          • 알코올 (REM 수면 억제)<br>
+          • 스트레스 → 코르티솔 상승 → 입면 방해<br>
+          • 마그네슘 결핍 (신경 흥분 유지)
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">✅ 수면의 질을 높이는 방법</div>
+        <div class="card-b">
+          • 취침·기상 시간 일정하게 유지<br>
+          • 마그네슘 글리시네이트 취침 전 복용<br>
+          • 침실 온도 18-20°C 유지<br>
+          • 저녁 Zone 2 운동 (취침 3시간 전)<br>
+          • 취침 전 루틴 (독서, 스트레칭, 명상)<br>
+          • 오메가-3 복용으로 염증 감소
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-t">기록 방법 — 이 다이어리에서</div>
+      <div class="card-b">
+        <b>수면 시간(hrs)</b>을 기록하고 <b>Quality 1-5</b>로 주관적 수면의 질을 평가하세요.
+        2주 이상 데이터가 쌓이면 어떤 날 잘 잤는지, 전날 무엇을 먹었는지, 스트레스 수준이 어땠는지 패턴이 보이기 시작합니다.
+        특히 <b>Bristol Type + Sleep Quality</b>를 함께 보면 장-뇌-수면 축의 연결을 직접 확인할 수 있습니다.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 4  BRISTOL STOOL SCALE
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">Bristol Stool Scale</div>
+    <div class="ref-sub">변의 형태로 장 건강을 파악한다 — 기능의학에서 가장 중요한 지표 중 하나</div>
+  </div>
+  <div class="ref-body">
+
+    <div class="bristol-row">
+      <!-- Type 1 -->
+      <div class="bcard" style="border-color:#c62828;">
+        <div class="bcard-n" style="color:#c62828;">1</div>
+        <svg viewBox="0 0 50 28" width="50" height="28" style="display:block;margin:2mm auto;">
+          <circle cx="8" cy="14" r="5.5" fill="#8B6F4E"/>
+          <circle cx="20" cy="10" r="4.5" fill="#8B6F4E"/>
+          <circle cx="31" cy="15" r="5" fill="#8B6F4E"/>
+          <circle cx="42" cy="11" r="4" fill="#8B6F4E"/>
+        </svg>
+        <div class="bcard-name">단단한 덩어리</div>
+        <div class="bcard-desc">토끼 변 같은 분리된 작은 덩어리</div>
+        <span class="bcard-tag tag-bad">심한 변비</span>
+      </div>
+      <!-- Type 2 -->
+      <div class="bcard" style="border-color:#e53935;">
+        <div class="bcard-n" style="color:#e53935;">2</div>
+        <svg viewBox="0 0 52 28" width="52" height="28" style="display:block;margin:2mm auto;">
+          <path d="M 4 14 Q 10 6 17 14 Q 24 22 31 14 Q 38 6 48 14 Q 48 22 4 22 Z" fill="#8B6F4E"/>
+        </svg>
+        <div class="bcard-name">울퉁불퉁</div>
+        <div class="bcard-desc">덩어리진 소시지 형태</div>
+        <span class="bcard-tag tag-bad">변비</span>
+      </div>
+      <!-- Type 3 -->
+      <div class="bcard" style="border-color:#FB8C00;">
+        <div class="bcard-n" style="color:#FB8C00;">3</div>
+        <svg viewBox="0 0 52 22" width="52" height="22" style="display:block;margin:2mm auto;">
+          <rect x="4" y="5" width="44" height="12" rx="6" fill="#8B6F4E"/>
+          <line x1="16" y1="5" x2="14" y2="17" stroke="#5a4209" stroke-width="1.5"/>
+          <line x1="26" y1="5" x2="24" y2="17" stroke="#5a4209" stroke-width="1.5"/>
+          <line x1="36" y1="5" x2="34" y2="17" stroke="#5a4209" stroke-width="1.5"/>
+        </svg>
+        <div class="bcard-name">갈라진 소시지</div>
+        <div class="bcard-desc">표면에 균열이 있는 형태</div>
+        <span class="bcard-tag tag-warn">정상 경계</span>
+      </div>
+      <!-- Type 4 -->
+      <div class="bcard" style="border-color:#2e7d32;border-width:2px;">
+        <div class="bcard-n" style="color:#2e7d32;">4</div>
+        <svg viewBox="0 0 52 22" width="52" height="22" style="display:block;margin:2mm auto;">
+          <rect x="4" y="5" width="44" height="12" rx="6" fill="#5a8f3c"/>
+        </svg>
+        <div class="bcard-name">매끄러운 소시지</div>
+        <div class="bcard-desc">부드럽고 뱀처럼 연결된 형태</div>
+        <span class="bcard-tag tag-ok">✓ 이상적</span>
+      </div>
+      <!-- Type 5 -->
+      <div class="bcard" style="border-color:#FB8C00;">
+        <div class="bcard-n" style="color:#FB8C00;">5</div>
+        <svg viewBox="0 0 52 26" width="52" height="26" style="display:block;margin:2mm auto;">
+          <ellipse cx="10" cy="13" rx="8" ry="7" fill="#8B6F4E"/>
+          <ellipse cx="26" cy="13" rx="8" ry="7" fill="#8B6F4E"/>
+          <ellipse cx="42" cy="13" rx="8" ry="7" fill="#8B6F4E"/>
+        </svg>
+        <div class="bcard-name">부드러운 덩어리</div>
+        <div class="bcard-desc">경계가 명확한 부드러운 방울</div>
+        <span class="bcard-tag tag-warn">주의 필요</span>
+      </div>
+      <!-- Type 6 -->
+      <div class="bcard" style="border-color:#e53935;">
+        <div class="bcard-n" style="color:#e53935;">6</div>
+        <svg viewBox="0 0 52 28" width="52" height="28" style="display:block;margin:2mm auto;">
+          <path d="M 6 18 Q 12 6 20 13 Q 26 4 34 11 Q 40 3 47 10 Q 50 16 48 22 Q 38 28 26 26 Q 12 28 6 18 Z" fill="#8B6F4E"/>
+        </svg>
+        <div class="bcard-name">불규칙한 형태</div>
+        <div class="bcard-desc">가장자리가 불규칙한 무른 변</div>
+        <span class="bcard-tag tag-bad">설사 경향</span>
+      </div>
+      <!-- Type 7 -->
+      <div class="bcard" style="border-color:#c62828;">
+        <div class="bcard-n" style="color:#c62828;">7</div>
+        <svg viewBox="0 0 52 26" width="52" height="26" style="display:block;margin:2mm auto;">
+          <path d="M 4 20 Q 16 10 28 18 Q 36 10 48 18" stroke="#8B6F4E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          <path d="M 6 14 Q 16 6 26 12 Q 36 6 48 12" stroke="#8B6F4E" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <div class="bcard-name">수분성</div>
+        <div class="bcard-desc">고형물 없는 완전한 액체 변</div>
+        <span class="bcard-tag tag-bad">심한 설사</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card" style="border-left-color:#c62828;">
+        <div class="card-t" style="color:#c62828;">Type 1-2 (변비) 원인과 대처</div>
+        <div class="card-b">
+          <b>주요 원인:</b> 수분 부족, 식이섬유 부족, 마그네슘 결핍, 갑상선 기능 저하, 스트레스<br><br>
+          <b>기능의학적 접근:</b><br>
+          • 하루 2L 이상 물 섭취 (체중×30ml)<br>
+          • 마그네슘 시트레이트 200-400mg 취침 전<br>
+          • 치아시드, 아마씨 추가 (수용성 식이섬유)<br>
+          • 아침 기상 직후 공복 물 한 컵<br>
+          • 프로바이오틱스 (Lactobacillus acidophilus)
+        </div>
+      </div>
+      <div class="card" style="border-left-color:#e53935;">
+        <div class="card-t" style="color:#e53935;">Type 6-7 (설사) 원인과 대처</div>
+        <div class="card-b">
+          <b>주요 원인:</b> 음식 과민증(글루텐·유제품), 장내세균 불균형, 기생충, SIBO, 스트레스, 과민성 대장<br><br>
+          <b>기능의학적 접근:</b><br>
+          • 유발 식품 제거 (이 다이어리로 추적!)<br>
+          • L-글루타민 5g/일 (장 점막 복구)<br>
+          • 아연 카르노신 (장 점막 강화)<br>
+          • BRAT 다이어트 (바나나·쌀·사과·토스트)<br>
+          • 스트레스 관리 (장-뇌 축 연결)
+        </div>
+      </div>
+    </div>
+
+    <div class="bristol-tip">
+      <div class="btip">
+        <div class="btip-t" style="color:var(--sage-dark);">📅 기록 팁</div>
+        <div class="btip-b">매일 같은 시간대에 확인하세요. 아침 첫 배변이 가장 정보가 많습니다. 전날 저녁 식사와 함께 비교하면 패턴이 보입니다.</div>
+      </div>
+      <div class="btip">
+        <div class="btip-t" style="color:var(--sage-dark);">🎯 목표</div>
+        <div class="btip-b">하루 1-2회, Type 3-4 형태가 이상적입니다. 3일 이상 Type 1-2이거나 하루 3회 이상 Type 6-7이면 전문가 상담을 권합니다.</div>
+      </div>
+      <div class="btip">
+        <div class="btip-t" style="color:var(--sage-dark);">🔗 연결 지표</div>
+        <div class="btip-b">Bristol 변화 + 먹은 음식 + 스트레스 수준을 함께 보세요. 특정 음식 48-72시간 후 변화가 나타나는 경우가 많습니다.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 5  기능의학 피해야 할 음식
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">기능의학 — 피해야 할 음식</div>
+    <div class="ref-sub">염증을 일으키고 장 투과성을 높이는 음식들 · 개인차가 있으므로 이 다이어리로 직접 확인하세요</div>
+  </div>
+  <div class="ref-body">
+
+    <div class="foods-grid" style="flex:1;">
+
+      <div class="fcat">
+        <div class="fcat-hd">🌾 글루텐 (Gluten)</div>
+        <div class="fcat-body">
+          <div class="fitem">밀, 보리, 호밀, 스펠트밀</div>
+          <div class="fitem">빵, 파스타, 국수, 라면</div>
+          <div class="fitem">케이크, 쿠키, 크래커</div>
+          <div class="fitem">소스류 (간장, 된장, 고추장 多)</div>
+          <div class="fitem">맥주, 일부 귀리 (비인증)</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 현미, 퀴노아, 글루텐프리 오트, 메밀, 타피오카
+          </div>
+        </div>
+      </div>
+
+      <div class="fcat">
+        <div class="fcat-hd">🥛 유제품 (Dairy)</div>
+        <div class="fcat-body">
+          <div class="fitem">우유, 생크림, 버터</div>
+          <div class="fitem">치즈 (대부분)</div>
+          <div class="fitem">요거트 (설탕 첨가된 것)</div>
+          <div class="fitem">아이스크림, 유청 단백질</div>
+          <div class="fitem">카제인·유청 함유 가공식품</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 코코넛밀크, 아몬드밀크, 귀리우유, 기버터(Ghee)
+          </div>
+        </div>
+      </div>
+
+      <div class="fcat">
+        <div class="fcat-hd">🍬 정제당 &amp; 가공식품</div>
+        <div class="fcat-body">
+          <div class="fitem">백설탕, 액상과당(HFCS)</div>
+          <div class="fitem">사탕, 초콜릿 (70% 미만)</div>
+          <div class="fitem">탄산음료, 에너지드링크</div>
+          <div class="fitem">과자, 스낵류</div>
+          <div class="fitem">인공감미료 (아스파탐, 수크랄로스)</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 야콘시럽, 스테비아, 메이플시럽(소량), 대추야자
+          </div>
+        </div>
+      </div>
+
+      <div class="fcat">
+        <div class="fcat-hd">🛢️ 염증성 오일 &amp; 지방</div>
+        <div class="fcat-body">
+          <div class="fitem">카놀라유, 콩기름, 옥수수유</div>
+          <div class="fitem">해바라기유, 포도씨유, 면실유</div>
+          <div class="fitem">마가린, 쇼트닝 (트랜스지방)</div>
+          <div class="fitem">튀김류 (산화된 오일)</div>
+          <div class="fitem">가공식품 내 부분경화유</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 엑스트라버진 올리브오일, 코코넛오일, 아보카도오일
+          </div>
+        </div>
+      </div>
+
+      <div class="fcat">
+        <div class="fcat-hd">🥩 가공육 &amp; 첨가물</div>
+        <div class="fcat-body">
+          <div class="fitem">소시지, 햄, 베이컨 (아질산염)</div>
+          <div class="fitem">핫도그, 런천미트</div>
+          <div class="fitem">MSG 과다 함유 식품</div>
+          <div class="fitem">방부제 (BHA, BHT, 소르빈산)</div>
+          <div class="fitem">인공색소 (적색 40호, 황색 5호 등)</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 가공하지 않은 육류, 방목 닭·달걀, 자연산 생선
+          </div>
+        </div>
+      </div>
+
+      <div class="fcat">
+        <div class="fcat-hd">🍷 알코올 &amp; 카페인 과다</div>
+        <div class="fcat-body">
+          <div class="fitem">알코올 — 장 점막 파괴, 장누수 유발</div>
+          <div class="fitem">맥주 (글루텐 + 알코올 이중 문제)</div>
+          <div class="fitem">하루 커피 2잔 초과 시 부신 과부하</div>
+          <div class="fitem">에너지드링크 (카페인 + 설탕 복합)</div>
+          <div class="fitem">늦은 오후 카페인 (수면 방해)</div>
+          <div style="font-size:6.5pt;color:var(--sage-dark);margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+            ✓ 대체: 허브티, 치커리커피, 말차(소량), 콤부차
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="flex-shrink:0;">
+      <div class="card-t">⚡ 제거 식이 (Elimination Diet) — 가장 효과적인 방법</div>
+      <div class="card-b">
+        위 음식을 <b>3-4주 완전 제거</b>한 뒤 하나씩 재도입하면서 이 다이어리로 반응을 관찰하세요.
+        증상이 재현되는 음식이 <b>나만의 트리거 식품</b>입니다.
+        재도입 시 한 번에 하나씩, 3일 간격으로 확인하면 정확도가 높아집니다.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 6  필수 영양제
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">필수 영양제 &amp; 적정 복용량</div>
+    <div class="ref-sub">기능의학에서 권장하는 기본 영양제 — 복용 전 의료진과 상담하세요</div>
+  </div>
+  <div class="ref-body">
+
+    <table class="supp-table">
+      <thead>
+        <tr>
+          <th style="width:28%;">영양제</th>
+          <th style="width:22%;">권장 용량</th>
+          <th style="width:22%;">복용 시간</th>
+          <th>주요 효능 &amp; 주의사항</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="supp-name">비타민 D3 + K2</div>
+            <div class="supp-note">Vitamin D3 + K2</div>
+          </td>
+          <td>D3: 2,000–5,000 IU<br>K2 (MK-7): 100–200mcg</td>
+          <td>식사와 함께<br>(지용성)</td>
+          <td>면역 조절, 뼈·장 건강, 염증 억제. K2는 D3 고용량 시 필수 동반. 혈중 수치 확인 후 조절 권장 (목표: 60–80 ng/mL)
+            <div class="warn-note"><span class="warn-tag">주의</span>와파린 등 혈액응고 억제제 복용 중이라면 K2가 약효에 영향 — 반드시 의사 상담. D3 10,000 IU 이상 장기 복용 시 고칼슘혈증 위험</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">마그네슘</div>
+            <div class="supp-note">Magnesium Glycinate / Malate</div>
+          </td>
+          <td>300–400mg</td>
+          <td>취침 전<br>(이완 효과)</td>
+          <td>수면의 질, 스트레스 완화, 변비 해소, 근육 이완, 인슐린 감수성. 글리시네이트형이 흡수 최상. 시트레이트는 변비에 특히 효과적
+            <div class="warn-note"><span class="warn-tag">주의</span>아연·칼슘과 동시 복용 시 흡수 경쟁 → 각각 2시간 간격 권장. 신부전 환자는 전문가 상담. 일부 항생제(테트라사이클린·퀴놀론) 흡수 방해</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">오메가-3</div>
+            <div class="supp-note">EPA + DHA (Fish Oil)</div>
+          </td>
+          <td>EPA+DHA 합계<br>2,000–3,000mg</td>
+          <td>식사와 함께<br>(비린내 감소)</td>
+          <td>전신 염증 억제, 장 점막 보호, 뇌·심혈관 건강. 냉장 보관, 산화 여부 확인. 어류 알레르기 시 조류 오일(Algal) 대체
+            <div class="warn-note"><span class="warn-tag">주의</span>커큐민·아스피린·와파린과 함께 복용 시 혈액 희석 효과 중복 → 출혈 위험. 수술 2주 전 중단 권장. 비타민 E와도 항응고 효과 상가</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">프로바이오틱스</div>
+            <div class="supp-note">Multi-strain Probiotic</div>
+          </td>
+          <td>10–50억 CFU<br>다균주 제품</td>
+          <td>아침 공복<br>또는 식전 30분</td>
+          <td>장내세균 다양성 복원, 면역 70% 담당. Lactobacillus + Bifidobacterium 복합. SIBO 의심 시 전문가 지도하 사용
+            <div class="warn-note"><span class="warn-tag">주의</span>항생제와 동시 복용 시 유산균 사멸 → 최소 2시간 간격 필수. 면역 저하자(암 치료 중·장기이식)는 전문가 상담 후 복용</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">비타민 B 복합체</div>
+            <div class="supp-note">Methylated B Complex</div>
+          </td>
+          <td>표준 용량<br>(활성형·메틸화)</td>
+          <td>아침 식사와 함께<br>(에너지 효과)</td>
+          <td>에너지 대사, 신경계, 해독 (메틸화 경로). MTHFR 유전자 변이 시 메틸화형 필수. B12: 메틸코발라민 권장
+            <div class="warn-note"><span class="warn-tag">주의</span>비타민 C 고용량(2,000mg 이상)과 동시 복용 시 B12 흡수 방해 → 1시간 이상 간격. 메트포르민(당뇨약) 장기 복용자는 B12 결핍 위험 증가</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">아연</div>
+            <div class="supp-note">Zinc Bisglycinate</div>
+          </td>
+          <td>15–30mg</td>
+          <td>식사와 함께<br>(공복 시 구역)</td>
+          <td>면역, 상처 치유, 장 점막 복구, 인슐린 기능. 장기 복용 시 구리 결핍 주의 (아연:구리 = 10:1 비율). 상한선 40mg/일
+            <div class="warn-note"><span class="warn-tag">주의</span>마그네슘·칼슘·철분과 흡수 경쟁 → 각각 2시간 간격. 30mg 이상 3개월 이상 복용 시 구리 1–2mg 병행 필수. 공복 복용 시 구역감</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">비타민 C</div>
+            <div class="supp-note">Buffered Vitamin C</div>
+          </td>
+          <td>500–2,000mg<br>(분할 복용)</td>
+          <td>식사와 함께<br>분산 복용</td>
+          <td>항산화, 콜라겐 합성 (장 점막), 철분 흡수 보조, 부신 지원. 고용량 시 설사 유발 가능 (장내 허용 용량 조절)
+            <div class="warn-note"><span class="warn-tag">주의</span>비타민 B12와 동시 고용량 복용 시 B12 파괴. 철분제와 함께 복용 시 철분 흡수 과잉 가능 (철분 수치 정상인 경우). 신장 결석 병력자 주의</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">L-글루타민</div>
+            <div class="supp-note">L-Glutamine (Gut Repair)</div>
+          </td>
+          <td>5–15g</td>
+          <td>공복<br>(아침·취침 전)</td>
+          <td>장 점막 세포의 주요 연료. 장누수증후군(Leaky Gut) 복구에 핵심. 분말 형태가 효율적. 3–6개월 집중 복용
+            <div class="warn-note"><span class="warn-tag">주의</span>간 기능 저하·신장 질환 시 전문가 상담. 암 병력자는 반드시 의사 확인 (일부 암세포의 연료로 작용 가능). 조증·간질 병력자 주의</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="supp-name">커큐민</div>
+            <div class="supp-note">Curcumin + Piperine</div>
+          </td>
+          <td>500–1,000mg</td>
+          <td>식사와 함께</td>
+          <td>강력한 항염증, 항산화. 피페린(흑후추 추출물) 동반 시 흡수율 20배 증가.
+            <div class="warn-note"><span class="warn-tag">주의</span>오메가-3·아스피린·와파린과 함께 복용 시 혈액 희석 효과 중복 → 출혈 위험. 담석증·담관 폐쇄 환자 금기. 피페린은 일부 약물(항암제 포함) 대사 속도 변화 유발</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card" style="flex-shrink:0;">
+      <div class="card-t">⚠️ 중요한 원칙</div>
+      <div class="card-b">
+        영양제는 <b>부족한 것을 채우는 것</b>이 목적입니다. 모든 것을 한꺼번에 시작하지 말고, 비타민 D3 + 마그네슘 + 오메가-3 부터 시작하세요.
+        2-4주 후 반응을 보면서 추가하는 것이 안전합니다. 복용 중인 약이 있다면 반드시 의사·약사와 상호작용을 확인하세요.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 7  운동 가이드
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">운동 가이드 — Zone 2 &amp; 맨몸 근력운동</div>
+    <div class="ref-sub">기능의학이 권장하는 두 가지 운동의 조합 — 미토콘드리아 기능 회복 + 근육 유지</div>
+  </div>
+  <div class="ref-body">
+
+    <!-- 주간 권장 운동량 -->
+    <div class="rec-box">
+      <div class="rec-card">
+        <div class="rec-card-hd">🚶 Zone 2 유산소 — 주간 권장량</div>
+        <div class="rec-card-body">
+          <span class="rec-highlight">주 150–180분 / 3–4회</span>
+          • 1회 40–60분, 최소 30분 이상 지속<br>
+          • 최대 심박수의 <b>60–70%</b> 유지 (220 − 나이)<br>
+          • 강도 기준: 대화는 가능, 노래는 힘든 수준<br>
+          • 예시: 빠른 걷기, 실내 자전거, 수영, 느린 조깅<br>
+          <span style="font-size:6.5pt;color:var(--muted);">미토콘드리아 기능 회복 · 지방 연소 · 인슐린 감수성 ↑ · 염증 ↓</span>
+        </div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-card-hd">💪 맨몸 근력운동 — 주간 권장량</div>
+        <div class="rec-card-body">
+          <span class="rec-highlight">주 2–3회 / 각 30–45분</span>
+          • 같은 근육군 사이 <b>48시간 이상</b> 휴식<br>
+          • 주요 동작: 스쿼트·푸시업·힌지·플랭크·브릿지<br>
+          • 10–15회 × 2–3세트, 마지막 3회가 힘든 강도<br>
+          • 자세 정확도 > 횟수 (부상 예방 우선)<br>
+          <span style="font-size:6.5pt;color:var(--muted);">근육량 유지 · 기초대사량 ↑ · 혈당 조절 · 뼈 밀도 유지</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최적 성인 주간 총량 요약 -->
+    <div class="card" style="flex-shrink:0;">
+      <div class="card-t">📊 성인 신체 최적화를 위한 주간 운동 총량 (WHO + ACSM 기준)</div>
+      <div class="card-b" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5mm;">
+        <div style="text-align:center;padding:2mm;background:white;border:1px solid var(--sage-mid);border-radius:1.5mm;">
+          <div style="font-size:13pt;font-weight:700;color:var(--sage-dark);">150분+</div>
+          <div style="font-size:6.5pt;color:var(--muted);">중강도 유산소<br>(Zone 2 포함)</div>
+        </div>
+        <div style="text-align:center;padding:2mm;background:white;border:1px solid var(--sage-mid);border-radius:1.5mm;">
+          <div style="font-size:13pt;font-weight:700;color:var(--sage-dark);">2회 이상</div>
+          <div style="font-size:6.5pt;color:var(--muted);">근력 운동<br>(전신 주요 근육군)</div>
+        </div>
+        <div style="text-align:center;padding:2mm;background:white;border:1px solid var(--sage-mid);border-radius:1.5mm;">
+          <div style="font-size:13pt;font-weight:700;color:var(--sage-dark);">매일 10분</div>
+          <div style="font-size:6.5pt;color:var(--muted);">유연성·가동성<br>(스트레칭·요가)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-section-title">맨몸 근력운동 — 이미지를 아래 공간에 붙여넣기 하세요</div>
+
+    <!-- 이미지 플레이스홀더 5개 -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2.5mm;flex:1;min-height:0;">
+
+      <div class="img-placeholder">
+        <div class="img-ph-icon">🖼️</div>
+        <div class="img-ph-label">스쿼트</div>
+        <div class="img-ph-desc">Squat<br>하체 전체<br>10–15회 × 3세트</div>
+      </div>
+
+      <div class="img-placeholder">
+        <div class="img-ph-icon">🖼️</div>
+        <div class="img-ph-label">푸시업</div>
+        <div class="img-ph-desc">Push-up<br>가슴·삼두<br>8–15회 × 3세트</div>
+      </div>
+
+      <div class="img-placeholder">
+        <div class="img-ph-icon">🖼️</div>
+        <div class="img-ph-label">플랭크</div>
+        <div class="img-ph-desc">Plank<br>코어 전체<br>20–60초 × 3세트</div>
+      </div>
+
+      <div class="img-placeholder">
+        <div class="img-ph-icon">🖼️</div>
+        <div class="img-ph-label">글루트 브릿지</div>
+        <div class="img-ph-desc">Glute Bridge<br>엉덩이·햄스트링<br>12–15회 × 3세트</div>
+      </div>
+
+      <div class="img-placeholder">
+        <div class="img-ph-icon">🖼️</div>
+        <div class="img-ph-label">데드버그</div>
+        <div class="img-ph-desc">Dead Bug<br>심부 코어<br>10회(양측) × 3세트</div>
+      </div>
+
+    </div>
+
+    <div class="card" style="flex-shrink:0;">
+      <div class="card-t">🗓️ 추천 주간 플랜</div>
+      <div class="card-b" style="display:grid;grid-template-columns:repeat(7,1fr);gap:1.5mm;text-align:center;">
+        <div style="border:1px solid var(--sage);padding:1.5mm;border-radius:1mm;background:var(--sage-light);"><b style="color:var(--sage-dark);">월</b><br>Zone 2<br>45분</div>
+        <div style="border:1px solid var(--border);padding:1.5mm;border-radius:1mm;"><b>화</b><br>근력<br>30–40분</div>
+        <div style="border:1px solid var(--sage);padding:1.5mm;border-radius:1mm;background:var(--sage-light);"><b style="color:var(--sage-dark);">수</b><br>Zone 2<br>45분</div>
+        <div style="border:1px solid var(--border);padding:1.5mm;border-radius:1mm;background:var(--warm);"><b style="color:#aaa;">목</b><br>휴식<br>스트레칭</div>
+        <div style="border:1px solid var(--border);padding:1.5mm;border-radius:1mm;"><b>금</b><br>근력<br>30–40분</div>
+        <div style="border:1px solid var(--sage);padding:1.5mm;border-radius:1mm;background:var(--sage-light);"><b style="color:var(--sage-dark);">토</b><br>Zone 2<br>60분</div>
+        <div style="border:1px solid var(--border);padding:1.5mm;border-radius:1mm;background:var(--warm);"><b style="color:#aaa;">일</b><br>완전<br>휴식</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE 8  명상 & 호흡법 가이드
+════════════════════════════════════════ -->
+<div class="ref-page">
+  <div class="ref-hdr">
+    <div class="ref-title">Meditation &amp; 호흡법 가이드</div>
+    <div class="ref-sub">스트레스는 장 투과성을 높이고 염증을 악화시킵니다 — 호흡은 가장 빠르고 무료한 치료제</div>
+  </div>
+  <div class="ref-body">
+
+    <!-- 왜 명상인가 -->
+    <div class="card">
+      <div class="card-t">왜 기능의학에서 명상을 강조할까?</div>
+      <div class="card-b">
+        만성 스트레스 → 코르티솔 지속 분비 → <b>장 점막 약화 · 혈당 상승 · 수면 방해 · 면역 억제</b>로 이어집니다.
+        호흡법은 미주신경(Vagus Nerve)을 자극해 부교감신경을 활성화하고, 이 반응이 <b>장 운동 회복 · 염증 감소 · 소화 효소 분비 증가</b>로 이어집니다.
+        하루 10분 호흡으로 코르티솔 수치가 실제로 낮아진다는 연구 결과가 있습니다.
+      </div>
+    </div>
+
+    <!-- 호흡법 3가지 -->
+    <div class="three-col">
+
+      <!-- 4-7-8 호흡 -->
+      <div style="border:1.5px solid var(--sage);border-radius:2mm;overflow:hidden;">
+        <div style="background:var(--sage);color:white;padding:2.5mm 3mm;">
+          <div style="font-size:9pt;font-weight:700;">4 – 7 – 8 호흡법</div>
+          <div style="font-size:6.5pt;opacity:0.85;">수면 유도 · 불안 완화</div>
+        </div>
+        <div style="padding:3mm;background:white;">
+          <div style="display:flex;flex-direction:column;gap:2.5mm;margin-bottom:3mm;">
+            <div style="display:flex;align-items:center;gap:2mm;">
+              <div style="width:8mm;height:8mm;border-radius:50%;background:var(--sage-light);border:1.5px solid var(--sage);display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;color:var(--sage-dark);flex-shrink:0;">4</div>
+              <div>
+                <div style="font-size:7.5pt;font-weight:700;color:var(--text);">코로 들이마시기</div>
+                <div style="font-size:6.5pt;color:var(--muted);">4초 동안 천천히, 배가 먼저 나오게</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:2mm;">
+              <div style="width:8mm;height:8mm;border-radius:50%;background:#fff8e1;border:1.5px solid #ff8f00;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;color:#e65100;flex-shrink:0;">7</div>
+              <div>
+                <div style="font-size:7.5pt;font-weight:700;color:var(--text);">숨 참기</div>
+                <div style="font-size:6.5pt;color:var(--muted);">7초 동안 편안하게 멈춤</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:2mm;">
+              <div style="width:8mm;height:8mm;border-radius:50%;background:#e8f5e9;border:1.5px solid #43a047;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;color:#2e7d32;flex-shrink:0;">8</div>
+              <div>
+                <div style="font-size:7.5pt;font-weight:700;color:var(--text);">입으로 내쉬기</div>
+                <div style="font-size:6.5pt;color:var(--muted);">8초 동안 "후~" 하고 완전히 비우기</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:6.5pt;color:var(--muted);border-top:1px solid var(--border);padding-top:2mm;line-height:1.6;">
+            <b>4사이클 반복</b> (약 2분)<br>
+            취침 전, 불안할 때 즉시 효과<br>
+            처음엔 박자보다 비율에 집중<br>
+            <b style="color:var(--sage-dark);">언제:</b> 취침 전 · 불안 시 · 식사 전
+          </div>
+        </div>
+      </div>
+
+      <!-- 박스 호흡 -->
+      <div style="border:1.5px solid var(--sage);border-radius:2mm;overflow:hidden;">
+        <div style="background:var(--sage);color:white;padding:2.5mm 3mm;">
+          <div style="font-size:9pt;font-weight:700;">Box 호흡법 (박스 호흡)</div>
+          <div style="font-size:6.5pt;opacity:0.85;">집중력 · 스트레스 즉각 해소</div>
+        </div>
+        <div style="padding:3mm;background:white;">
+          <!-- 박스 다이어그램 -->
+          <div style="display:flex;justify-content:center;margin-bottom:3mm;">
+            <div style="position:relative;width:36mm;height:36mm;">
+              <!-- 박스 테두리 -->
+              <div style="position:absolute;inset:0;border:2px solid var(--sage);border-radius:1mm;"></div>
+              <!-- 위쪽: 내쉬기 -->
+              <div style="position:absolute;top:-4mm;left:0;right:0;text-align:center;font-size:6pt;font-weight:700;color:var(--sage-dark);">내쉬기 4초 →</div>
+              <!-- 아래쪽: 들이마시기 -->
+              <div style="position:absolute;bottom:-4mm;left:0;right:0;text-align:center;font-size:6pt;font-weight:700;color:var(--sage-dark);">← 들이마시기 4초</div>
+              <!-- 왼쪽: 참기 -->
+              <div style="position:absolute;left:-9mm;top:0;bottom:0;display:flex;align-items:center;">
+                <span style="font-size:6pt;font-weight:700;color:var(--sage-dark);writing-mode:vertical-rl;transform:rotate(180deg);">↑ 참기 4초</span>
+              </div>
+              <!-- 오른쪽: 참기 -->
+              <div style="position:absolute;right:-9mm;top:0;bottom:0;display:flex;align-items:center;">
+                <span style="font-size:6pt;font-weight:700;color:var(--sage-dark);writing-mode:vertical-rl;">↓ 참기 4초</span>
+              </div>
+              <!-- 중앙 텍스트 -->
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8pt;font-weight:700;color:var(--sage);">4×4</div>
+            </div>
+          </div>
+          <div style="font-size:6.5pt;color:var(--muted);border-top:1px solid var(--border);padding-top:2mm;line-height:1.6;margin-top:5mm;">
+            들이마시기 4초 → 참기 4초 →<br>
+            내쉬기 4초 → 참기 4초 반복<br>
+            4–6사이클 (약 1–2분)<br>
+            <b style="color:var(--sage-dark);">언제:</b> 직전 긴장 · 회의 전 · 화가 날 때
+          </div>
+        </div>
+      </div>
+
+      <!-- 복식 호흡 -->
+      <div style="border:1.5px solid var(--sage);border-radius:2mm;overflow:hidden;">
+        <div style="background:var(--sage);color:white;padding:2.5mm 3mm;">
+          <div style="font-size:9pt;font-weight:700;">복식 호흡법 (Belly Breathing)</div>
+          <div style="font-size:6.5pt;opacity:0.85;">미주신경 자극 · 소화 촉진</div>
+        </div>
+        <div style="padding:3mm;background:white;">
+          <div style="display:flex;flex-direction:column;gap:2mm;margin-bottom:2.5mm;">
+            <div style="display:flex;gap:2mm;align-items:flex-start;">
+              <div style="width:5mm;height:5mm;border-radius:50%;background:var(--sage);color:white;display:flex;align-items:center;justify-content:center;font-size:7pt;font-weight:700;flex-shrink:0;margin-top:0.5mm;">1</div>
+              <div style="font-size:7pt;color:var(--muted);line-height:1.5;">편안히 눕거나 앉아서 한 손은 가슴, 한 손은 배에 올린다</div>
+            </div>
+            <div style="display:flex;gap:2mm;align-items:flex-start;">
+              <div style="width:5mm;height:5mm;border-radius:50%;background:var(--sage);color:white;display:flex;align-items:center;justify-content:center;font-size:7pt;font-weight:700;flex-shrink:0;margin-top:0.5mm;">2</div>
+              <div style="font-size:7pt;color:var(--muted);line-height:1.5;"><b>배에 있는 손만 올라오게</b> 코로 4초 들이마시기 (가슴은 고정)</div>
+            </div>
+            <div style="display:flex;gap:2mm;align-items:flex-start;">
+              <div style="width:5mm;height:5mm;border-radius:50%;background:var(--sage);color:white;display:flex;align-items:center;justify-content:center;font-size:7pt;font-weight:700;flex-shrink:0;margin-top:0.5mm;">3</div>
+              <div style="font-size:7pt;color:var(--muted);line-height:1.5;">입술을 살짝 모아 6초 천천히 내쉬기. 배가 자연스럽게 내려감</div>
+            </div>
+            <div style="display:flex;gap:2mm;align-items:flex-start;">
+              <div style="width:5mm;height:5mm;border-radius:50%;background:var(--sage);color:white;display:flex;align-items:center;justify-content:center;font-size:7pt;font-weight:700;flex-shrink:0;margin-top:0.5mm;">4</div>
+              <div style="font-size:7pt;color:var(--muted);line-height:1.5;">10회 반복. 처음엔 어색해도 1–2주면 자연스러워짐</div>
+            </div>
+          </div>
+          <div style="font-size:6.5pt;color:var(--muted);border-top:1px solid var(--border);padding-top:2mm;line-height:1.6;">
+            식사 10분 전 5회만 해도<br>소화 효소 분비 증가 효과<br>
+            <b style="color:var(--sage-dark);">언제:</b> 식사 전 · 아침 기상 후 · 잠들기 전
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 바디스캔 명상 -->
+    <div style="border:1px solid var(--border);border-radius:2mm;overflow:hidden;flex-shrink:0;">
+      <div style="background:var(--warm);padding:2mm 3mm;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:2mm;">
+        <span style="font-size:10pt;">🧘</span>
+        <span style="font-size:8.5pt;font-weight:700;color:var(--sage-dark);">5분 바디스캔 명상 — 처음 시작하는 분께</span>
+        <span style="font-size:6.5pt;color:var(--muted);margin-left:auto;">눈 감고 / 조용한 곳 / 5분</span>
+      </div>
+      <div style="padding:2.5mm 3mm;background:white;display:grid;grid-template-columns:repeat(5,1fr);gap:2mm;">
+        <div style="text-align:center;padding:1.5mm;">
+          <div style="font-size:8pt;font-weight:700;color:var(--sage);">① 자리잡기</div>
+          <div style="font-size:6.5pt;color:var(--muted);line-height:1.5;margin-top:1mm;">눕거나 앉아서 눈을 감는다. 지금 이 순간 몸이 바닥에 닿는 느낌에 집중</div>
+        </div>
+        <div style="text-align:center;padding:1.5mm;border-left:1px solid var(--border);">
+          <div style="font-size:8pt;font-weight:700;color:var(--sage);">② 호흡 확인</div>
+          <div style="font-size:6.5pt;color:var(--muted);line-height:1.5;margin-top:1mm;">3번 깊게 복식호흡. 들이쉴 때 배가 나오고 내쉴 때 들어가는 것만 본다</div>
+        </div>
+        <div style="text-align:center;padding:1.5mm;border-left:1px solid var(--border);">
+          <div style="font-size:8pt;font-weight:700;color:var(--sage);">③ 발부터 스캔</div>
+          <div style="font-size:6.5pt;color:var(--muted);line-height:1.5;margin-top:1mm;">발끝 → 발목 → 종아리 → 무릎 순서로 각 부위의 감각을 10초씩 느낀다</div>
+        </div>
+        <div style="text-align:center;padding:1.5mm;border-left:1px solid var(--border);">
+          <div style="font-size:8pt;font-weight:700;color:var(--sage);">④ 위로 이동</div>
+          <div style="font-size:6.5pt;color:var(--muted);line-height:1.5;margin-top:1mm;">허벅지 → 배 → 가슴 → 어깨 → 목 → 얼굴. 긴장된 곳은 내쉬며 이완</div>
+        </div>
+        <div style="text-align:center;padding:1.5mm;border-left:1px solid var(--border);">
+          <div style="font-size:8pt;font-weight:700;color:var(--sage);">⑤ 마무리</div>
+          <div style="font-size:6.5pt;color:var(--muted);line-height:1.5;margin-top:1mm;">손발을 천천히 움직이고 눈을 뜬다. 지금 느낌을 다이어리 Meditation란에 기록</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 명상과 장 건강 -->
+    <div class="two-col" style="flex-shrink:0;">
+      <div class="card">
+        <div class="card-t">🧠 명상이 장에 미치는 효과</div>
+        <div class="card-b">
+          미주신경 자극 → 장 연동운동 활성화<br>
+          코르티솔 감소 → 장 점막 투과성 정상화<br>
+          소화 효소 분비 증가 (이완 상태에서만 작동)<br>
+          장내세균 다양성 증가 (스트레스 시 dysbiosis 악화)<br>
+          <span style="font-size:6.5pt;color:var(--muted);">* 식사 전 3분 호흡만으로도 소화 개선 효과</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">📋 처음 시작하는 분께 — 2주 플랜</div>
+        <div class="card-b">
+          <b>1주차:</b> 복식호흡 5분 × 매일 (아침 기상 직후)<br>
+          <b>2주차:</b> 복식호흡 + 4-7-8 취침 전 4사이클<br>
+          <b>3주차부터:</b> 바디스캔 추가, 식사 전 박스 호흡<br>
+          <br>
+          앱 추천: Insight Timer (무료) · Calm · 마보<br>
+          <span style="font-size:6.5pt;color:var(--muted);">* 매일 같은 시간, 같은 장소가 습관화에 도움</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
