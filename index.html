@@ -254,6 +254,33 @@
     .footer { text-align: center; font-size: 12px; color: #9ca3af; padding-bottom: 32px; }
 
     @media print { .topbar { display: none; } body { background: #fff; } .main { padding: 20px; } }
+
+    /* ── DIARY TAB ── */
+    .active-diary { background: #fff7ed; color: #ea580c; }
+    .page-header-diary { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); padding: 36px 40px 32px; color: #fff; }
+    .diary-date-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .diary-nav-btn { background: rgba(255,255,255,0.25); border: none; color: #fff; border-radius: 8px; padding: 7px 14px; font-size: 15px; cursor: pointer; font-weight: 700; }
+    .diary-nav-btn:hover { background: rgba(255,255,255,0.4); }
+    .diary-today-btn { background: #fff; border: none; color: #ea580c; border-radius: 8px; padding: 7px 14px; font-size: 12px; cursor: pointer; font-weight: 700; }
+    .diary-date-text { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+    .diary-main { max-width: 800px; margin: 0 auto; padding: 28px 24px 60px; display: flex; flex-direction: column; gap: 16px; }
+    .meal-card { background: #fff; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; }
+    .meal-header { padding: 14px 18px 12px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #f3f4f6; }
+    .meal-icon { font-size: 20px; }
+    .meal-title { font-size: 14px; font-weight: 700; color: #111827; }
+    .meal-count { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 20px; background: #fff7ed; color: #ea580c; }
+    .meal-body { padding: 14px 18px; }
+    .food-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; min-height: 0; }
+    .food-chip { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; border-radius: 20px; padding: 5px 12px; font-size: 13px; color: #374151; font-weight: 500; }
+    .food-chip-del { background: none; border: none; cursor: pointer; color: #9ca3af; font-size: 14px; line-height: 1; padding: 0; }
+    .food-chip-del:hover { color: #ef4444; }
+    .food-input-row { display: flex; gap: 8px; }
+    .food-input { flex: 1; padding: 9px 14px; border: 1.5px solid #e5e7eb; border-radius: 10px; font-size: 14px; color: #111827; outline: none; font-family: inherit; }
+    .food-input:focus { border-color: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,0.1); }
+    .food-add-btn { background: #f59e0b; color: #fff; border: none; border-radius: 10px; padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+    .food-add-btn:hover { background: #d97706; }
+    .diary-empty { font-size: 12px; color: #d1d5db; font-style: italic; margin-bottom: 12px; }
+    @media (max-width: 600px) { .page-header-diary { padding: 28px 16px 24px; } .diary-main { padding: 16px 12px 60px; } }
   </style>
 </head>
 <body>
@@ -267,6 +294,7 @@
     <button class="tab-btn active-main" onclick="switchTab('main', this)">📋 내 할일</button>
     <button class="tab-btn" onclick="switchTab('dental', this)">🦷 치과 레퍼런스</button>
     <button class="tab-btn" onclick="switchTab('fm', this)">🧬 기능의학</button>
+    <button class="tab-btn" onclick="switchTab('diary', this)">🥗 음식 일기</button>
   </div>
   <div class="topbar-actions">
     <a href="profile.html" class="btn btn-outline">🌿 내 소개 페이지</a>
@@ -2251,6 +2279,69 @@
   <div class="footer">기능의학 강의 자료 &nbsp;|&nbsp; AFMCP 2025–2026</div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     PAGE 4 — 음식 일기
+════════════════════════════════════════ -->
+<div id="page-diary" class="page">
+  <header class="page-header-diary">
+    <div class="page-header-inner" style="max-width:800px;margin:0 auto;">
+      <div class="diary-date-nav">
+        <button class="diary-nav-btn" onclick="diaryNav(-1)">◀</button>
+        <span class="diary-date-text" id="diary-date-display">오늘</span>
+        <button class="diary-nav-btn" onclick="diaryNav(1)">▶</button>
+        <button class="diary-today-btn" onclick="diaryToday()">오늘로</button>
+      </div>
+      <div style="font-size:13px;opacity:0.85;">날짜별 음식 기록 다이어리</div>
+    </div>
+  </header>
+
+  <div class="diary-main">
+    <div class="meal-card">
+      <div class="meal-header"><span class="meal-icon">🌅</span><span class="meal-title">아침</span><span class="meal-count" id="cnt-아침">0</span></div>
+      <div class="meal-body">
+        <div class="food-chips" id="chips-아침"></div>
+        <div class="food-input-row">
+          <input class="food-input" id="input-아침" placeholder="음식 입력 후 엔터 또는 추가" onkeydown="if(event.key==='Enter')diaryAdd('아침')">
+          <button class="food-add-btn" onclick="diaryAdd('아침')">추가</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-header"><span class="meal-icon">☀️</span><span class="meal-title">점심</span><span class="meal-count" id="cnt-점심">0</span></div>
+      <div class="meal-body">
+        <div class="food-chips" id="chips-점심"></div>
+        <div class="food-input-row">
+          <input class="food-input" id="input-점심" placeholder="음식 입력 후 엔터 또는 추가" onkeydown="if(event.key==='Enter')diaryAdd('점심')">
+          <button class="food-add-btn" onclick="diaryAdd('점심')">추가</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-header"><span class="meal-icon">🌙</span><span class="meal-title">저녁</span><span class="meal-count" id="cnt-저녁">0</span></div>
+      <div class="meal-body">
+        <div class="food-chips" id="chips-저녁"></div>
+        <div class="food-input-row">
+          <input class="food-input" id="input-저녁" placeholder="음식 입력 후 엔터 또는 추가" onkeydown="if(event.key==='Enter')diaryAdd('저녁')">
+          <button class="food-add-btn" onclick="diaryAdd('저녁')">추가</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meal-card">
+      <div class="meal-header"><span class="meal-icon">🍎</span><span class="meal-title">간식</span><span class="meal-count" id="cnt-간식">0</span></div>
+      <div class="meal-body">
+        <div class="food-chips" id="chips-간식"></div>
+        <div class="food-input-row">
+          <input class="food-input" id="input-간식" placeholder="음식 입력 후 엔터 또는 추가" onkeydown="if(event.key==='Enter')diaryAdd('간식')">
+          <button class="food-add-btn" onclick="diaryAdd('간식')">추가</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ── 탭 전환 ── */
   function switchTab(tab, btn) {
@@ -2263,6 +2354,10 @@
     } else if (tab === 'fm') {
       btn.classList.add('active-fm');
       document.getElementById('scroll-btn').style.display = 'none';
+    } else if (tab === 'diary') {
+      btn.classList.add('active-diary');
+      document.getElementById('scroll-btn').style.display = 'none';
+      diaryRender();
     } else {
       btn.classList.add('active-dental');
       document.getElementById('scroll-btn').style.display = 'none';
@@ -2322,6 +2417,64 @@
     document.getElementById('stom-' + age).classList.remove('hidden');
     el.closest('.cat-tabs').querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
+  }
+
+  /* ── 음식 일기 ── */
+  const MEALS = ['아침', '점심', '저녁', '간식'];
+  let diaryDate = new Date();
+
+  function diaryKey(d) {
+    return 'diary-' + d.toISOString().slice(0, 10);
+  }
+  function diaryLoad() {
+    return JSON.parse(localStorage.getItem(diaryKey(diaryDate)) || 'null') || { 아침: [], 점심: [], 저녁: [], 간식: [] };
+  }
+  function diarySave(data) {
+    localStorage.setItem(diaryKey(diaryDate), JSON.stringify(data));
+  }
+  function diaryRender() {
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const d = diaryDate;
+    document.getElementById('diary-date-display').textContent =
+      d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + days[d.getDay()] + ')';
+    const data = diaryLoad();
+    MEALS.forEach(meal => {
+      const chips = document.getElementById('chips-' + meal);
+      const cnt = document.getElementById('cnt-' + meal);
+      const items = data[meal] || [];
+      cnt.textContent = items.length;
+      chips.innerHTML = items.length === 0
+        ? '<span class="diary-empty">아직 기록 없음</span>'
+        : items.map((f, i) =>
+            '<span class="food-chip">' + f +
+            '<button class="food-chip-del" onclick="diaryRemove(\'' + meal + '\',' + i + ')" title="삭제">✕</button></span>'
+          ).join('');
+    });
+  }
+  function diaryAdd(meal) {
+    const input = document.getElementById('input-' + meal);
+    const val = input.value.trim();
+    if (!val) return;
+    const data = diaryLoad();
+    data[meal].push(val);
+    diarySave(data);
+    input.value = '';
+    diaryRender();
+  }
+  function diaryRemove(meal, idx) {
+    const data = diaryLoad();
+    data[meal].splice(idx, 1);
+    diarySave(data);
+    diaryRender();
+  }
+  function diaryNav(delta) {
+    diaryDate = new Date(diaryDate);
+    diaryDate.setDate(diaryDate.getDate() + delta);
+    diaryRender();
+  }
+  function diaryToday() {
+    diaryDate = new Date();
+    diaryRender();
   }
 
   if ('serviceWorker' in navigator) {
