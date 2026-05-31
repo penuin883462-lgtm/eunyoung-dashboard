@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>식단 저널</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#3d5c3d" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="식단 저널" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #6b8f6b;
+    --sage-dark: #3d5c3d;
+    --sage-light: #eef4ee;
+    --sage-mid: #c8dcc8;
+    --warm: #f7f5f0;
+    --border: #d4e4d4;
+    --text: #1a2e1a;
+    --muted: #6b7c6b;
+    --white: #fff;
+    --nav-h: 64px;
+    --hdr-h: 56px;
+  }
+
+  html, body { height: 100%; background: var(--warm); }
+  body {
+    font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100%;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .app-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--sage-dark);
+    height: var(--hdr-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .hdr-date-nav {
+    display: flex; align-items: center; gap: 4px;
+  }
+  .date-nav-btn {
+    background: rgba(255,255,255,0.15); border: none; color: #fff;
+    width: 32px; height: 32px; border-radius: 8px;
+    font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .date-nav-btn:active { background: rgba(255,255,255,0.3); }
+  .hdr-date {
+    font-size: 15px; font-weight: 700; color: #fff;
+    min-width: 120px; text-align: center;
+    cursor: pointer;
+  }
+  .hdr-date .hdr-weekday { font-size: 11px; font-weight: 400; opacity: 0.75; }
+  .save-btn {
+    background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4);
+    color: #fff; border-radius: 10px; padding: 6px 16px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .save-btn:active { background: rgba(255,255,255,0.35); }
+  .save-btn.saved { background: rgba(255,255,255,0.35); }
+
+  /* ── MAIN SCROLL AREA ───────────────────── */
+  .app-main {
+    flex: 1; overflow-y: auto;
+    padding-bottom: calc(var(--nav-h) + 12px);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── SECTION CARD ───────────────────────── */
+  .card {
+    background: var(--white); border-radius: 16px;
+    margin: 10px 12px 0;
+    box-shadow: 0 1px 6px rgba(60,90,60,0.08);
+    overflow: hidden;
+  }
+  .card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 16px;
+    background: var(--sage-light);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .card-header-left {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; color: var(--sage-dark);
+  }
+  .card-header-left .meal-icon { font-size: 18px; }
+  .card-header-right {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .time-input {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px 8px; font-size: 13px; color: var(--text);
+    background: var(--white); width: 80px;
+  }
+  .toggle-arrow {
+    font-size: 13px; color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card.open .toggle-arrow { transform: rotate(180deg); }
+  .card-body { display: none; }
+  .card.open .card-body { display: block; }
+
+  /* ── FOOD TEXTAREA ──────────────────────── */
+  .food-textarea {
+    width: 100%; border: none; resize: none;
+    padding: 12px 16px; font-size: 14px; color: var(--text);
+    line-height: 1.6; font-family: inherit;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    min-height: 80px;
+  }
+  .food-textarea:focus { outline: none; background: #fafffe; }
+  .food-textarea::placeholder { color: #b0bfb0; }
+
+  /* ── RADIO PILL ─────────────────────────── */
+  .check-bar {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 6px 10px; padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-group {
+    display: flex; align-items: center; gap: 5px;
+  }
+  .check-label {
+    font-size: 12px; font-weight: 700; color: var(--sage-dark);
+    white-space: nowrap;
+  }
+  .divider-dot { color: #ccc; font-size: 10px; }
+  .radio-pill { display: inline-flex; align-items: center; cursor: pointer; }
+  .radio-pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .radio-pill span {
+    display: inline-block;
+    border: 1.5px solid var(--sage-mid);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px; color: var(--muted);
+    transition: all 0.15s;
+    white-space: nowrap;
+    background: var(--white);
+  }
+  .radio-pill input:checked + span {
+    background: var(--sage); border-color: var(--sage);
+    color: #fff; font-weight: 700;
+  }
+
+  /* ── SYMPTOMS ───────────────────────────── */
+  .sym-section {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sym-section-label {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .sym-grid {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .sym-item { display: inline-flex; align-items: center; cursor: pointer; }
+  .sym-item input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .sym-item span {
+    display: inline-flex; align-items: center; gap: 5px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 4px 11px;
+    font-size: 12.5px; color: var(--muted);
+    transition: all 0.15s; background: var(--white);
+  }
+  .sym-item input:checked + span {
+    background: #fff0f0; border-color: #e88;
+    color: #c44; font-weight: 700;
+  }
+
+  /* ── ENERGY ROW ─────────────────────────── */
+  .energy-section {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .energy-section-label {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .energy-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* ── FASTING ROW ────────────────────────── */
+  .fasting-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    background: var(--sage-light);
+  }
+  .fasting-row .fasting-label {
+    font-size: 12px; font-weight: 700; color: var(--sage-dark);
+    flex: 1; white-space: nowrap;
+  }
+  .fasting-input {
+    width: 54px; border: 1.5px solid var(--sage-mid);
+    border-radius: 8px; padding: 5px 8px;
+    font-size: 14px; color: var(--text); text-align: center;
+    background: var(--white);
+  }
+  .fasting-input:focus { outline: none; border-color: var(--sage); }
+  .fasting-unit { font-size: 12px; color: var(--muted); }
+
+  /* ── DAILY METRICS ──────────────────────── */
+  .section-title {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 14px 16px 0;
+  }
+  .metric-row {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 6px 8px; padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-icon-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 700; color: var(--sage-dark);
+    min-width: 72px;
+  }
+  .metric-number {
+    width: 54px; border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 5px 8px;
+    font-size: 14px; color: var(--text); text-align: center;
+    background: var(--white);
+  }
+  .metric-number:focus { outline: none; border-color: var(--sage); }
+  .metric-unit { font-size: 12px; color: var(--muted); }
+  .metric-text {
+    flex: 1; border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 7px 10px;
+    font-size: 13px; color: var(--text); font-family: inherit;
+    background: var(--white); min-width: 120px;
+  }
+  .metric-text:focus { outline: none; border-color: var(--sage); }
+
+  /* Bristol select */
+  .bristol-select {
+    flex: 1; border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 6px 10px;
+    font-size: 13px; color: var(--text);
+    background: var(--white); font-family: inherit;
+    min-width: 0;
+  }
+  .bristol-select:focus { outline: none; border-color: var(--sage); }
+
+  /* Stress pills row */
+  .stress-pills { display: flex; gap: 4px; }
+  .stress-hint { font-size: 11px; color: var(--muted); }
+
+  /* Water cups */
+  .water-cups { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+  .water-cup {
+    width: 30px; height: 36px; border-radius: 0 0 8px 8px;
+    border: 2px solid var(--sage-mid);
+    cursor: pointer; background: var(--white);
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--sage-mid);
+  }
+  .water-cup.filled {
+    background: #aacfaa;
+    border-color: var(--sage);
+    color: var(--sage-dark);
+    font-size: 14px;
+  }
+  .water-count {
+    font-size: 12px; color: var(--muted);
+    white-space: nowrap; align-self: center;
+  }
+
+  /* ── SNACK CARD ─────────────────────────── */
+  .snack-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px 16px;
+    font-weight: 700; font-size: 15px; color: var(--sage-dark);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── NOTES CARD ─────────────────────────── */
+  .notes-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .note-label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: var(--muted); margin-bottom: 5px;
+  }
+  .note-textarea {
+    width: 100%; border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 9px 12px;
+    font-size: 13px; color: var(--text);
+    font-family: inherit; resize: none;
+    background: var(--warm); min-height: 60px;
+    line-height: 1.5;
+  }
+  .note-textarea:focus { outline: none; border-color: var(--sage); background: #fff; }
+
+  /* ── PDF EXPORT BUTTON ──────────────────── */
+  .pdf-export-row {
+    margin: 10px 12px 0;
+    display: flex; gap: 8px;
+  }
+  .pdf-btn {
+    flex: 1;
+    background: var(--sage-dark); color: #fff;
+    border: none; border-radius: 12px; padding: 14px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    transition: background 0.15s;
+  }
+  .pdf-btn:active { background: #2a3f2a; }
+  .pdf-btn.outline {
+    background: var(--white); color: var(--sage-dark);
+    border: 2px solid var(--sage-mid);
+  }
+  .pdf-btn.outline:active { background: var(--sage-light); }
+
+  /* ── TOAST ──────────────────────────────── */
+  .toast {
+    position: fixed; bottom: calc(var(--nav-h) + 12px); left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--sage-dark); color: #fff;
+    padding: 10px 22px; border-radius: 20px;
+    font-size: 13px; font-weight: 600;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 200; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── HISTORY TAB ────────────────────────── */
+  .history-top {
+    margin: 10px 12px 0;
+    background: var(--white); border-radius: 16px;
+    box-shadow: 0 1px 6px rgba(60,90,60,0.08); overflow: hidden;
+  }
+  .calendar-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+  }
+  .cal-nav-btn {
+    background: var(--sage-light); border: none; color: var(--sage-dark);
+    width: 32px; height: 32px; border-radius: 8px;
+    font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .cal-month-label { font-size: 16px; font-weight: 700; color: var(--text); }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    padding: 8px 12px 12px;
+  }
+  .cal-dow {
+    text-align: center; font-size: 11px;
+    font-weight: 700; color: var(--muted);
+    padding: 4px 0;
+  }
+  .cal-day {
+    text-align: center; padding: 5px 2px;
+    font-size: 13px; border-radius: 8px;
+    cursor: pointer; position: relative;
+    color: var(--text);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .cal-day.today { font-weight: 800; color: var(--sage-dark); }
+  .cal-day.today .cal-day-num {
+    background: var(--sage); color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cal-day.has-entry::after {
+    content: ''; display: block;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--sage); margin-top: 2px;
+  }
+  .cal-day.other-month { color: #ccc; }
+  .cal-day.selected .cal-day-num {
+    background: var(--sage-light);
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sage-dark); font-weight: 700;
+  }
+  .cal-day-num { line-height: 1; }
+  .cal-day.empty { cursor: default; }
+
+  .history-list { margin: 10px 12px 0; }
+  .history-list-title {
+    font-size: 13px; font-weight: 700; color: var(--muted);
+    padding: 0 4px 8px;
+  }
+  .entry-card {
+    background: var(--white); border-radius: 14px;
+    box-shadow: 0 1px 5px rgba(60,90,60,0.07);
+    margin-bottom: 10px; overflow: hidden;
+    cursor: pointer;
+  }
+  .entry-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    background: var(--sage-light);
+  }
+  .entry-date-label { font-weight: 700; font-size: 14px; color: var(--sage-dark); }
+  .entry-summary { display: flex; gap: 6px; flex-wrap: wrap; }
+  .entry-tag {
+    font-size: 11px; background: var(--sage-mid);
+    color: var(--sage-dark); border-radius: 10px; padding: 2px 8px;
+  }
+  .entry-meals-preview { padding: 10px 16px; }
+  .preview-meal { font-size: 13px; color: var(--muted); margin-bottom: 3px; }
+  .preview-meal strong { color: var(--text); }
+  .no-entries {
+    text-align: center; padding: 40px 20px;
+    color: var(--muted); font-size: 14px;
+  }
+
+  /* ── REFERENCE TAB ──────────────────────── */
+  .ref-section { margin: 10px 12px 0; }
+  details.ref-card {
+    background: var(--white); border-radius: 14px;
+    box-shadow: 0 1px 5px rgba(60,90,60,0.07);
+    margin-bottom: 10px; overflow: hidden;
+  }
+  details.ref-card summary {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer;
+    font-weight: 700; font-size: 14px; color: var(--sage-dark);
+    list-style: none; user-select: none;
+    background: var(--sage-light);
+  }
+  details.ref-card summary::-webkit-details-marker { display: none; }
+  details.ref-card summary::after {
+    content: '▾'; font-size: 12px; color: var(--sage);
+    transition: transform 0.2s;
+  }
+  details.ref-card[open] summary::after { transform: rotate(180deg); }
+  .ref-body { padding: 14px 16px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .ref-body h4 { font-size: 12px; font-weight: 700; color: var(--sage-dark); margin: 10px 0 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .ref-body h4:first-child { margin-top: 0; }
+  .ref-body p { margin-bottom: 8px; }
+  .ref-body ul { padding-left: 16px; margin-bottom: 8px; }
+  .ref-body li { margin-bottom: 3px; }
+  .ref-tag {
+    display: inline-block; background: var(--sage-light);
+    color: var(--sage-dark); border-radius: 8px;
+    padding: 2px 9px; font-size: 12px; font-weight: 600;
+    margin: 2px 3px 2px 0;
+  }
+  .ref-tag.red { background: #fff0f0; color: #c44; }
+  .ref-tag.amber { background: #fff8e6; color: #a65c00; }
+  .ref-tag.green { background: var(--sage-light); color: var(--sage-dark); }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 6px 0; }
+  .ref-table th { background: var(--sage-light); color: var(--sage-dark); font-weight: 700; padding: 5px 8px; text-align: left; }
+  .ref-table td { padding: 5px 8px; border-top: 1px solid var(--border); color: var(--text); }
+
+  /* ── BOTTOM NAV ─────────────────────────── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    height: var(--nav-h);
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    display: flex; z-index: 100;
+    box-shadow: 0 -2px 12px rgba(60,90,60,0.10);
+  }
+  .nav-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 3px;
+    background: none; border: none; cursor: pointer;
+    color: #a0b0a0; transition: color 0.15s;
+    padding: 0; -webkit-tap-highlight-color: transparent;
+  }
+  .nav-btn.active { color: var(--sage-dark); }
+  .nav-icon { font-size: 22px; line-height: 1; }
+  .nav-label { font-size: 10px; font-weight: 700; letter-spacing: 0.02em; }
+  .nav-btn.active .nav-label { color: var(--sage-dark); }
+  .nav-indicator {
+    position: absolute; top: 0; width: 40px; height: 3px;
+    background: var(--sage); border-radius: 0 0 3px 3px;
+    transition: left 0.2s;
+  }
+  </style>
+</head>
+<body>
+
+<!-- ── APP HEADER ─────────────────────────────── -->
+<header class="app-header">
+  <div class="hdr-date-nav">
+    <button class="date-nav-btn" id="btn-prev" aria-label="이전날">‹</button>
+    <div class="hdr-date" id="hdr-date">
+      <div id="hdr-date-main">로딩 중...</div>
+      <div class="hdr-weekday" id="hdr-weekday"></div>
+    </div>
+    <button class="date-nav-btn" id="btn-next" aria-label="다음날">›</button>
+  </div>
+  <button class="save-btn" id="btn-save">💾 저장</button>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     TODAY TAB
+══════════════════════════════════════════════ -->
+<main class="app-main">
+<section class="tab-content active" id="tab-today">
+
+  <!-- BREAKFAST -->
+  <div class="card open" id="card-breakfast">
+    <div class="card-header" data-card="breakfast">
+      <div class="card-header-left">
+        <span class="meal-icon">🌅</span> 아침
+      </div>
+      <div class="card-header-right">
+        <input type="time" class="time-input" id="breakfast-time" onclick="event.stopPropagation()" />
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <textarea class="food-textarea" id="breakfast-food" placeholder="아침에 드신 음식을 적어주세요..." rows="3"></textarea>
+
+      <div class="check-bar">
+        <div class="check-group">
+          <span class="check-label">천천히</span>
+          <label class="radio-pill"><input type="radio" name="b-slow" value="Y"><span>Y</span></label>
+          <label class="radio-pill"><input type="radio" name="b-slow" value="N"><span>N</span></label>
+        </div>
+        <span class="divider-dot">•</span>
+        <div class="check-group">
+          <span class="check-label">식사량</span>
+          <label class="radio-pill"><input type="radio" name="b-amount" value="소식"><span>소식</span></label>
+          <label class="radio-pill"><input type="radio" name="b-amount" value="적당"><span>적당</span></label>
+          <label class="radio-pill"><input type="radio" name="b-amount" value="과식"><span>과식</span></label>
+        </div>
+      </div>
+
+      <div class="sym-section">
+        <div class="sym-section-label">식후 증상</div>
+        <div class="sym-grid" id="b-sym">
+          <label class="sym-item"><input type="checkbox" value="팽만감"><span>팽만감</span></label>
+          <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
+          <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
+          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
+          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+        </div>
+      </div>
+
+      <div class="energy-section">
+        <div class="energy-section-label">식후 에너지</div>
+        <div class="energy-pills">
+          <label class="radio-pill"><input type="radio" name="b-energy" value="포만감"><span>포만감</span></label>
+          <label class="radio-pill"><input type="radio" name="b-energy" value="졸림"><span>졸림</span></label>
+          <label class="radio-pill"><input type="radio" name="b-energy" value="가벼움"><span>가벼움</span></label>
+          <label class="radio-pill"><input type="radio" name="b-energy" value="무기력"><span>무기력</span></label>
+        </div>
+      </div>
+
+      <div class="fasting-row">
+        <span class="fasting-label">⏱ 공복 (아침→점심)</span>
+        <input type="number" class="fasting-input" id="breakfast-fasting" placeholder="0" min="0" max="24" step="0.5" />
+        <span class="fasting-unit">hrs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LUNCH -->
+  <div class="card" id="card-lunch">
+    <div class="card-header" data-card="lunch">
+      <div class="card-header-left">
+        <span class="meal-icon">☀️</span> 점심
+      </div>
+      <div class="card-header-right">
+        <input type="time" class="time-input" id="lunch-time" onclick="event.stopPropagation()" />
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <textarea class="food-textarea" id="lunch-food" placeholder="점심에 드신 음식을 적어주세요..." rows="3"></textarea>
+
+      <div class="check-bar">
+        <div class="check-group">
+          <span class="check-label">천천히</span>
+          <label class="radio-pill"><input type="radio" name="l-slow" value="Y"><span>Y</span></label>
+          <label class="radio-pill"><input type="radio" name="l-slow" value="N"><span>N</span></label>
+        </div>
+        <span class="divider-dot">•</span>
+        <div class="check-group">
+          <span class="check-label">식사량</span>
+          <label class="radio-pill"><input type="radio" name="l-amount" value="소식"><span>소식</span></label>
+          <label class="radio-pill"><input type="radio" name="l-amount" value="적당"><span>적당</span></label>
+          <label class="radio-pill"><input type="radio" name="l-amount" value="과식"><span>과식</span></label>
+        </div>
+      </div>
+
+      <div class="sym-section">
+        <div class="sym-section-label">식후 증상</div>
+        <div class="sym-grid" id="l-sym">
+          <label class="sym-item"><input type="checkbox" value="팽만감"><span>팽만감</span></label>
+          <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
+          <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
+          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
+          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+        </div>
+      </div>
+
+      <div class="energy-section">
+        <div class="energy-section-label">식후 에너지</div>
+        <div class="energy-pills">
+          <label class="radio-pill"><input type="radio" name="l-energy" value="포만감"><span>포만감</span></label>
+          <label class="radio-pill"><input type="radio" name="l-energy" value="졸림"><span>졸림</span></label>
+          <label class="radio-pill"><input type="radio" name="l-energy" value="가벼움"><span>가벼움</span></label>
+          <label class="radio-pill"><input type="radio" name="l-energy" value="무기력"><span>무기력</span></label>
+        </div>
+      </div>
+
+      <div class="fasting-row">
+        <span class="fasting-label">⏱ 공복 (점심→저녁)</span>
+        <input type="number" class="fasting-input" id="lunch-fasting" placeholder="0" min="0" max="24" step="0.5" />
+        <span class="fasting-unit">hrs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DINNER -->
+  <div class="card" id="card-dinner">
+    <div class="card-header" data-card="dinner">
+      <div class="card-header-left">
+        <span class="meal-icon">🌙</span> 저녁
+      </div>
+      <div class="card-header-right">
+        <input type="time" class="time-input" id="dinner-time" onclick="event.stopPropagation()" />
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <textarea class="food-textarea" id="dinner-food" placeholder="저녁에 드신 음식을 적어주세요..." rows="3"></textarea>
+
+      <div class="check-bar">
+        <div class="check-group">
+          <span class="check-label">천천히</span>
+          <label class="radio-pill"><input type="radio" name="d-slow" value="Y"><span>Y</span></label>
+          <label class="radio-pill"><input type="radio" name="d-slow" value="N"><span>N</span></label>
+        </div>
+        <span class="divider-dot">•</span>
+        <div class="check-group">
+          <span class="check-label">식사량</span>
+          <label class="radio-pill"><input type="radio" name="d-amount" value="소식"><span>소식</span></label>
+          <label class="radio-pill"><input type="radio" name="d-amount" value="적당"><span>적당</span></label>
+          <label class="radio-pill"><input type="radio" name="d-amount" value="과식"><span>과식</span></label>
+        </div>
+      </div>
+
+      <div class="sym-section">
+        <div class="sym-section-label">식후 증상</div>
+        <div class="sym-grid" id="d-sym">
+          <label class="sym-item"><input type="checkbox" value="팽만감"><span>팽만감</span></label>
+          <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
+          <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
+          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
+          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+        </div>
+      </div>
+
+      <div class="energy-section">
+        <div class="energy-section-label">식후 에너지</div>
+        <div class="energy-pills">
+          <label class="radio-pill"><input type="radio" name="d-energy" value="포만감"><span>포만감</span></label>
+          <label class="radio-pill"><input type="radio" name="d-energy" value="졸림"><span>졸림</span></label>
+          <label class="radio-pill"><input type="radio" name="d-energy" value="가벼움"><span>가벼움</span></label>
+          <label class="radio-pill"><input type="radio" name="d-energy" value="무기력"><span>무기력</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SNACK -->
+  <div class="card" id="card-snack">
+    <div class="card-header" data-card="snack">
+      <div class="card-header-left">
+        <span class="meal-icon">🍎</span> 간식 / 음료
+      </div>
+      <div class="card-header-right">
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <textarea class="food-textarea" id="snack-food" placeholder="간식, 커피, 음료, 야식 등..." rows="2"></textarea>
+    </div>
+  </div>
+
+  <!-- DAILY METRICS -->
+  <div class="card" id="card-daily">
+    <div class="card-header" data-card="daily">
+      <div class="card-header-left">
+        <span class="meal-icon">📊</span> 하루 지표
+      </div>
+      <div class="card-header-right">
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <!-- Sleep -->
+      <div class="metric-row">
+        <div class="metric-icon-label">🌙 수면</div>
+        <input type="number" class="metric-number" id="sleep-hours" placeholder="7" min="0" max="14" step="0.5" />
+        <span class="metric-unit">hrs</span>
+        <div class="check-group" style="margin-left:4px;">
+          <label class="radio-pill"><input type="radio" name="sleep-q" value="충분"><span>충분</span></label>
+          <label class="radio-pill"><input type="radio" name="sleep-q" value="보통"><span>보통</span></label>
+          <label class="radio-pill"><input type="radio" name="sleep-q" value="부족"><span>부족</span></label>
+        </div>
+      </div>
+
+      <!-- Stress -->
+      <div class="metric-row">
+        <div class="metric-icon-label">😤 스트레스</div>
+        <div class="stress-pills">
+          <label class="radio-pill"><input type="radio" name="stress" value="1"><span>1</span></label>
+          <label class="radio-pill"><input type="radio" name="stress" value="2"><span>2</span></label>
+          <label class="radio-pill"><input type="radio" name="stress" value="3"><span>3</span></label>
+          <label class="radio-pill"><input type="radio" name="stress" value="4"><span>4</span></label>
+          <label class="radio-pill"><input type="radio" name="stress" value="5"><span>5</span></label>
+        </div>
+        <span class="stress-hint">낮↔높</span>
+      </div>
+
+      <!-- Bristol -->
+      <div class="metric-row" style="flex-wrap:nowrap; gap:6px;">
+        <div class="metric-icon-label" style="min-width:58px;">💩 장 상태</div>
+        <select class="bristol-select" id="bristol-type">
+          <option value="">Bristol 유형</option>
+          <option value="1">1형 — 분리된 덩어리 (변비)</option>
+          <option value="2">2형 — 울퉁불퉁 소시지</option>
+          <option value="3">3형 — 금 간 표면</option>
+          <option value="4">4형 — 부드럽고 매끈 ✓</option>
+          <option value="5">5형 — 부드러운 덩어리</option>
+          <option value="6">6형 — 흐릿한 가장자리</option>
+          <option value="7">7형 — 물같은 묽은 (설사)</option>
+        </select>
+        <input type="number" class="metric-number" id="bowel-count" placeholder="0" min="0" max="10" style="width:46px;" />
+        <span class="metric-unit" style="white-space:nowrap;">회</span>
+      </div>
+
+      <!-- Supplements -->
+      <div class="metric-row">
+        <div class="metric-icon-label">💊 영양제</div>
+        <input type="text" class="metric-text" id="supplements" placeholder="복용한 영양제..." />
+      </div>
+
+      <!-- Exercise -->
+      <div class="metric-row">
+        <div class="metric-icon-label">🏃 운동</div>
+        <input type="text" class="metric-text" id="exercise" placeholder="종류 및 시간..." />
+      </div>
+
+      <!-- Water -->
+      <div class="metric-row" style="flex-wrap:wrap;">
+        <div class="metric-icon-label" style="width:100%;margin-bottom:6px;">💧 물 섭취</div>
+        <div class="water-cups" id="water-cups"></div>
+        <span class="water-count" id="water-count">0 / 8잔</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="card" id="card-notes">
+    <div class="card-header" data-card="notes">
+      <div class="card-header-left">
+        <span class="meal-icon">📝</span> 오늘의 메모
+      </div>
+      <div class="card-header-right">
+        <span class="toggle-arrow">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="notes-body">
+        <div>
+          <label class="note-label">💭 반성 · 개선하고 싶은 점</label>
+          <textarea class="note-textarea" id="note-regret" placeholder="오늘 아쉬웠던 식습관..."></textarea>
+        </div>
+        <div>
+          <label class="note-label">⭐ 잘 한 점 · 스스로 칭찬</label>
+          <textarea class="note-textarea" id="note-praise" placeholder="오늘 잘 한 점..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF EXPORT -->
+  <div class="pdf-export-row">
+    <a class="pdf-btn" href="food-diary-a4-print.pdf" target="_blank">
+      🖨️ 종이 다이어리 PDF 출력
+    </a>
+  </div>
+
+  <div style="height:10px;"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     HISTORY TAB
+══════════════════════════════════════════════ -->
+<section class="tab-content" id="tab-history">
+  <!-- Calendar -->
+  <div class="history-top">
+    <div class="calendar-header">
+      <button class="cal-nav-btn" id="cal-prev">‹</button>
+      <div class="cal-month-label" id="cal-month-label">2026년 1월</div>
+      <button class="cal-nav-btn" id="cal-next">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+
+  <!-- Entry list -->
+  <div class="history-list">
+    <div class="history-list-title" id="history-list-title">최근 기록</div>
+    <div id="entry-list"></div>
+  </div>
+
+  <div style="height:10px;"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     REFERENCE TAB
+══════════════════════════════════════════════ -->
+<section class="tab-content" id="tab-reference">
+  <div class="ref-section">
+
+    <details class="ref-card" open>
+      <summary>🌿 식단 기록의 핵심 원칙</summary>
+      <div class="ref-body">
+        <h4>왜 기록하는가</h4>
+        <p>음식과 증상의 패턴을 발견하기 위해 최소 <strong>4주</strong> 이상 기록합니다. 즉각 반응(식후 2시간 내)뿐 아니라 지연 반응(24~72시간 후)도 놓치지 않도록 꾸준히 기록해야 합니다.</p>
+
+        <h4>체크해야 할 핵심 변수</h4>
+        <ul>
+          <li><strong>식사 속도</strong> — 빠르게 먹으면 과식·팽만감 증가</li>
+          <li><strong>식사량</strong> — 소식은 인슐린 부담 감소, 장 회복에 유리</li>
+          <li><strong>식사 시간</strong> — 공복 시간이 미토콘드리아 건강에 영향</li>
+          <li><strong>식후 에너지</strong> — 졸림/무기력은 혈당 스파이크 신호</li>
+          <li><strong>소화 증상</strong> — 팽만감·트림·속쓰림은 위산 부족 or 음식 민감성</li>
+        </ul>
+
+        <h4>이상적인 공복 시간</h4>
+        <p>식사 간격 <strong>4~5시간</strong>이 인슐린 회복의 기준. 공복 12~16시간 달성 시 오토파지(세포 청소) 활성화.</p>
+      </div>
+    </details>
+
+    <details class="ref-card">
+      <summary>🩺 증상별 음식 연결 가이드</summary>
+      <div class="ref-body">
+        <h4>팽만감 · 가스</h4>
+        <ul>
+          <li>유발 음식: <span class="ref-tag red">밀/글루텐</span><span class="ref-tag red">유제품</span><span class="ref-tag red">고FODMAP 채소</span><span class="ref-tag red">콩류</span></li>
+          <li>개선: 식사 속도 ↓, 꼭꼭 씹기, 식전 소화 효소</li>
+        </ul>
+        <h4>트림 · 역류</h4>
+        <ul>
+          <li>원인: 위산 <strong>부족</strong> (저산증)이 더 흔함 — 위산이 없으면 음식이 발효되며 가스 발생</li>
+          <li>테스트: 식전 사과식초 1큰술 + 물, 트림 감소 시 저산증</li>
+          <li>유발: <span class="ref-tag red">커피</span><span class="ref-tag red">초콜릿</span><span class="ref-tag red">알코올</span><span class="ref-tag red">빠른 식사</span></li>
+        </ul>
+        <h4>식후 졸림 · 무기력</h4>
+        <ul>
+          <li>혈당 스파이크 → 인슐린 과다 → 저혈당 반응</li>
+          <li>개선: 채소 먼저 → 단백질 → 탄수화물 순서, 식후 10분 걷기</li>
+          <li>주의 음식: <span class="ref-tag amber">흰 쌀밥</span><span class="ref-tag amber">흰 빵</span><span class="ref-tag amber">과일주스</span></li>
+        </ul>
+        <h4>두통</h4>
+        <ul>
+          <li>음식 유발: <span class="ref-tag red">가공육(아질산염)</span><span class="ref-tag red">치즈(티라민)</span><span class="ref-tag red">MSG</span><span class="ref-tag red">알코올</span></li>
+          <li>탈수 두통: 물 부족 시 → 물 1~2잔 먼저</li>
+        </ul>
+        <h4>피로감</h4>
+        <ul>
+          <li>철분, B12, 마그네슘, 비타민D 결핍 확인</li>
+          <li>글루텐 민감성 → 장 투과성 → 영양 흡수 저하 패턴</li>
+        </ul>
+        <h4>피부 증상</h4>
+        <ul>
+          <li>연관 음식: <span class="ref-tag red">유제품</span><span class="ref-tag red">글루텐</span><span class="ref-tag red">설탕</span><span class="ref-tag red">달걀</span></li>
+          <li>지연 반응 (48~72시간) 많으므로 기록 필수</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="ref-card">
+      <summary>🔥 혈당 안정화 실전 팁</summary>
+      <div class="ref-body">
+        <h4>식사 순서 전략 (Glucose Goddess 방법)</h4>
+        <ol style="padding-left:16px; line-height:2;">
+          <li><strong>채소 먼저</strong> — 식이섬유가 포도당 흡수 속도 ↓</li>
+          <li><strong>단백질 · 지방</strong> — 인슐린 반응 완화</li>
+          <li><strong>탄수화물 마지막</strong> — 같은 음식도 순서만 바꿔도 스파이크 75% ↓</li>
+        </ol>
+        <h4>혈당 스파이크 방지 식품</h4>
+        <p>
+          <span class="ref-tag green">식이섬유</span>
+          <span class="ref-tag green">사과식초</span>
+          <span class="ref-tag green">계피</span>
+          <span class="ref-tag green">올리브오일</span>
+          <span class="ref-tag green">견과류</span>
+        </p>
+        <h4>식후 운동</h4>
+        <p>식후 <strong>10~20분 걷기</strong>만으로도 포도당이 근육으로 직접 흡수되어 인슐린 없이 혈당 안정화.</p>
+        <h4>아침 식사 전략</h4>
+        <p>일어나서 <strong>30분~1시간 내 단백질 위주</strong> 아침 → 하루 혈당 변동폭 감소 (코르티솔 스파이크 완화).</p>
+      </div>
+    </details>
+
+    <details class="ref-card">
+      <summary>🦠 장 건강 & 마이크로바이옴</summary>
+      <div class="ref-body">
+        <h4>장 누수 (Leaky Gut) 신호</h4>
+        <ul>
+          <li>여러 음식 민감성 동시 발생</li>
+          <li>식후 두뇌 안개(Brain fog), 피로감</li>
+          <li>팽만감 · 가스 · 불규칙한 배변</li>
+          <li>피부 트러블, 관절통, 기분 변화</li>
+        </ul>
+        <h4>장 치유 4R 프로토콜</h4>
+        <table class="ref-table">
+          <tr><th>단계</th><th>내용</th></tr>
+          <tr><td><strong>Remove</strong></td><td>유발 음식 제거 (글루텐, 유제품, 설탕)</td></tr>
+          <tr><td><strong>Replace</strong></td><td>소화 효소, 위산(HCL), 담즙산 보충</td></tr>
+          <tr><td><strong>Re-inoculate</strong></td><td>프로바이오틱스, 발효 음식 (김치, 된장, 요거트)</td></tr>
+          <tr><td><strong>Repair</strong></td><td>L-글루타민, 아연, 알로에, 뼈 육수</td></tr>
+        </table>
+        <h4>장에 좋은 음식</h4>
+        <p>
+          <span class="ref-tag green">김치/된장/청국장</span>
+          <span class="ref-tag green">다양한 채소 (색깔별)</span>
+          <span class="ref-tag green">귀리/보리 (프리바이오틱)</span>
+          <span class="ref-tag green">뼈 육수 (콜라겐)</span>
+          <span class="ref-tag green">올리브오일</span>
+        </p>
+        <h4>Bristol 이상적 목표</h4>
+        <p><strong>4형</strong> (소시지 모양, 부드럽고 매끈) — 하루 1~2회</p>
+      </div>
+    </details>
+
+    <details class="ref-card">
+      <summary>💊 영양소 결핍 & 증상 체크리스트</summary>
+      <div class="ref-body">
+        <table class="ref-table">
+          <tr><th>영양소</th><th>결핍 증상</th></tr>
+          <tr><td><strong>마그네슘</strong></td><td>근육 경련, 두통, 불면, 변비, 스트레스 과민</td></tr>
+          <tr><td><strong>비타민 D</strong></td><td>피로, 면역 저하, 기분 저하, 뼈 통증</td></tr>
+          <tr><td><strong>철분</strong></td><td>피로, 창백함, 집중력 저하, 숨참</td></tr>
+          <tr><td><strong>B12</strong></td><td>피로, 손발 저림, 기억력 저하, 빈혈</td></tr>
+          <tr><td><strong>아연</strong></td><td>면역 저하, 탈모, 미각/후각 이상, 피부 문제</td></tr>
+          <tr><td><strong>오메가-3</strong></td><td>건성 피부, 염증, 기분 변화, 집중력 저하</td></tr>
+          <tr><td><strong>비타민 C</strong></td><td>잇몸 출혈, 상처 회복 지연, 피로</td></tr>
+        </table>
+        <h4>구강 건강과 영양 연결</h4>
+        <ul>
+          <li>구강 건조증 → 비타민A, 오메가-3 부족 확인</li>
+          <li>잦은 구내염 → 철분, B12, 엽산, 아연</li>
+          <li>치주 염증 심화 → 비타민C, 코엔자임Q10, 오메가-3</li>
+          <li>치아 과민성 → 마그네슘, 비타민D, K2</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="ref-card">
+      <summary>🌱 항염증 식단 핵심</summary>
+      <div class="ref-body">
+        <h4>항염증 TOP 식품</h4>
+        <p>
+          <span class="ref-tag green">연어/고등어 (오메가-3)</span>
+          <span class="ref-tag green">블루베리/베리류</span>
+          <span class="ref-tag green">강황 (커큐민)</span>
+          <span class="ref-tag green">브로콜리 (설포라판)</span>
+          <span class="ref-tag green">올리브오일 (올레오칸탈)</span>
+          <span class="ref-tag green">녹차 (EGCG)</span>
+          <span class="ref-tag green">다크초콜릿 70%+</span>
+          <span class="ref-tag green">아보카도</span>
+          <span class="ref-tag green">토마토 (리코펜)</span>
+          <span class="ref-tag green">버섯 (베타글루칸)</span>
+        </p>
+        <h4>피해야 할 친염증 음식</h4>
+        <p>
+          <span class="ref-tag red">정제 설탕 · 고과당 시럽</span>
+          <span class="ref-tag red">트랜스지방 (마가린)</span>
+          <span class="ref-tag red">정제 탄수화물 (흰 빵/흰 쌀)</span>
+          <span class="ref-tag red">가공육 (햄, 소시지)</span>
+          <span class="ref-tag red">식용유 (오메가-6 과다)</span>
+          <span class="ref-tag red">알코올</span>
+        </p>
+        <h4>오메가-3 : 오메가-6 비율 목표</h4>
+        <p>현대인 평균 1:20 → 목표 <strong>1:4</strong> 이하. 오메가-3 음식 늘리고, 식용유(콩기름·옥수수유) 줄이기.</p>
+      </div>
+    </details>
+
+    <!-- PDF 출력 링크 -->
+    <div class="pdf-export-row" style="margin: 10px 0;">
+      <a class="pdf-btn outline" href="food-diary-a4-print.pdf" target="_blank">
+        🖨️ A4 한달 다이어리 출력
+      </a>
+    </div>
+
+  </div>
+  <div style="height:10px;"></div>
+</section>
+
+</main>
+
+
+<!-- ── BOTTOM NAVIGATION ──────────────────────────── -->
+<nav class="bottom-nav">
+  <div class="nav-indicator" id="nav-indicator"></div>
+  <button class="nav-btn active" data-tab="today" id="nav-today">
+    <span class="nav-icon">📅</span>
+    <span class="nav-label">오늘</span>
+  </button>
+  <button class="nav-btn" data-tab="history" id="nav-history">
+    <span class="nav-icon">📖</span>
+    <span class="nav-label">기록</span>
+  </button>
+  <button class="nav-btn" data-tab="reference" id="nav-reference">
+    <span class="nav-icon">🌿</span>
+    <span class="nav-label">레퍼런스</span>
+  </button>
+</nav>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+const DAYS_KO = ['일','월','화','수','목','금','토'];
+const MONTHS_KO = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+let currentDate = new Date();
+currentDate.setHours(0,0,0,0);
+let calYear = currentDate.getFullYear();
+let calMonth = currentDate.getMonth();
+let waterCount = 0;
+
+/* ═══════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════ */
+function dateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `food_journal_${y}-${m}-${day}`;
+}
+function formatDateLabel(d) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diff = (d - today) / 86400000;
+  const dateStr = `${d.getMonth()+1}/${d.getDate()} (${DAYS_KO[d.getDay()]})`;
+  if (diff === 0) return { main: '오늘', sub: dateStr };
+  if (diff === -1) return { main: '어제', sub: dateStr };
+  if (diff === 1) return { main: '내일', sub: dateStr };
+  return { main: `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`, sub: DAYS_KO[d.getDay()]+'요일' };
+}
+function showToast(msg, duration=1800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+/* ═══════════════════════════════════════════
+   HEADER DATE UPDATE
+═══════════════════════════════════════════ */
+function updateHeaderDate() {
+  const { main, sub } = formatDateLabel(currentDate);
+  document.getElementById('hdr-date-main').textContent = main;
+  document.getElementById('hdr-weekday').textContent = sub;
+}
+
+/* ═══════════════════════════════════════════
+   WATER CUPS
+═══════════════════════════════════════════ */
+function renderWaterCups(count) {
+  waterCount = count;
+  const container = document.getElementById('water-cups');
+  container.innerHTML = '';
+  for (let i = 0; i < 8; i++) {
+    const cup = document.createElement('div');
+    cup.className = 'water-cup' + (i < count ? ' filled' : '');
+    cup.textContent = i < count ? '💧' : '';
+    cup.dataset.idx = i;
+    cup.addEventListener('click', () => {
+      const newCount = (waterCount === i + 1) ? i : i + 1;
+      renderWaterCups(newCount);
+    });
+    container.appendChild(cup);
+  }
+  document.getElementById('water-count').textContent = `${count} / 8잔`;
+}
+
+/* ═══════════════════════════════════════════
+   SAVE / LOAD
+═══════════════════════════════════════════ */
+function getFormData() {
+  const radio = (name) => {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : null;
+  };
+  const checks = (containerId) => {
+    return Array.from(document.querySelectorAll(`#${containerId} input:checked`)).map(e => e.value);
+  };
+  return {
+    meals: {
+      breakfast: {
+        time: document.getElementById('breakfast-time').value,
+        food: document.getElementById('breakfast-food').value,
+        slow: radio('b-slow'),
+        amount: radio('b-amount'),
+        symptoms: checks('b-sym'),
+        energy: radio('b-energy'),
+        fasting: document.getElementById('breakfast-fasting').value
+      },
+      lunch: {
+        time: document.getElementById('lunch-time').value,
+        food: document.getElementById('lunch-food').value,
+        slow: radio('l-slow'),
+        amount: radio('l-amount'),
+        symptoms: checks('l-sym'),
+        energy: radio('l-energy'),
+        fasting: document.getElementById('lunch-fasting').value
+      },
+      dinner: {
+        time: document.getElementById('dinner-time').value,
+        food: document.getElementById('dinner-food').value,
+        slow: radio('d-slow'),
+        amount: radio('d-amount'),
+        symptoms: checks('d-sym'),
+        energy: radio('d-energy')
+      }
+    },
+    snack: document.getElementById('snack-food').value,
+    sleep_hours: document.getElementById('sleep-hours').value,
+    sleep_quality: radio('sleep-q'),
+    stress: radio('stress'),
+    bristol: document.getElementById('bristol-type').value,
+    bowel_count: document.getElementById('bowel-count').value,
+    supplements: document.getElementById('supplements').value,
+    exercise: document.getElementById('exercise').value,
+    water: waterCount,
+    note_regret: document.getElementById('note-regret').value,
+    note_praise: document.getElementById('note-praise').value
+  };
+}
+
+function setFormData(data) {
+  if (!data) return clearForm();
+
+  const setRadio = (name, val) => {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      r.checked = r.value === val;
+    });
+  };
+  const setChecks = (containerId, vals) => {
+    document.querySelectorAll(`#${containerId} input`).forEach(c => {
+      c.checked = vals && vals.includes(c.value);
+    });
+  };
+
+  const m = data.meals || {};
+  const b = m.breakfast || {};
+  const l = m.lunch || {};
+  const d = m.dinner || {};
+
+  document.getElementById('breakfast-time').value = b.time || '';
+  document.getElementById('breakfast-food').value = b.food || '';
+  setRadio('b-slow', b.slow);
+  setRadio('b-amount', b.amount);
+  setChecks('b-sym', b.symptoms);
+  setRadio('b-energy', b.energy);
+  document.getElementById('breakfast-fasting').value = b.fasting || '';
+
+  document.getElementById('lunch-time').value = l.time || '';
+  document.getElementById('lunch-food').value = l.food || '';
+  setRadio('l-slow', l.slow);
+  setRadio('l-amount', l.amount);
+  setChecks('l-sym', l.symptoms);
+  setRadio('l-energy', l.energy);
+  document.getElementById('lunch-fasting').value = l.fasting || '';
+
+  document.getElementById('dinner-time').value = d.time || '';
+  document.getElementById('dinner-food').value = d.food || '';
+  setRadio('d-slow', d.slow);
+  setRadio('d-amount', d.amount);
+  setChecks('d-sym', d.symptoms);
+  setRadio('d-energy', d.energy);
+
+  document.getElementById('snack-food').value = data.snack || '';
+  document.getElementById('sleep-hours').value = data.sleep_hours || '';
+  setRadio('sleep-q', data.sleep_quality);
+  setRadio('stress', data.stress);
+  document.getElementById('bristol-type').value = data.bristol || '';
+  document.getElementById('bowel-count').value = data.bowel_count || '';
+  document.getElementById('supplements').value = data.supplements || '';
+  document.getElementById('exercise').value = data.exercise || '';
+  renderWaterCups(data.water || 0);
+  document.getElementById('note-regret').value = data.note_regret || '';
+  document.getElementById('note-praise').value = data.note_praise || '';
+}
+
+function clearForm() {
+  ['breakfast-time','breakfast-food','breakfast-fasting',
+   'lunch-time','lunch-food','lunch-fasting',
+   'dinner-time','dinner-food',
+   'snack-food','sleep-hours','supplements','exercise',
+   'note-regret','note-praise'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(e => e.checked = false);
+  document.getElementById('bristol-type').value = '';
+  document.getElementById('bowel-count').value = '';
+  renderWaterCups(0);
+}
+
+function saveEntry() {
+  const data = getFormData();
+  localStorage.setItem(dateKey(currentDate), JSON.stringify(data));
+  const btn = document.getElementById('btn-save');
+  btn.classList.add('saved');
+  btn.textContent = '✅ 저장됨';
+  setTimeout(() => { btn.textContent = '💾 저장'; btn.classList.remove('saved'); }, 2000);
+  showToast('저장 완료 ✨');
+}
+
+function loadEntry(date) {
+  const raw = localStorage.getItem(dateKey(date));
+  const data = raw ? JSON.parse(raw) : null;
+  setFormData(data);
+}
+
+/* ═══════════════════════════════════════════
+   DATE NAVIGATION
+═══════════════════════════════════════════ */
+function gotoDate(d) {
+  currentDate = new Date(d);
+  currentDate.setHours(0,0,0,0);
+  updateHeaderDate();
+  loadEntry(currentDate);
+  // Scroll today tab to top
+  document.getElementById('tab-today').closest('.app-main').scrollTo(0,0);
+}
+
+document.getElementById('btn-prev').addEventListener('click', () => {
+  const d = new Date(currentDate);
+  d.setDate(d.getDate() - 1);
+  gotoDate(d);
+});
+document.getElementById('btn-next').addEventListener('click', () => {
+  const d = new Date(currentDate);
+  d.setDate(d.getDate() + 1);
+  gotoDate(d);
+});
+document.getElementById('btn-save').addEventListener('click', saveEntry);
+
+/* ═══════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════ */
+const tabs = ['today','history','reference'];
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+tabId).classList.add('active');
+  document.getElementById('nav-'+tabId).classList.add('active');
+  // Move indicator
+  const idx = tabs.indexOf(tabId);
+  const w = 100 / tabs.length;
+  const indicator = document.getElementById('nav-indicator');
+  indicator.style.left = (idx * w + (w - 40/4.8)/2) + '%';
+  // Re-render history if needed
+  if (tabId === 'history') renderCalendar();
+  document.querySelector('.app-main').scrollTo(0,0);
+}
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+/* ═══════════════════════════════════════════
+   CARD ACCORDION
+═══════════════════════════════════════════ */
+document.querySelectorAll('.card-header').forEach(hdr => {
+  hdr.addEventListener('click', (e) => {
+    if (e.target.closest('input')) return;
+    const card = hdr.closest('.card');
+    card.classList.toggle('open');
+  });
+});
+
+/* ═══════════════════════════════════════════
+   CALENDAR
+═══════════════════════════════════════════ */
+function hasEntry(y, m, d) {
+  const key = `food_journal_${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  return !!localStorage.getItem(key);
+}
+
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = `${calYear}년 ${MONTHS_KO[calMonth]}`;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  // Day of week headers
+  ['일','월','화','수','목','금','토'].forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const prevDays = new Date(calYear, calMonth, 0).getDate();
+
+  // Prev month days
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const el = document.createElement('div');
+    el.className = 'cal-day other-month empty';
+    el.innerHTML = `<span class="cal-day-num">${prevDays - i}</span>`;
+    grid.appendChild(el);
+  }
+
+  // Current month days
+  for (let d = 1; d <= daysInMonth; d++) {
+    const thisDate = new Date(calYear, calMonth, d);
+    const isToday = thisDate.getTime() === today.getTime();
+    const isSel = thisDate.getTime() === currentDate.getTime();
+    const entry = hasEntry(calYear, calMonth, d);
+    const el = document.createElement('div');
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (isSel && !isToday) cls += ' selected';
+    if (entry) cls += ' has-entry';
+    el.className = cls;
+    el.innerHTML = `<span class="cal-day-num">${d}</span>`;
+    el.addEventListener('click', () => {
+      gotoDate(new Date(calYear, calMonth, d));
+      switchTab('today');
+    });
+    grid.appendChild(el);
+  }
+
+  // Next month padding
+  const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+  for (let d = 1; d <= totalCells - firstDay - daysInMonth; d++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day other-month empty';
+    el.innerHTML = `<span class="cal-day-num">${d}</span>`;
+    grid.appendChild(el);
+  }
+
+  renderHistoryList();
+}
+
+document.getElementById('cal-prev').addEventListener('click', () => {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+});
+document.getElementById('cal-next').addEventListener('click', () => {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+});
+
+/* ═══════════════════════════════════════════
+   HISTORY LIST
+═══════════════════════════════════════════ */
+function renderHistoryList() {
+  const container = document.getElementById('entry-list');
+  container.innerHTML = '';
+
+  // Collect all entries for current month
+  const entries = [];
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  for (let d = daysInMonth; d >= 1; d--) {
+    const key = `food_journal_${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      try {
+        const data = JSON.parse(raw);
+        entries.push({ date: new Date(calYear, calMonth, d), data, key });
+      } catch(e) {}
+    }
+  }
+
+  const title = document.getElementById('history-list-title');
+  title.textContent = `${calYear}년 ${MONTHS_KO[calMonth]} 기록 (${entries.length}일)`;
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="no-entries">📭 이번 달 기록이 없어요.<br>오늘 탭에서 기록을 시작해보세요!</div>';
+    return;
+  }
+
+  entries.forEach(({ date, data }) => {
+    const card = document.createElement('div');
+    card.className = 'entry-card';
+
+    const dayStr = `${date.getMonth()+1}/${date.getDate()} (${DAYS_KO[date.getDay()]})`;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const diff = (date - today) / 86400000;
+    const dayLabel = diff === 0 ? '오늘' : diff === -1 ? '어제' : dayStr;
+
+    // Summary tags
+    const tags = [];
+    if (data.water) tags.push(`💧${data.water}잔`);
+    if (data.sleep_hours) tags.push(`🌙${data.sleep_hours}h`);
+    if (data.stress) tags.push(`스트레스 ${data.stress}`);
+    if (data.bristol) tags.push(`Bristol ${data.bristol}형`);
+
+    const meals = data.meals || {};
+    const previews = [];
+    if (meals.breakfast?.food) previews.push({ label: '아침', food: meals.breakfast.food });
+    if (meals.lunch?.food) previews.push({ label: '점심', food: meals.lunch.food });
+    if (meals.dinner?.food) previews.push({ label: '저녁', food: meals.dinner.food });
+
+    card.innerHTML = `
+      <div class="entry-card-header">
+        <div class="entry-date-label">${dayLabel}${diff !== 0 ? ' · ' + dayStr : ''}</div>
+        <div class="entry-summary">${tags.map(t => `<span class="entry-tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="entry-meals-preview">
+        ${previews.length > 0
+          ? previews.map(p => `<div class="preview-meal"><strong>${p.label}</strong> ${p.food.split('\n')[0].slice(0,30)}${p.food.length > 30 ? '…' : ''}</div>`).join('')
+          : '<div class="preview-meal" style="color:#bbb;">음식 기록 없음</div>'
+        }
+      </div>`;
+    card.addEventListener('click', () => {
+      gotoDate(date);
+      switchTab('today');
+    });
+    container.appendChild(card);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   AUTO-RESIZE TEXTAREAS
+═══════════════════════════════════════════ */
+document.querySelectorAll('textarea').forEach(ta => {
+  ta.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+  });
+});
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+renderWaterCups(0);
+updateHeaderDate();
+loadEntry(currentDate);
+calYear = currentDate.getFullYear();
+calMonth = currentDate.getMonth();
+
+// Set initial nav indicator position
+setTimeout(() => {
+  const indicator = document.getElementById('nav-indicator');
+  const w = 100 / tabs.length;
+  indicator.style.left = (w/2 - 40/4.8/2) + '%';
+  indicator.style.width = '40px';
+}, 0);
+</script>
+</body>
+</html>
