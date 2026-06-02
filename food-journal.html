@@ -120,17 +120,39 @@
   .card-body { display: none; }
   .card.open .card-body { display: block; }
 
-  /* ── FOOD TEXTAREA ──────────────────────── */
+  /* ── FOOD TEXTAREA (간식 전용) ──────────── */
   .food-textarea {
     width: 100%; border: none; resize: none;
     padding: 12px 16px; font-size: 14px; color: var(--text);
     line-height: 1.6; font-family: inherit;
     background: var(--white);
     border-bottom: 1px solid var(--border);
-    min-height: 80px;
+    min-height: 60px;
   }
   .food-textarea:focus { outline: none; background: #fafffe; }
   .food-textarea::placeholder { color: #b0bfb0; }
+
+  /* ── MACRO GRID (채소/단백질/탄수화물) ──── */
+  .macro-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; padding: 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .macro-label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: var(--sage-dark); margin-bottom: 5px;
+  }
+  .macro-textarea {
+    width: 100%; border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 7px 9px;
+    font-size: 12.5px; color: var(--text);
+    font-family: inherit; resize: none;
+    background: var(--warm); min-height: 64px;
+    line-height: 1.5;
+  }
+  .macro-textarea:focus { outline: none; border-color: var(--sage); background: #fff; }
+  .macro-textarea::placeholder { color: #c0cfc0; font-size: 11.5px; }
 
   /* ── RADIO PILL ─────────────────────────── */
   .check-bar {
@@ -528,7 +550,20 @@
       </div>
     </div>
     <div class="card-body">
-      <textarea class="food-textarea" id="breakfast-food" placeholder="아침에 드신 음식을 적어주세요..." rows="3"></textarea>
+      <div class="macro-grid">
+        <div>
+          <span class="macro-label">🥦 채소</span>
+          <textarea class="macro-textarea" id="breakfast-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🥩 단백질</span>
+          <textarea class="macro-textarea" id="breakfast-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="breakfast-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+        </div>
+      </div>
 
       <div class="check-bar">
         <div class="check-group">
@@ -587,7 +622,20 @@
       </div>
     </div>
     <div class="card-body">
-      <textarea class="food-textarea" id="lunch-food" placeholder="점심에 드신 음식을 적어주세요..." rows="3"></textarea>
+      <div class="macro-grid">
+        <div>
+          <span class="macro-label">🥦 채소</span>
+          <textarea class="macro-textarea" id="lunch-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🥩 단백질</span>
+          <textarea class="macro-textarea" id="lunch-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="lunch-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+        </div>
+      </div>
 
       <div class="check-bar">
         <div class="check-group">
@@ -646,7 +694,20 @@
       </div>
     </div>
     <div class="card-body">
-      <textarea class="food-textarea" id="dinner-food" placeholder="저녁에 드신 음식을 적어주세요..." rows="3"></textarea>
+      <div class="macro-grid">
+        <div>
+          <span class="macro-label">🥦 채소</span>
+          <textarea class="macro-textarea" id="dinner-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🥩 단백질</span>
+          <textarea class="macro-textarea" id="dinner-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="dinner-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+        </div>
+      </div>
 
       <div class="check-bar">
         <div class="check-group">
@@ -1126,7 +1187,9 @@ function getFormData() {
     meals: {
       breakfast: {
         time: document.getElementById('breakfast-time').value,
-        food: document.getElementById('breakfast-food').value,
+        veg: document.getElementById('breakfast-veg').value,
+        protein: document.getElementById('breakfast-protein').value,
+        carb: document.getElementById('breakfast-carb').value,
         slow: radio('b-slow'),
         amount: radio('b-amount'),
         symptoms: checks('b-sym'),
@@ -1135,7 +1198,9 @@ function getFormData() {
       },
       lunch: {
         time: document.getElementById('lunch-time').value,
-        food: document.getElementById('lunch-food').value,
+        veg: document.getElementById('lunch-veg').value,
+        protein: document.getElementById('lunch-protein').value,
+        carb: document.getElementById('lunch-carb').value,
         slow: radio('l-slow'),
         amount: radio('l-amount'),
         symptoms: checks('l-sym'),
@@ -1144,7 +1209,9 @@ function getFormData() {
       },
       dinner: {
         time: document.getElementById('dinner-time').value,
-        food: document.getElementById('dinner-food').value,
+        veg: document.getElementById('dinner-veg').value,
+        protein: document.getElementById('dinner-protein').value,
+        carb: document.getElementById('dinner-carb').value,
         slow: radio('d-slow'),
         amount: radio('d-amount'),
         symptoms: checks('d-sym'),
@@ -1185,7 +1252,9 @@ function setFormData(data) {
   const d = m.dinner || {};
 
   document.getElementById('breakfast-time').value = b.time || '';
-  document.getElementById('breakfast-food').value = b.food || '';
+  document.getElementById('breakfast-veg').value = b.veg || '';
+  document.getElementById('breakfast-protein').value = b.protein || '';
+  document.getElementById('breakfast-carb').value = b.carb || '';
   setRadio('b-slow', b.slow);
   setRadio('b-amount', b.amount);
   setChecks('b-sym', b.symptoms);
@@ -1193,7 +1262,9 @@ function setFormData(data) {
   document.getElementById('breakfast-fasting').value = b.fasting || '';
 
   document.getElementById('lunch-time').value = l.time || '';
-  document.getElementById('lunch-food').value = l.food || '';
+  document.getElementById('lunch-veg').value = l.veg || '';
+  document.getElementById('lunch-protein').value = l.protein || '';
+  document.getElementById('lunch-carb').value = l.carb || '';
   setRadio('l-slow', l.slow);
   setRadio('l-amount', l.amount);
   setChecks('l-sym', l.symptoms);
@@ -1201,7 +1272,9 @@ function setFormData(data) {
   document.getElementById('lunch-fasting').value = l.fasting || '';
 
   document.getElementById('dinner-time').value = d.time || '';
-  document.getElementById('dinner-food').value = d.food || '';
+  document.getElementById('dinner-veg').value = d.veg || '';
+  document.getElementById('dinner-protein').value = d.protein || '';
+  document.getElementById('dinner-carb').value = d.carb || '';
   setRadio('d-slow', d.slow);
   setRadio('d-amount', d.amount);
   setChecks('d-sym', d.symptoms);
@@ -1221,9 +1294,9 @@ function setFormData(data) {
 }
 
 function clearForm() {
-  ['breakfast-time','breakfast-food','breakfast-fasting',
-   'lunch-time','lunch-food','lunch-fasting',
-   'dinner-time','dinner-food',
+  ['breakfast-time','breakfast-veg','breakfast-protein','breakfast-carb','breakfast-fasting',
+   'lunch-time','lunch-veg','lunch-protein','lunch-carb','lunch-fasting',
+   'dinner-time','dinner-veg','dinner-protein','dinner-carb',
    'snack-food','sleep-hours','supplements','exercise',
    'note-regret','note-praise'].forEach(id => {
     document.getElementById(id).value = '';
@@ -1430,9 +1503,12 @@ function renderHistoryList() {
 
     const meals = data.meals || {};
     const previews = [];
-    if (meals.breakfast?.food) previews.push({ label: '아침', food: meals.breakfast.food });
-    if (meals.lunch?.food) previews.push({ label: '점심', food: meals.lunch.food });
-    if (meals.dinner?.food) previews.push({ label: '저녁', food: meals.dinner.food });
+    const bfood = [meals.breakfast?.veg, meals.breakfast?.protein, meals.breakfast?.carb].filter(Boolean).join(' · ');
+    const lfood = [meals.lunch?.veg, meals.lunch?.protein, meals.lunch?.carb].filter(Boolean).join(' · ');
+    const dfood = [meals.dinner?.veg, meals.dinner?.protein, meals.dinner?.carb].filter(Boolean).join(' · ');
+    if (bfood) previews.push({ label: '아침', food: bfood });
+    if (lfood) previews.push({ label: '점심', food: lfood });
+    if (dfood) previews.push({ label: '저녁', food: dfood });
 
     card.innerHTML = `
       <div class="entry-card-header">
