@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>식단기록 — A4 한달치 인쇄용</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<style>
+@page { size: A4 landscape; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --sage: #6b8f6b;
+  --sage-dark: #3d5c3d;
+  --sage-light: #eef4ee;
+  --sage-mid: #c8dcc8;
+  --warm: #f7f5f0;
+  --border: #ccc;
+  --text: #1a1a1a;
+  --muted: #666;
+}
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-size: 7pt;
+  color: var(--text);
+  background: white;
+  line-height: 1.4;
+}
+
+/* A4 가로 시트 — 2장 나란히 */
+.a4-sheet {
+  width: 297mm;
+  height: 210mm;
+  display: flex;
+  flex-direction: row;
+  page-break-after: always;
+  overflow: hidden;
+}
+.daily-slot {
+  width: 148.5mm;
+  height: 210mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.daily-slot:first-child {
+  border-right: 0.8pt dashed #bbb;
+}
+
+/* ── DAILY PAGE ─────────────────────────── */
+.daily-page {
+  width: 130mm;
+  height: 196mm;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7mm;
+  padding: 0;
+}
+
+.daily-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--sage);
+  padding-bottom: 1.5mm;
+  flex-shrink: 0;
+}
+.date-field {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+}
+.date-field .uline {
+  display: inline-block;
+  width: 36mm;
+  border-bottom: 1.5px solid var(--text);
+}
+
+/* Meal box */
+.meal-box {
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 46mm;
+  flex-shrink: 0;
+  height: 33mm;
+  overflow: hidden;
+}
+.meal-food {
+  border-right: 1px solid var(--border);
+  padding: 2mm 3mm;
+  display: flex;
+  flex-direction: column;
+}
+.meal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5mm;
+}
+.meal-name {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.meal-time {
+  font-size: 7pt;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 1mm;
+}
+.tuline { display: inline-block; width: 14mm; border-bottom: 1px solid #aaa; }
+.wlines { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+.wl { border-bottom: 1px solid #e0e0e0; }
+.macro-boxes {
+  flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5mm; margin-top: 1mm; min-height: 0;
+}
+.macro-box {
+  border: 1px solid var(--sage-mid); border-radius: 1mm;
+  display: flex; flex-direction: column; overflow: hidden; min-height: 0;
+}
+.macro-box-hd {
+  background: var(--sage-light); font-size: 5.5pt; font-weight: 700;
+  color: var(--sage-dark); padding: 0.8mm 1.5mm; text-align: center;
+  border-bottom: 1px solid var(--sage-mid); flex-shrink: 0;
+}
+.macro-box-body {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: space-evenly; padding: 0 1.5mm;
+}
+.macro-wl { border-bottom: 0.5px solid #e0e0e0; }
+
+/* Symptoms panel */
+.meal-sym {
+  padding: 2mm 2.5mm;
+  background: var(--warm);
+  display: flex;
+  flex-direction: column;
+}
+.sym-hd {
+  font-size: 5.8pt;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2mm;
+}
+.sym-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2mm 2mm;
+  flex: 1;
+}
+.si {
+  display: flex;
+  align-items: center;
+  gap: 1.2mm;
+  font-size: 7pt;
+  white-space: nowrap;
+}
+.cb {
+  width: 3mm;
+  height: 3mm;
+  border: 1.2px solid #777;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.sev-row {
+  margin-top: 2mm;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5mm;
+}
+.sev-lbl { font-size: 5.5pt; color: var(--muted); margin-bottom: 1mm; }
+.dot {
+  width: 3.5mm;
+  height: 3.5mm;
+  border: 1.2px solid #777;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Snacks */
+.snacks-box {
+  border: 1px solid var(--border);
+  padding: 1mm 2mm;
+  flex-shrink: 0;
+  height: 11mm;
+  display: flex;
+  align-items: flex-start;
+  gap: 3mm;
+}
+.snacks-name {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  min-width: 22mm;
+}
+
+/* Daily Trackers */
+.trackers-box {
+  border: 1.5px solid var(--sage);
+  padding: 1.5mm 3mm;
+  background: var(--sage-light);
+  flex: 1;
+  min-height: 0;
+}
+.tr-hd {
+  font-size: 7pt;
+  font-weight: 700;
+  color: var(--sage-dark);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 1.5mm;
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+}
+.tr-hd::after { content: ''; flex: 1; height: 1px; background: var(--sage-mid); }
+.tr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2mm 6mm;
+}
+.tr-row { display: flex; align-items: center; gap: 1.5mm; font-size: 7.5pt; }
+.tr-lbl {
+  font-size: 7pt;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 20mm;
+}
+.tr-uline { flex: 1; border-bottom: 1px solid #aaa; min-width: 15mm; }
+.full-col { grid-column: 1 / -1; }
+
+/* ── PRINT ──────────────────────────────── */
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SVG 심볼 전역 정의 (한 번만) -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden">
+  <defs>
+    <symbol id="wc" viewBox="0 0 13 17">
+      <path d="M1 2h11L10 16H3L1 2z" stroke="#6b8f6b" stroke-width="1.3" stroke-linejoin="round" fill="none"/>
+      <path d="M6.5 5.5c0 0-2.2 3-2.2 5a2.2 2.2 0 004.4 0c0-2-2.2-5-2.2-5z" fill="#6b8f6b" opacity="0.45"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 일일 기록 템플릿 (숨겨짐) -->
+<template id="daily-template">
+  <div class="daily-page">
+
+    <div class="daily-header">
+      <div class="date-field">DATE&nbsp;<span class="uline"></span></div>
+    </div>
+
+    <!-- BREAKFAST -->
+    <div class="meal-box">
+      <div class="meal-food">
+        <div class="meal-top">
+          <div class="meal-name">Breakfast &nbsp;아침</div>
+          <div class="meal-time">Time <span class="tuline"></span></div>
+        </div>
+        <div class="macro-boxes">
+          <div class="macro-box">
+            <div class="macro-box-hd">탄수화물</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">단백질</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">지방</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">기타</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-sym">
+        <div class="sym-hd">Symptoms 증상</div>
+        <div class="sym-grid">
+          <div class="si"><span class="cb"></span>트림</div>
+          <div class="si"><span class="cb"></span>더부룩함</div>
+          <div class="si"><span class="cb"></span>두통</div>
+          <div class="si"><span class="cb"></span>속쓰림</div>
+          <div class="si"><span class="cb"></span>가스</div>
+          <div class="si"><span class="cb"></span>통증</div>
+        </div>
+        <div style="margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+          <div style="font-size:5.8pt;font-weight:700;color:var(--muted);margin-bottom:1.5mm;letter-spacing:0.5px;">식후 에너지</div>
+          <div style="display:flex;gap:1.5mm;flex-wrap:nowrap;">
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">포만감</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">졸림</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">허기짐</span></div>
+          </div>
+        </div>
+        <div class="sev-row" style="display:flex;flex-direction:column;gap:1mm;">
+          <div class="sev-lbl">Memo</div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 아침 체크 + 공복 (아침→점심) -->
+    <div style="display:flex;align-items:center;gap:2mm;padding:1.2mm 3mm;background:var(--sage-light);border-left:3px solid var(--sage-mid);flex-shrink:0;">
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">천천히</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">Y</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.5mm;"></span><span style="font-size:5.8pt;color:var(--muted);">N</span>
+      <span style="font-size:5.5pt;color:#bbb;margin:0 1.5mm;">|</span>
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">식사량</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">소식</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">적당</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">과식</span>
+      <span style="font-size:5.5pt;color:#bbb;margin:0 2mm;">|</span>
+      <span style="font-size:6pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">⏱ 공복</span>
+      <span style="display:inline-block;width:12mm;border-bottom:1px solid #aaa;"></span>
+      <span style="font-size:6pt;color:var(--muted);">hrs &nbsp;(아침→점심)</span>
+    </div>
+
+    <!-- LUNCH -->
+    <div class="meal-box">
+      <div class="meal-food">
+        <div class="meal-top">
+          <div class="meal-name">Lunch &nbsp;점심</div>
+          <div class="meal-time">Time <span class="tuline"></span></div>
+        </div>
+        <div class="macro-boxes">
+          <div class="macro-box">
+            <div class="macro-box-hd">탄수화물</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">단백질</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">지방</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">기타</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-sym">
+        <div class="sym-hd">Symptoms 증상</div>
+        <div class="sym-grid">
+          <div class="si"><span class="cb"></span>트림</div>
+          <div class="si"><span class="cb"></span>더부룩함</div>
+          <div class="si"><span class="cb"></span>두통</div>
+          <div class="si"><span class="cb"></span>속쓰림</div>
+          <div class="si"><span class="cb"></span>가스</div>
+          <div class="si"><span class="cb"></span>통증</div>
+        </div>
+        <div style="margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+          <div style="font-size:5.8pt;font-weight:700;color:var(--muted);margin-bottom:1.5mm;letter-spacing:0.5px;">식후 에너지</div>
+          <div style="display:flex;gap:1.5mm;flex-wrap:nowrap;">
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">포만감</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">졸림</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">허기짐</span></div>
+          </div>
+        </div>
+        <div class="sev-row" style="display:flex;flex-direction:column;gap:1mm;">
+          <div class="sev-lbl">Memo</div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 점심 체크 + 공복 (점심→저녁) -->
+    <div style="display:flex;align-items:center;gap:2mm;padding:1.2mm 3mm;background:var(--sage-light);border-left:3px solid var(--sage-mid);flex-shrink:0;">
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">천천히</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">Y</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.5mm;"></span><span style="font-size:5.8pt;color:var(--muted);">N</span>
+      <span style="font-size:5.5pt;color:#bbb;margin:0 1.5mm;">|</span>
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">식사량</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">소식</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">적당</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">과식</span>
+      <span style="font-size:5.5pt;color:#bbb;margin:0 2mm;">|</span>
+      <span style="font-size:6pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">⏱ 공복</span>
+      <span style="display:inline-block;width:12mm;border-bottom:1px solid #aaa;"></span>
+      <span style="font-size:6pt;color:var(--muted);">hrs &nbsp;(점심→저녁)</span>
+    </div>
+
+    <!-- DINNER -->
+    <div class="meal-box">
+      <div class="meal-food">
+        <div class="meal-top">
+          <div class="meal-name">Dinner &nbsp;저녁</div>
+          <div class="meal-time">Time <span class="tuline"></span></div>
+        </div>
+        <div class="macro-boxes">
+          <div class="macro-box">
+            <div class="macro-box-hd">탄수화물</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">단백질</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">지방</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+          <div class="macro-box">
+            <div class="macro-box-hd">기타</div>
+            <div class="macro-box-body">
+              <div class="macro-wl"></div>
+              <div class="macro-wl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-sym">
+        <div class="sym-hd">Symptoms 증상</div>
+        <div class="sym-grid">
+          <div class="si"><span class="cb"></span>트림</div>
+          <div class="si"><span class="cb"></span>더부룩함</div>
+          <div class="si"><span class="cb"></span>두통</div>
+          <div class="si"><span class="cb"></span>속쓰림</div>
+          <div class="si"><span class="cb"></span>가스</div>
+          <div class="si"><span class="cb"></span>통증</div>
+        </div>
+        <div style="margin-top:2mm;padding-top:1.5mm;border-top:1px solid var(--border);">
+          <div style="font-size:5.8pt;font-weight:700;color:var(--muted);margin-bottom:1.5mm;letter-spacing:0.5px;">식후 에너지</div>
+          <div style="display:flex;gap:1.5mm;flex-wrap:nowrap;">
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">포만감</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">졸림</span></div>
+            <div class="si"><span class="cb"></span><span style="font-size:6pt;">허기짐</span></div>
+          </div>
+        </div>
+        <div class="sev-row" style="display:flex;flex-direction:column;gap:1mm;">
+          <div class="sev-lbl">Memo</div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+          <div style="border-bottom:1px solid #ddd;width:100%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 저녁 체크 -->
+    <div style="display:flex;align-items:center;gap:2mm;padding:1.2mm 3mm;background:var(--sage-light);border-left:3px solid var(--sage-mid);flex-shrink:0;">
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">천천히</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">Y</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.5mm;"></span><span style="font-size:5.8pt;color:var(--muted);">N</span>
+      <span style="font-size:5.5pt;color:#bbb;margin:0 2mm;">|</span>
+      <span style="font-size:5.8pt;color:var(--sage-dark);font-weight:700;white-space:nowrap;">식사량</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">소식</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">적당</span>
+      <span class="dot" style="width:2.8mm;height:2.8mm;margin-left:0.8mm;"></span><span style="font-size:5.8pt;color:var(--muted);">과식</span>
+    </div>
+
+    <!-- SNACKS -->
+    <div class="snacks-box">
+      <div class="snacks-name">Snacks&nbsp;간식</div>
+    </div>
+
+    <!-- DAILY TRACKERS -->
+    <div class="trackers-box">
+      <div class="tr-hd">Daily Tracking</div>
+      <div class="tr-grid">
+
+        <div class="tr-row full-col">
+          <span class="tr-lbl">Sleep 수면</span>
+          <span style="font-size:7pt;color:var(--muted);margin-right:1.5mm;">____ hrs</span>
+          <span style="font-size:7pt;color:var(--muted);margin-right:1.5mm;">Quality</span>
+          <svg width="18" height="18" viewBox="0 0 20 20" style="margin-right:1mm"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><path d="M7 14.5 Q10 11.5 13 14.5" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20" style="margin-right:1mm"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><line x1="7" y1="13.5" x2="13" y2="13.5" stroke="#555" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20" style="margin-right:5mm"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><path d="M7 12 Q10 15.5 13 12" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+          <span style="font-size:7pt;font-weight:700;color:var(--muted);margin-right:1.5mm;white-space:nowrap;">Stress</span>
+          <svg width="18" height="18" viewBox="0 0 20 20" style="margin-right:1mm"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><path d="M7 12 Q10 15.5 13 12" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20" style="margin-right:1mm"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><line x1="7" y1="13.5" x2="13" y2="13.5" stroke="#555" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.5" stroke="#aaa" stroke-width="1.2" fill="none"/><circle cx="7.5" cy="8.5" r="1" fill="#555"/><circle cx="12.5" cy="8.5" r="1" fill="#555"/><path d="M7 14.5 Q10 11.5 13 14.5" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+        </div>
+
+        <div class="tr-row full-col">
+          <span class="tr-lbl">Bristol Type</span>
+          <span style="font-size:7pt;font-weight:700;color:#444;margin-right:1mm;">정상</span>
+          <span style="font-size:6.5pt;color:var(--muted);margin-right:3mm;">/&nbsp;비정상</span>
+          <span style="font-size:6.5pt;color:var(--muted);white-space:nowrap;margin-right:1mm;">횟수</span>
+          <span style="display:inline-block;width:10mm;border-bottom:1px solid #aaa;margin:0 1mm;"></span>
+          <span style="font-size:6.5pt;color:var(--muted);margin-right:4mm;">회</span>
+        </div>
+
+        <div class="tr-row full-col">
+          <span class="tr-lbl">영양제</span>
+          <span style="font-size:7pt;color:#444;white-space:nowrap;">비타민C &nbsp;/&nbsp; 비타민D &nbsp;/&nbsp; 오메가3 &nbsp;/&nbsp; 기타 ______</span>
+        </div>
+
+        <div class="tr-row full-col">
+          <span class="tr-lbl">Exercise</span>
+          <span style="font-size:7pt;color:var(--muted);white-space:nowrap;margin-right:1mm;">유산소</span>
+          <span class="tr-uline" style="min-width:9mm;"></span>
+          <span style="font-size:7pt;color:var(--muted);white-space:nowrap;margin:0 2mm 0 1mm;">min</span>
+          <span style="font-size:7pt;color:var(--muted);white-space:nowrap;margin-right:1mm;">근력</span>
+          <span class="tr-uline" style="min-width:9mm;"></span>
+          <span style="font-size:7pt;color:var(--muted);white-space:nowrap;margin:0 3mm 0 1mm;">min</span>
+          <span style="font-size:7pt;font-weight:700;color:var(--muted);white-space:nowrap;margin-right:2mm;">Water</span>
+          <div style="display:flex;gap:1.2mm;align-items:flex-end;">
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+            <svg width="13" height="17"><use href="#wc"/></svg>
+          </div>
+        </div>
+
+        <div class="tr-row full-col" style="align-items:center;">
+          <span class="tr-lbl">Notes 메모</span>
+          <div style="flex:1;border-bottom:1px solid #aaa;"></div>
+        </div>
+        <div style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:2mm;margin-top:1mm;">
+          <div style="border:1px solid #ccc;border-radius:2mm;padding:2mm 3mm;min-height:14mm;">
+            <div style="font-size:6.5pt;font-weight:700;color:var(--sage-dark);margin-bottom:1.5mm;">반성</div>
+            <div style="border-bottom:1px solid #e0e0e0;margin-bottom:2mm;"></div>
+            <div style="border-bottom:1px solid #e0e0e0;"></div>
+          </div>
+          <div style="border:1px solid #ccc;border-radius:2mm;padding:2mm 3mm;min-height:14mm;">
+            <div style="font-size:6.5pt;font-weight:700;color:var(--sage-dark);margin-bottom:1.5mm;">칭찬</div>
+            <div style="border-bottom:1px solid #e0e0e0;margin-bottom:2mm;"></div>
+            <div style="border-bottom:1px solid #e0e0e0;"></div>
+          </div>
+        </div>
+        <div style="grid-column:1/-1;border-bottom:1px solid #aaa;margin-top:2mm;"></div>
+        <div style="grid-column:1/-1;border-bottom:1px solid #aaa;margin-top:-1mm;"></div>
+
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<div id="content"></div>
+
+<script>
+const DAYS = 31;
+const template = document.getElementById('daily-template');
+const content = document.getElementById('content');
+
+for (let i = 0; i < Math.ceil(DAYS / 2); i++) {
+  const sheet = document.createElement('div');
+  sheet.className = 'a4-sheet';
+
+  const slot1 = document.createElement('div');
+  slot1.className = 'daily-slot';
+  slot1.appendChild(template.content.cloneNode(true));
+  sheet.appendChild(slot1);
+
+  const slot2 = document.createElement('div');
+  slot2.className = 'daily-slot';
+  if (i * 2 + 1 < DAYS) {
+    slot2.appendChild(template.content.cloneNode(true));
+  }
+  sheet.appendChild(slot2);
+
+  content.appendChild(sheet);
+}
+</script>
+</body>
+</html>

@@ -132,9 +132,9 @@
   .food-textarea:focus { outline: none; background: #fafffe; }
   .food-textarea::placeholder { color: #b0bfb0; }
 
-  /* ── MACRO GRID (채소/단백질/탄수화물) ──── */
+  /* ── MACRO GRID (탄수화물/단백질/지방/기타) ── */
   .macro-grid {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr;
     gap: 8px; padding: 12px;
     border-bottom: 1px solid var(--border);
     background: var(--white);
@@ -552,16 +552,20 @@
     <div class="card-body">
       <div class="macro-grid">
         <div>
-          <span class="macro-label">🥦 채소</span>
-          <textarea class="macro-textarea" id="breakfast-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="breakfast-carb" placeholder="현미밥&#10;고구마&#10;빵..."></textarea>
         </div>
         <div>
           <span class="macro-label">🥩 단백질</span>
           <textarea class="macro-textarea" id="breakfast-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
         </div>
         <div>
-          <span class="macro-label">🌾 탄수화물</span>
-          <textarea class="macro-textarea" id="breakfast-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+          <span class="macro-label">🫒 지방</span>
+          <textarea class="macro-textarea" id="breakfast-fat" placeholder="견과류&#10;아보카도&#10;올리브오일..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">📝 기타</span>
+          <textarea class="macro-textarea" id="breakfast-other" placeholder="간장&#10;소스&#10;기타..."></textarea>
         </div>
       </div>
 
@@ -583,12 +587,12 @@
       <div class="sym-section">
         <div class="sym-section-label">식후 증상</div>
         <div class="sym-grid" id="b-sym">
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
           <label class="sym-item"><input type="checkbox" value="더부룩함"><span>더부룩함</span></label>
           <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
           <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
-          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
-          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
-          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+          <label class="sym-item"><input type="checkbox" value="가스"><span>가스</span></label>
+          <label class="sym-item"><input type="checkbox" value="통증"><span>통증</span></label>
         </div>
       </div>
 
@@ -624,16 +628,20 @@
     <div class="card-body">
       <div class="macro-grid">
         <div>
-          <span class="macro-label">🥦 채소</span>
-          <textarea class="macro-textarea" id="lunch-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="lunch-carb" placeholder="현미밥&#10;고구마&#10;빵..."></textarea>
         </div>
         <div>
           <span class="macro-label">🥩 단백질</span>
           <textarea class="macro-textarea" id="lunch-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
         </div>
         <div>
-          <span class="macro-label">🌾 탄수화물</span>
-          <textarea class="macro-textarea" id="lunch-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+          <span class="macro-label">🫒 지방</span>
+          <textarea class="macro-textarea" id="lunch-fat" placeholder="견과류&#10;아보카도&#10;올리브오일..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">📝 기타</span>
+          <textarea class="macro-textarea" id="lunch-other" placeholder="간장&#10;소스&#10;기타..."></textarea>
         </div>
       </div>
 
@@ -655,12 +663,12 @@
       <div class="sym-section">
         <div class="sym-section-label">식후 증상</div>
         <div class="sym-grid" id="l-sym">
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
           <label class="sym-item"><input type="checkbox" value="더부룩함"><span>더부룩함</span></label>
           <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
           <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
-          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
-          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
-          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+          <label class="sym-item"><input type="checkbox" value="가스"><span>가스</span></label>
+          <label class="sym-item"><input type="checkbox" value="통증"><span>통증</span></label>
         </div>
       </div>
 
@@ -696,16 +704,20 @@
     <div class="card-body">
       <div class="macro-grid">
         <div>
-          <span class="macro-label">🥦 채소</span>
-          <textarea class="macro-textarea" id="dinner-veg" placeholder="샐러드&#10;나물&#10;쌈채소..."></textarea>
+          <span class="macro-label">🌾 탄수화물</span>
+          <textarea class="macro-textarea" id="dinner-carb" placeholder="현미밥&#10;고구마&#10;빵..."></textarea>
         </div>
         <div>
           <span class="macro-label">🥩 단백질</span>
           <textarea class="macro-textarea" id="dinner-protein" placeholder="달걀&#10;두부&#10;생선..."></textarea>
         </div>
         <div>
-          <span class="macro-label">🌾 탄수화물</span>
-          <textarea class="macro-textarea" id="dinner-carb" placeholder="현미밥&#10;고구마&#10;과일..."></textarea>
+          <span class="macro-label">🫒 지방</span>
+          <textarea class="macro-textarea" id="dinner-fat" placeholder="견과류&#10;아보카도&#10;올리브오일..."></textarea>
+        </div>
+        <div>
+          <span class="macro-label">📝 기타</span>
+          <textarea class="macro-textarea" id="dinner-other" placeholder="간장&#10;소스&#10;기타..."></textarea>
         </div>
       </div>
 
@@ -727,12 +739,12 @@
       <div class="sym-section">
         <div class="sym-section-label">식후 증상</div>
         <div class="sym-grid" id="d-sym">
+          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
           <label class="sym-item"><input type="checkbox" value="더부룩함"><span>더부룩함</span></label>
           <label class="sym-item"><input type="checkbox" value="두통"><span>두통</span></label>
           <label class="sym-item"><input type="checkbox" value="속쓰림"><span>속쓰림</span></label>
-          <label class="sym-item"><input type="checkbox" value="피로감"><span>피로감</span></label>
-          <label class="sym-item"><input type="checkbox" value="피부증상"><span>피부증상</span></label>
-          <label class="sym-item"><input type="checkbox" value="트림"><span>트림</span></label>
+          <label class="sym-item"><input type="checkbox" value="가스"><span>가스</span></label>
+          <label class="sym-item"><input type="checkbox" value="통증"><span>통증</span></label>
         </div>
       </div>
 
@@ -1187,9 +1199,10 @@ function getFormData() {
     meals: {
       breakfast: {
         time: document.getElementById('breakfast-time').value,
-        veg: document.getElementById('breakfast-veg').value,
-        protein: document.getElementById('breakfast-protein').value,
         carb: document.getElementById('breakfast-carb').value,
+        protein: document.getElementById('breakfast-protein').value,
+        fat: document.getElementById('breakfast-fat').value,
+        other: document.getElementById('breakfast-other').value,
         slow: radio('b-slow'),
         amount: radio('b-amount'),
         symptoms: checks('b-sym'),
@@ -1198,9 +1211,10 @@ function getFormData() {
       },
       lunch: {
         time: document.getElementById('lunch-time').value,
-        veg: document.getElementById('lunch-veg').value,
-        protein: document.getElementById('lunch-protein').value,
         carb: document.getElementById('lunch-carb').value,
+        protein: document.getElementById('lunch-protein').value,
+        fat: document.getElementById('lunch-fat').value,
+        other: document.getElementById('lunch-other').value,
         slow: radio('l-slow'),
         amount: radio('l-amount'),
         symptoms: checks('l-sym'),
@@ -1209,9 +1223,10 @@ function getFormData() {
       },
       dinner: {
         time: document.getElementById('dinner-time').value,
-        veg: document.getElementById('dinner-veg').value,
-        protein: document.getElementById('dinner-protein').value,
         carb: document.getElementById('dinner-carb').value,
+        protein: document.getElementById('dinner-protein').value,
+        fat: document.getElementById('dinner-fat').value,
+        other: document.getElementById('dinner-other').value,
         slow: radio('d-slow'),
         amount: radio('d-amount'),
         symptoms: checks('d-sym'),
@@ -1252,9 +1267,10 @@ function setFormData(data) {
   const d = m.dinner || {};
 
   document.getElementById('breakfast-time').value = b.time || '';
-  document.getElementById('breakfast-veg').value = b.veg || '';
-  document.getElementById('breakfast-protein').value = b.protein || '';
   document.getElementById('breakfast-carb').value = b.carb || '';
+  document.getElementById('breakfast-protein').value = b.protein || '';
+  document.getElementById('breakfast-fat').value = b.fat || '';
+  document.getElementById('breakfast-other').value = b.other || '';
   setRadio('b-slow', b.slow);
   setRadio('b-amount', b.amount);
   setChecks('b-sym', b.symptoms);
@@ -1262,9 +1278,10 @@ function setFormData(data) {
   document.getElementById('breakfast-fasting').value = b.fasting || '';
 
   document.getElementById('lunch-time').value = l.time || '';
-  document.getElementById('lunch-veg').value = l.veg || '';
-  document.getElementById('lunch-protein').value = l.protein || '';
   document.getElementById('lunch-carb').value = l.carb || '';
+  document.getElementById('lunch-protein').value = l.protein || '';
+  document.getElementById('lunch-fat').value = l.fat || '';
+  document.getElementById('lunch-other').value = l.other || '';
   setRadio('l-slow', l.slow);
   setRadio('l-amount', l.amount);
   setChecks('l-sym', l.symptoms);
@@ -1272,9 +1289,10 @@ function setFormData(data) {
   document.getElementById('lunch-fasting').value = l.fasting || '';
 
   document.getElementById('dinner-time').value = d.time || '';
-  document.getElementById('dinner-veg').value = d.veg || '';
-  document.getElementById('dinner-protein').value = d.protein || '';
   document.getElementById('dinner-carb').value = d.carb || '';
+  document.getElementById('dinner-protein').value = d.protein || '';
+  document.getElementById('dinner-fat').value = d.fat || '';
+  document.getElementById('dinner-other').value = d.other || '';
   setRadio('d-slow', d.slow);
   setRadio('d-amount', d.amount);
   setChecks('d-sym', d.symptoms);
@@ -1294,9 +1312,9 @@ function setFormData(data) {
 }
 
 function clearForm() {
-  ['breakfast-time','breakfast-veg','breakfast-protein','breakfast-carb','breakfast-fasting',
-   'lunch-time','lunch-veg','lunch-protein','lunch-carb','lunch-fasting',
-   'dinner-time','dinner-veg','dinner-protein','dinner-carb',
+  ['breakfast-time','breakfast-carb','breakfast-protein','breakfast-fat','breakfast-other','breakfast-fasting',
+   'lunch-time','lunch-carb','lunch-protein','lunch-fat','lunch-other','lunch-fasting',
+   'dinner-time','dinner-carb','dinner-protein','dinner-fat','dinner-other',
    'snack-food','sleep-hours','supplements','exercise',
    'note-regret','note-praise'].forEach(id => {
     document.getElementById(id).value = '';
@@ -1503,9 +1521,9 @@ function renderHistoryList() {
 
     const meals = data.meals || {};
     const previews = [];
-    const bfood = [meals.breakfast?.veg, meals.breakfast?.protein, meals.breakfast?.carb].filter(Boolean).join(' · ');
-    const lfood = [meals.lunch?.veg, meals.lunch?.protein, meals.lunch?.carb].filter(Boolean).join(' · ');
-    const dfood = [meals.dinner?.veg, meals.dinner?.protein, meals.dinner?.carb].filter(Boolean).join(' · ');
+    const bfood = [meals.breakfast?.carb, meals.breakfast?.protein, meals.breakfast?.fat, meals.breakfast?.other].filter(Boolean).join(' · ');
+    const lfood = [meals.lunch?.carb, meals.lunch?.protein, meals.lunch?.fat, meals.lunch?.other].filter(Boolean).join(' · ');
+    const dfood = [meals.dinner?.carb, meals.dinner?.protein, meals.dinner?.fat, meals.dinner?.other].filter(Boolean).join(' · ');
     if (bfood) previews.push({ label: '아침', food: bfood });
     if (lfood) previews.push({ label: '점심', food: lfood });
     if (dfood) previews.push({ label: '저녁', food: dfood });
