@@ -2426,7 +2426,9 @@
 
   /* ── 가계부 ── */
   const BUDGET_CATS = [
-    { key: '주거',  label: '🏠 주거 (관리비/통신/넷플릭스/가스)', target: 400000, type: 'fixed' },
+    { key: '관리비', label: '🏠 관리비 (통신/넷플릭스 포함)', target: 200000, type: 'fixed' },
+    { key: '가스비', label: '🔥 가스비', target: 100000, type: 'fixed' },
+    { key: '주거기타', label: '🏠 주거 기타', target: 100000, type: 'fixed' },
     { key: '둘째돌봄', label: '👶 둘째 돌봄비', target: 2000000, type: 'fixed' },
     { key: '첫째학원', label: '🎒 첫째 유치원/학원비', target: 660000, type: 'fixed' },
     { key: '식비',  label: '🍚 식비', target: 1700000, type: 'fixed' },
@@ -2460,6 +2462,11 @@
     budgetRenderSummary();
     budgetRenderTrend();
   }
+  function budgetSaveMemo(catKey, val) {
+    const data = budgetLoad();
+    data[catKey + '_memo'] = val;
+    localStorage.setItem('budget-' + budgetMonthKey(budgetDate), JSON.stringify(data));
+  }
   function fmtWon(n) {
     return (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('ko-KR') + '원';
   }
@@ -2476,9 +2483,12 @@
       const diffText = !isFixed
         ? (actual === undefined ? '-' : '지출')
         : (actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')));
+      const col2 = isFixed
+        ? '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + c.target.toLocaleString('ko-KR') + '원</div>'
+        : '<input class="budget-input" type="text" placeholder="메모" style="text-align:left;" value="' + (data[c.key + '_memo'] || '') + '" oninput="budgetSaveMemo(\'' + c.key + '\', this.value)">';
       return '<div class="budget-row">' +
         '<div class="budget-cat-name">' + c.label.split(' ')[0] + '<br><span style="font-size:11px;font-weight:500;color:#9ca3af;">' + c.label.slice(c.label.indexOf(' ')+1) + '</span></div>' +
-        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + (isFixed ? c.target.toLocaleString('ko-KR') + '원' : '-') + '</div>' +
+        col2 +
         '<input class="budget-input" type="number" placeholder="실제 지출" value="' + (actual === undefined ? '' : actual) + '" oninput="budgetSaveActual(\'' + c.key + '\', this.value)">' +
         '<div class="budget-diff ' + diffClass + '">' + diffText + '</div>' +
         '</div>';
@@ -2486,11 +2496,28 @@
     function sectionHead(title) {
       return '<div class="budget-row" style="background:#f9fafb;"><div style="font-size:12px;font-weight:700;color:#374151;grid-column:1/-1;">' + title + '</div></div>';
     }
+    function subtotalRow(label, target, actual) {
+      const diff = actual - target;
+      const diffClass = actual === 0 ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero'));
+      return '<div class="budget-row" style="background:#f0fdf4;font-weight:700;">' +
+        '<div class="budget-cat-name">' + label + '</div>' +
+        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + (target ? target.toLocaleString('ko-KR') + '원' : '-') + '</div>' +
+        '<div style="font-size:13.5px;color:#111827;text-align:right;">' + fmtWon(actual) + '</div>' +
+        '<div class="budget-diff ' + diffClass + '">' + (target ? (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')) : '-') + '</div>' +
+        '</div>';
+    }
+    const fixedCats = BUDGET_CATS.filter(c => c.type === 'fixed');
+    const variableCats = BUDGET_CATS.filter(c => c.type === 'variable');
+    const fixedTarget = fixedCats.reduce((s, c) => s + c.target, 0);
+    const fixedActual = fixedCats.reduce((s, c) => s + (data[c.key] || 0), 0);
+    const variableActual = variableCats.reduce((s, c) => s + (data[c.key] || 0), 0);
     rowsEl.innerHTML =
       sectionHead('📌 고정지출') +
-      BUDGET_CATS.filter(c => c.type === 'fixed').map(renderRow).join('') +
+      fixedCats.map(renderRow).join('') +
+      subtotalRow('고정지출 합계', fixedTarget, fixedActual) +
       sectionHead('🔀 변동지출') +
-      BUDGET_CATS.filter(c => c.type === 'variable').map(renderRow).join('');
+      variableCats.map(renderRow).join('') +
+      subtotalRow('변동지출 합계', 0, variableActual);
     budgetRenderSummary();
     budgetRenderTrend();
     debtRender();
