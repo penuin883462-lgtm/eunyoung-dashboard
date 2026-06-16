@@ -2425,7 +2425,7 @@
   const BUDGET_CATS = [
     { key: '관리비', label: '🏠 관리비 (통신/넷플릭스 포함)', target: 0, type: 'fixed' },
     { key: '가스비', label: '🔥 가스비', target: 0, type: 'fixed' },
-    { key: '주거기타', label: '🏠 주거 기타', target: 0, type: 'fixed' },
+    { key: '주거기타', label: '🏠 기타', target: 0, type: 'fixed' },
     { key: '둘째오전', label: '👶 둘째 돌봄비 (오전 선생님)', target: 0, type: 'fixed' },
     { key: '둘째오후', label: '👶 둘째 돌봄비 (오후 선생님)', target: 0, type: 'fixed' },
     { key: '유치원원비', label: '🎒 유치원 원비', target: 0, type: 'fixed' },
@@ -2553,14 +2553,22 @@
         '<div class="budget-diff ' + diffClass + '">' + (target ? (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')) : '-') + '</div>' +
         '</div>';
     }
+    function subHead(title) {
+      return '<div class="budget-row" style="background:#fff;padding-bottom:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;grid-column:1/-1;">' + title + '</div></div>';
+    }
     const fixedCats = BUDGET_CATS.filter(c => c.type === 'fixed');
     const variableCats = BUDGET_CATS.filter(c => c.type === 'variable');
+    const housingKeys = ['관리비', '가스비', '주거기타'];
+    const housingCats = fixedCats.filter(c => housingKeys.includes(c.key));
+    const restFixedCats = fixedCats.filter(c => !housingKeys.includes(c.key));
     const fixedTarget = fixedCats.reduce((s, c) => s + c.target, 0);
     const fixedActual = fixedCats.reduce((s, c) => s + (data[c.key] || 0), 0);
     const variableActual = variableCats.reduce((s, c) => s + varSum(varEntries(c)), 0);
     rowsEl.innerHTML =
       sectionHead('📌 고정지출') +
-      fixedCats.map(renderRow).join('') +
+      subHead('🏠 주거비용') +
+      housingCats.map(renderRow).join('') +
+      restFixedCats.map(renderRow).join('') +
       subtotalRow('고정지출 합계', fixedTarget, fixedActual) +
       sectionHead('🔀 변동지출') +
       variableCats.map(renderVarCategory).join('') +
