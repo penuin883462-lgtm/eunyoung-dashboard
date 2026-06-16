@@ -2462,13 +2462,28 @@
     budgetRenderSummary();
     budgetRenderTrend();
   }
-  function budgetSaveMemo(catKey, val) {
+  function budgetSaveVarEntry(catKey, idx, field, val) {
     const data = budgetLoad();
-    data[catKey + '_memo'] = val;
+    const arr = data[catKey + '_entries'] || [];
+    while (arr.length < 5) arr.push({});
+    if (!arr[idx]) arr[idx] = {};
+    if (field === 'amount') arr[idx].amount = val === '' ? undefined : Number(val);
+    else arr[idx].memo = val;
+    data[catKey + '_entries'] = arr;
     localStorage.setItem('budget-' + budgetMonthKey(budgetDate), JSON.stringify(data));
+    const sum = arr.reduce((s, e) => s + (e && typeof e.amount === 'number' ? e.amount : 0), 0);
+    const subtotalEl = document.getElementById('var-subtotal-' + catKey);
+    if (subtotalEl) subtotalEl.textContent = '합계 ' + fmtWon(sum);
+    budgetRenderSummary();
+    budgetRenderTrend();
   }
   function fmtWon(n) {
     return (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('ko-KR') + '원';
+  }
+  function catActual(data, c) {
+    if (c.type === 'fixed') return data[c.key] || 0;
+    const arr = data[c.key + '_entries'] || [];
+    return arr.reduce((s, e) => s + (e && typeof e.amount === 'number' ? e.amount : 0), 0);
   }
   function budgetRender() {
     const d = budgetDate;
@@ -2477,15 +2492,9 @@
     const rowsEl = document.getElementById('budget-rows');
     function renderRow(c) {
       const actual = data[c.key];
-      const isFixed = c.type === 'fixed';
       const diff = (actual === undefined ? 0 : actual) - c.target;
-      const diffClass = !isFixed ? 'zero' : (actual === undefined ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero')));
-      const diffText = !isFixed
-        ? (actual === undefined ? '-' : '지출')
-        : (actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')));
-      const col2 = isFixed
-        ? '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + c.target.toLocaleString('ko-KR') + '원</div>'
-        : '<input class="budget-input" type="text" placeholder="메모" style="text-align:left;" value="' + (data[c.key + '_memo'] || '') + '" oninput="budgetSaveMemo(\'' + c.key + '\', this.value)">';
+      const diffClass = actual === undefined ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero'));
+      const diffText = actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR'));
       let progressBar = '';
       if (c.key === '식비' && actual !== undefined && c.target > 0) {
         const ratio = actual / c.target;
@@ -2499,11 +2508,36 @@
       }
       return '<div class="budget-row" style="' + (c.key === '식비' && actual !== undefined && actual > c.target ? 'background:#fef2f2;' : '') + '">' +
         '<div class="budget-cat-name">' + c.label.split(' ')[0] + '<br><span style="font-size:11px;font-weight:500;color:#9ca3af;">' + c.label.slice(c.label.indexOf(' ')+1) + '</span></div>' +
-        col2 +
+        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + c.target.toLocaleString('ko-KR') + '원</div>' +
         '<input class="budget-input" type="number" placeholder="실제 지출" value="' + (actual === undefined ? '' : actual) + '" oninput="budgetSaveActual(\'' + c.key + '\', this.value)">' +
         '<div class="budget-diff ' + diffClass + '">' + diffText + '</div>' +
         progressBar +
         '</div>';
+    }
+    function varEntries(c) {
+      const arr = (data[c.key + '_entries'] || []).slice(0, 5);
+      while (arr.length < 5) arr.push({});
+      return arr;
+    }
+    function varSum(arr) {
+      return arr.reduce((s, e) => s + (e && typeof e.amount === 'number' ? e.amount : 0), 0);
+    }
+    function renderVarCategory(c) {
+      const arr = varEntries(c);
+      const sum = varSum(arr);
+      const rows = arr.map((e, i) =>
+        '<div style="display:flex;gap:8px;margin-bottom:6px;">' +
+          '<input class="budget-input" type="text" placeholder="메모 ' + (i + 1) + '" style="text-align:left;flex:1;" value="' + (e.memo || '') + '" oninput="budgetSaveVarEntry(\'' + c.key + '\',' + i + ',\'memo\',this.value)">' +
+          '<input class="budget-input" type="number" placeholder="금액" style="width:120px;" value="' + (e.amount === undefined ? '' : e.amount) + '" oninput="budgetSaveVarEntry(\'' + c.key + '\',' + i + ',\'amount\',this.value)">' +
+        '</div>'
+      ).join('');
+      return '<div class="budget-row" style="display:block;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+          '<div class="budget-cat-name" style="margin:0;">' + c.label + '</div>' +
+          '<div style="font-size:13px;font-weight:700;color:#111827;" id="var-subtotal-' + c.key + '">합계 ' + fmtWon(sum) + '</div>' +
+        '</div>' +
+        rows +
+      '</div>';
     }
     function sectionHead(title) {
       return '<div class="budget-row" style="background:#f9fafb;"><div style="font-size:12px;font-weight:700;color:#374151;grid-column:1/-1;">' + title + '</div></div>';
@@ -2522,13 +2556,13 @@
     const variableCats = BUDGET_CATS.filter(c => c.type === 'variable');
     const fixedTarget = fixedCats.reduce((s, c) => s + c.target, 0);
     const fixedActual = fixedCats.reduce((s, c) => s + (data[c.key] || 0), 0);
-    const variableActual = variableCats.reduce((s, c) => s + (data[c.key] || 0), 0);
+    const variableActual = variableCats.reduce((s, c) => s + varSum(varEntries(c)), 0);
     rowsEl.innerHTML =
       sectionHead('📌 고정지출') +
       fixedCats.map(renderRow).join('') +
       subtotalRow('고정지출 합계', fixedTarget, fixedActual) +
       sectionHead('🔀 변동지출') +
-      variableCats.map(renderRow).join('') +
+      variableCats.map(renderVarCategory).join('') +
       subtotalRow('변동지출 합계', 0, variableActual);
     budgetRenderSummary();
     budgetRenderTrend();
@@ -2537,8 +2571,8 @@
   function budgetRenderSummary() {
     const data = budgetLoad();
     const targetSum = BUDGET_CATS.reduce((s, c) => s + c.target, 0);
-    const actualSum = BUDGET_CATS.reduce((s, c) => s + (data[c.key] || 0), 0);
-    const hasAny = BUDGET_CATS.some(c => data[c.key] !== undefined);
+    const actualSum = BUDGET_CATS.reduce((s, c) => s + catActual(data, c), 0);
+    const hasAny = actualSum > 0;
     document.getElementById('budget-sum-target').textContent = fmtWon(targetSum);
     document.getElementById('budget-sum-actual').textContent = hasAny ? fmtWon(actualSum) : '입력 전';
     const diff = actualSum - targetSum;
@@ -2554,7 +2588,7 @@
     }
     const sums = months.map(d => {
       const data = JSON.parse(localStorage.getItem('budget-' + budgetMonthKey(d)) || 'null') || {};
-      return BUDGET_CATS.reduce((s, c) => s + (data[c.key] || 0), 0);
+      return BUDGET_CATS.reduce((s, c) => s + catActual(data, c), 0);
     });
     const maxSum = Math.max(...sums, BUDGET_CATS.reduce((s, c) => s + c.target, 0), 1);
     const targetSum = BUDGET_CATS.reduce((s, c) => s + c.target, 0);
