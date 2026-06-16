@@ -2426,8 +2426,11 @@
     { key: '관리비', label: '🏠 관리비 (통신/넷플릭스 포함)', target: 200000, type: 'fixed' },
     { key: '가스비', label: '🔥 가스비', target: 100000, type: 'fixed' },
     { key: '주거기타', label: '🏠 주거 기타', target: 100000, type: 'fixed' },
-    { key: '둘째돌봄', label: '👶 둘째 돌봄비', target: 2000000, type: 'fixed' },
-    { key: '첫째학원', label: '🎒 첫째 유치원/학원비', target: 660000, type: 'fixed' },
+    { key: '둘째오전', label: '👶 둘째 돌봄비 (오전 선생님)', target: 1000000, type: 'fixed' },
+    { key: '둘째오후', label: '👶 둘째 돌봄비 (오후 선생님)', target: 1000000, type: 'fixed' },
+    { key: '유치원원비', label: '🎒 유치원 원비', target: 170000, type: 'fixed' },
+    { key: '유치원특활비', label: '🎒 유치원 특활비', target: 230000, type: 'fixed' },
+    { key: '학원비', label: '🎒 학원비', target: 260000, type: 'fixed' },
     { key: '식비',  label: '🍚 식비', target: 1700000, type: 'fixed' },
     { key: '보험',  label: '🛡️ 보험', target: 270000, type: 'fixed' },
     { key: '차량',  label: '🚗 차량', target: 100000, type: 'fixed' },
@@ -2483,11 +2486,23 @@
       const col2 = isFixed
         ? '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + c.target.toLocaleString('ko-KR') + '원</div>'
         : '<input class="budget-input" type="text" placeholder="메모" style="text-align:left;" value="' + (data[c.key + '_memo'] || '') + '" oninput="budgetSaveMemo(\'' + c.key + '\', this.value)">';
-      return '<div class="budget-row">' +
+      let progressBar = '';
+      if (isFixed && actual !== undefined && c.target > 0) {
+        const ratio = actual / c.target;
+        const color = ratio > 1 ? '#ef4444' : (ratio > 0.9 ? '#f59e0b' : '#10b981');
+        const widthPct = Math.min(100, ratio * 100);
+        const warn = ratio > 1 ? ' ⚠️ 상한선 초과' : '';
+        progressBar = '<div style="grid-column:1/-1;margin-top:2px;">' +
+          '<div style="height:6px;background:#f3f4f6;border-radius:4px;overflow:hidden;"><div style="height:100%;width:' + widthPct + '%;background:' + color + ';border-radius:4px;"></div></div>' +
+          '<div style="font-size:11px;color:' + (ratio > 1 ? '#ef4444' : '#9ca3af') + ';margin-top:3px;font-weight:' + (ratio > 1 ? '700' : '500') + ';">' + Math.round(ratio * 100) + '% 사용' + warn + '</div>' +
+          '</div>';
+      }
+      return '<div class="budget-row" style="' + (isFixed && actual !== undefined && actual > c.target ? 'background:#fef2f2;' : '') + '">' +
         '<div class="budget-cat-name">' + c.label.split(' ')[0] + '<br><span style="font-size:11px;font-weight:500;color:#9ca3af;">' + c.label.slice(c.label.indexOf(' ')+1) + '</span></div>' +
         col2 +
         '<input class="budget-input" type="number" placeholder="실제 지출" value="' + (actual === undefined ? '' : actual) + '" oninput="budgetSaveActual(\'' + c.key + '\', this.value)">' +
         '<div class="budget-diff ' + diffClass + '">' + diffText + '</div>' +
+        progressBar +
         '</div>';
     }
     function sectionHead(title) {
