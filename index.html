@@ -2423,17 +2423,17 @@
 
   /* ── 가계부 ── */
   const BUDGET_CATS = [
-    { key: '관리비', label: '🏠 관리비 (통신/넷플릭스 포함)', target: 200000, type: 'fixed' },
-    { key: '가스비', label: '🔥 가스비', target: 100000, type: 'fixed' },
-    { key: '주거기타', label: '🏠 주거 기타', target: 100000, type: 'fixed' },
-    { key: '둘째오전', label: '👶 둘째 돌봄비 (오전 선생님)', target: 1000000, type: 'fixed' },
-    { key: '둘째오후', label: '👶 둘째 돌봄비 (오후 선생님)', target: 1000000, type: 'fixed' },
-    { key: '유치원원비', label: '🎒 유치원 원비', target: 170000, type: 'fixed' },
-    { key: '유치원특활비', label: '🎒 유치원 특활비', target: 230000, type: 'fixed' },
-    { key: '학원비', label: '🎒 학원비', target: 260000, type: 'fixed' },
+    { key: '관리비', label: '🏠 관리비 (통신/넷플릭스 포함)', target: 0, type: 'fixed' },
+    { key: '가스비', label: '🔥 가스비', target: 0, type: 'fixed' },
+    { key: '주거기타', label: '🏠 주거 기타', target: 0, type: 'fixed' },
+    { key: '둘째오전', label: '👶 둘째 돌봄비 (오전 선생님)', target: 0, type: 'fixed' },
+    { key: '둘째오후', label: '👶 둘째 돌봄비 (오후 선생님)', target: 0, type: 'fixed' },
+    { key: '유치원원비', label: '🎒 유치원 원비', target: 0, type: 'fixed' },
+    { key: '유치원특활비', label: '🎒 유치원 특활비', target: 0, type: 'fixed' },
+    { key: '학원비', label: '🎒 학원비', target: 0, type: 'fixed' },
     { key: '식비',  label: '🍚 식비', target: 1700000, type: 'fixed' },
-    { key: '보험',  label: '🛡️ 보험', target: 270000, type: 'fixed' },
-    { key: '차량',  label: '🚗 차량', target: 100000, type: 'fixed' },
+    { key: '보험',  label: '🛡️ 보험', target: 0, type: 'fixed' },
+    { key: '차량',  label: '🚗 차량', target: 0, type: 'fixed' },
     { key: '첫째용돈', label: '🧒 이로이', target: 0, type: 'variable' },
     { key: '둘째용돈', label: '👧 이도이', target: 0, type: 'variable' },
     { key: '의복미용', label: '👗 의복/미용', target: 0, type: 'variable' },
@@ -2492,9 +2492,10 @@
     const rowsEl = document.getElementById('budget-rows');
     function renderRow(c) {
       const actual = data[c.key];
+      const hasTarget = c.target > 0;
       const diff = (actual === undefined ? 0 : actual) - c.target;
-      const diffClass = actual === undefined ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero'));
-      const diffText = actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR'));
+      const diffClass = !hasTarget || actual === undefined ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero'));
+      const diffText = !hasTarget ? '-' : (actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')));
       let progressBar = '';
       if (c.key === '식비' && actual !== undefined && c.target > 0) {
         const ratio = actual / c.target;
@@ -2508,7 +2509,7 @@
       }
       return '<div class="budget-row" style="' + (c.key === '식비' && actual !== undefined && actual > c.target ? 'background:#fef2f2;' : '') + '">' +
         '<div class="budget-cat-name">' + c.label.split(' ')[0] + '<br><span style="font-size:11px;font-weight:500;color:#9ca3af;">' + c.label.slice(c.label.indexOf(' ')+1) + '</span></div>' +
-        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + c.target.toLocaleString('ko-KR') + '원</div>' +
+        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + (hasTarget ? c.target.toLocaleString('ko-KR') + '원' : '-') + '</div>' +
         '<input class="budget-input" type="number" placeholder="실제 지출" value="' + (actual === undefined ? '' : actual) + '" oninput="budgetSaveActual(\'' + c.key + '\', this.value)">' +
         '<div class="budget-diff ' + diffClass + '">' + diffText + '</div>' +
         progressBar +
