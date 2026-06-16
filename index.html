@@ -281,6 +281,43 @@
     .food-add-btn:hover { background: #d97706; }
     .diary-empty { font-size: 12px; color: #d1d5db; font-style: italic; margin-bottom: 12px; }
     @media (max-width: 600px) { .page-header-diary { padding: 28px 16px 24px; } .diary-main { padding: 16px 12px 60px; } }
+
+    /* ── 가계부 탭 ── */
+    .active-budget { background: #f0fdf4; color: #16a34a; }
+    .page-header-budget { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); padding: 36px 40px 32px; color: #fff; }
+    .budget-date-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+    .budget-nav-btn { background: rgba(255,255,255,0.25); border: none; color: #fff; border-radius: 8px; padding: 7px 14px; font-size: 15px; cursor: pointer; font-weight: 700; }
+    .budget-nav-btn:hover { background: rgba(255,255,255,0.4); }
+    .budget-today-btn { background: #fff; border: none; color: #15803d; border-radius: 8px; padding: 7px 14px; font-size: 12px; cursor: pointer; font-weight: 700; }
+    .budget-date-text { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+    .budget-main { max-width: 900px; margin: 0 auto; padding: 28px 24px 60px; }
+    .budget-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+    .budget-sum-card { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .budget-sum-label { font-size: 11px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+    .budget-sum-val { font-size: 20px; font-weight: 800; }
+    .budget-sum-val.over { color: #ef4444; }
+    .budget-sum-val.under { color: #16a34a; }
+    .budget-table-wrap { background: #fff; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 24px; }
+    .budget-row { display: grid; grid-template-columns: 110px 1fr 1fr 100px; gap: 10px; align-items: center; padding: 12px 18px; border-bottom: 1px solid #f3f4f6; }
+    .budget-row:last-child { border-bottom: none; }
+    .budget-row.head { background: #f9fafb; font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; }
+    .budget-cat-name { font-size: 13.5px; font-weight: 700; color: #111827; }
+    .budget-input { width: 100%; padding: 8px 10px; border: 1.5px solid #e5e7eb; border-radius: 8px; font-size: 13.5px; color: #111827; outline: none; font-family: inherit; text-align: right; }
+    .budget-input:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+    .budget-diff { font-size: 13px; font-weight: 700; text-align: right; }
+    .budget-diff.over { color: #ef4444; }
+    .budget-diff.under { color: #16a34a; }
+    .budget-diff.zero { color: #9ca3af; }
+    .budget-trend-card { background: #fff; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); padding: 20px; }
+    .budget-trend-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 14px; }
+    .budget-trend-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .budget-trend-month { font-size: 12px; font-weight: 600; color: #6b7280; width: 60px; flex-shrink: 0; }
+    .budget-trend-bar-wrap { flex: 1; height: 18px; background: #f3f4f6; border-radius: 6px; overflow: hidden; position: relative; }
+    .budget-trend-bar { height: 100%; border-radius: 6px; transition: width 0.3s; }
+    .budget-trend-amt { font-size: 12px; font-weight: 700; width: 90px; text-align: right; flex-shrink: 0; }
+    .debt-input-row { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f3f4f6; }
+    .debt-input-row label { font-size: 12.5px; font-weight: 700; color: #6b7280; white-space: nowrap; }
+    @media (max-width: 600px) { .page-header-budget { padding: 28px 16px 24px; } .budget-main { padding: 16px 12px 60px; } .budget-summary { grid-template-columns: 1fr; } .budget-row { grid-template-columns: 80px 1fr 1fr 70px; gap: 6px; padding: 10px 12px; } }
   </style>
 </head>
 <body>
@@ -295,6 +332,7 @@
     <button class="tab-btn" onclick="switchTab('dental', this)">🦷 치과 레퍼런스</button>
     <button class="tab-btn" onclick="switchTab('fm', this)">🧬 기능의학</button>
     <button class="tab-btn" onclick="switchTab('diary', this)">🥗 음식 일기</button>
+    <button class="tab-btn" onclick="switchTab('budget', this)">💰 가계부</button>
   </div>
   <div class="topbar-actions">
     <a href="profile.html" class="btn btn-outline">🌿 내 소개 페이지</a>
@@ -2352,11 +2390,69 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     PAGE 5 — 가계부
+════════════════════════════════════════ -->
+<div id="page-budget" class="page">
+  <header class="page-header-budget">
+    <div class="page-header-inner" style="max-width:900px;margin:0 auto;">
+      <div class="budget-date-nav">
+        <button class="budget-nav-btn" onclick="budgetNav(-1)">◀</button>
+        <span class="budget-date-text" id="budget-date-display">2026년 6월</span>
+        <button class="budget-nav-btn" onclick="budgetNav(1)">▶</button>
+        <button class="budget-today-btn" onclick="budgetToday()">이번달로</button>
+      </div>
+      <div style="font-size:13px;opacity:0.85;">월별 고정지출 입력 &amp; 변동 추이</div>
+    </div>
+  </header>
+
+  <div class="budget-main">
+
+    <div class="budget-summary">
+      <div class="budget-sum-card">
+        <div class="budget-sum-label">이번달 예산 합계</div>
+        <div class="budget-sum-val" id="budget-sum-target">0원</div>
+      </div>
+      <div class="budget-sum-card">
+        <div class="budget-sum-label">이번달 실제 지출</div>
+        <div class="budget-sum-val" id="budget-sum-actual">0원</div>
+      </div>
+      <div class="budget-sum-card">
+        <div class="budget-sum-label">차이</div>
+        <div class="budget-sum-val" id="budget-sum-diff">0원</div>
+      </div>
+    </div>
+
+    <div class="budget-table-wrap">
+      <div class="budget-row head">
+        <div>항목</div><div>예산</div><div>실제 지출</div><div style="text-align:right;">차이</div>
+      </div>
+      <div id="budget-rows"></div>
+    </div>
+
+    <div class="budget-trend-card" style="margin-bottom:24px;">
+      <div class="budget-trend-title">📈 최근 6개월 지출 추이 (실제 지출 합계)</div>
+      <div id="budget-trend-rows"></div>
+    </div>
+
+    <div class="budget-trend-card">
+      <div class="budget-trend-title">📉 마이너스 통장 잔액 추이</div>
+      <div id="debt-trend-rows"></div>
+      <div class="debt-input-row">
+        <label for="debt-input">이번달 마통 잔액</label>
+        <input class="budget-input" id="debt-input" style="max-width:200px;" placeholder="예: 57364979" oninput="debtSave()">
+        <span style="font-size:12px;color:#9ca3af;">원 (음수 표기 없이 숫자만)</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
   /* ── 탭 전환 ── */
   function switchTab(tab, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-main', 'active-dental', 'active-fm'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-main', 'active-dental', 'active-fm', 'active-diary', 'active-budget'));
     document.getElementById('page-' + tab).classList.add('active');
     if (tab === 'main') {
       btn.classList.add('active-main');
@@ -2368,6 +2464,10 @@
       btn.classList.add('active-diary');
       document.getElementById('scroll-btn').style.display = 'none';
       diaryRender();
+    } else if (tab === 'budget') {
+      btn.classList.add('active-budget');
+      document.getElementById('scroll-btn').style.display = 'none';
+      budgetRender();
     } else {
       btn.classList.add('active-dental');
       document.getElementById('scroll-btn').style.display = 'none';
@@ -2485,6 +2585,153 @@
   function diaryToday() {
     diaryDate = new Date();
     diaryRender();
+  }
+
+  /* ── 가계부 ── */
+  const BUDGET_CATS = [
+    { key: '주거',  label: '🏠 주거 (관리비/통신/넷플릭스/가스)', target: 400000, type: 'fixed' },
+    { key: '둘째돌봄', label: '👶 둘째 돌봄비', target: 2000000, type: 'fixed' },
+    { key: '첫째학원', label: '🎒 첫째 유치원/학원비', target: 660000, type: 'fixed' },
+    { key: '식비',  label: '🍚 식비', target: 1700000, type: 'fixed' },
+    { key: '보험',  label: '🛡️ 보험', target: 270000, type: 'fixed' },
+    { key: '차량',  label: '🚗 차량', target: 100000, type: 'fixed' },
+    { key: '첫째용돈', label: '🧒 이로이', target: 0, type: 'variable' },
+    { key: '둘째용돈', label: '👧 이도이', target: 0, type: 'variable' },
+    { key: '의복미용', label: '👗 의복/미용', target: 0, type: 'variable' },
+    { key: '여행숙박', label: '✈️ 여행/숙박', target: 0, type: 'variable' },
+    { key: '건강챙김', label: '💊 건강챙김', target: 0, type: 'variable' },
+    { key: '경조사', label: '🎁 경조사', target: 0, type: 'variable' },
+    { key: '생필품', label: '🧴 생필품', target: 0, type: 'variable' },
+    { key: '외식배달', label: '🍔 외식/배달', target: 0, type: 'variable' },
+    { key: '카페', label: '☕ 카페', target: 0, type: 'variable' },
+    { key: '취미생활', label: '🎨 취미생활', target: 0, type: 'variable' },
+    { key: '교통비', label: '🚌 교통비', target: 0, type: 'variable' },
+  ];
+  let budgetDate = new Date();
+  budgetDate.setDate(1);
+
+  function budgetMonthKey(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+  function budgetLoad() {
+    return JSON.parse(localStorage.getItem('budget-' + budgetMonthKey(budgetDate)) || 'null') || {};
+  }
+  function budgetSaveActual(catKey, val) {
+    const data = budgetLoad();
+    data[catKey] = val === '' ? undefined : Number(val);
+    localStorage.setItem('budget-' + budgetMonthKey(budgetDate), JSON.stringify(data));
+    budgetRenderSummary();
+    budgetRenderTrend();
+  }
+  function fmtWon(n) {
+    return (n < 0 ? '-' : '') + Math.abs(n).toLocaleString('ko-KR') + '원';
+  }
+  function budgetRender() {
+    const d = budgetDate;
+    document.getElementById('budget-date-display').textContent = d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월';
+    const data = budgetLoad();
+    const rowsEl = document.getElementById('budget-rows');
+    function renderRow(c) {
+      const actual = data[c.key];
+      const isFixed = c.type === 'fixed';
+      const diff = (actual === undefined ? 0 : actual) - c.target;
+      const diffClass = !isFixed ? 'zero' : (actual === undefined ? 'zero' : (diff > 0 ? 'over' : (diff < 0 ? 'under' : 'zero')));
+      const diffText = !isFixed
+        ? (actual === undefined ? '-' : '지출')
+        : (actual === undefined ? '-' : (diff > 0 ? '+' + diff.toLocaleString('ko-KR') : diff.toLocaleString('ko-KR')));
+      return '<div class="budget-row">' +
+        '<div class="budget-cat-name">' + c.label.split(' ')[0] + '<br><span style="font-size:11px;font-weight:500;color:#9ca3af;">' + c.label.slice(c.label.indexOf(' ')+1) + '</span></div>' +
+        '<div style="font-size:13.5px;color:#6b7280;text-align:right;">' + (isFixed ? c.target.toLocaleString('ko-KR') + '원' : '-') + '</div>' +
+        '<input class="budget-input" type="number" placeholder="실제 지출" value="' + (actual === undefined ? '' : actual) + '" oninput="budgetSaveActual(\'' + c.key + '\', this.value)">' +
+        '<div class="budget-diff ' + diffClass + '">' + diffText + '</div>' +
+        '</div>';
+    }
+    function sectionHead(title) {
+      return '<div class="budget-row" style="background:#f9fafb;"><div style="font-size:12px;font-weight:700;color:#374151;grid-column:1/-1;">' + title + '</div></div>';
+    }
+    rowsEl.innerHTML =
+      sectionHead('📌 고정지출') +
+      BUDGET_CATS.filter(c => c.type === 'fixed').map(renderRow).join('') +
+      sectionHead('🔀 변동지출') +
+      BUDGET_CATS.filter(c => c.type === 'variable').map(renderRow).join('');
+    budgetRenderSummary();
+    budgetRenderTrend();
+    debtRender();
+  }
+  function budgetRenderSummary() {
+    const data = budgetLoad();
+    const targetSum = BUDGET_CATS.reduce((s, c) => s + c.target, 0);
+    const actualSum = BUDGET_CATS.reduce((s, c) => s + (data[c.key] || 0), 0);
+    const hasAny = BUDGET_CATS.some(c => data[c.key] !== undefined);
+    document.getElementById('budget-sum-target').textContent = fmtWon(targetSum);
+    document.getElementById('budget-sum-actual').textContent = hasAny ? fmtWon(actualSum) : '입력 전';
+    const diff = actualSum - targetSum;
+    const diffEl = document.getElementById('budget-sum-diff');
+    diffEl.textContent = hasAny ? (diff > 0 ? '+' + fmtWon(diff) + ' 초과' : (diff < 0 ? fmtWon(diff) + ' 절약' : '예산과 동일')) : '-';
+    diffEl.className = 'budget-sum-val' + (hasAny ? (diff > 0 ? ' over' : (diff < 0 ? ' under' : '')) : '');
+  }
+  function budgetRenderTrend() {
+    const months = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(budgetDate.getFullYear(), budgetDate.getMonth() - i, 1);
+      months.push(d);
+    }
+    const sums = months.map(d => {
+      const data = JSON.parse(localStorage.getItem('budget-' + budgetMonthKey(d)) || 'null') || {};
+      return BUDGET_CATS.reduce((s, c) => s + (data[c.key] || 0), 0);
+    });
+    const maxSum = Math.max(...sums, BUDGET_CATS.reduce((s, c) => s + c.target, 0), 1);
+    const targetSum = BUDGET_CATS.reduce((s, c) => s + c.target, 0);
+    document.getElementById('budget-trend-rows').innerHTML = months.map((d, i) => {
+      const pct = Math.min(100, (sums[i] / maxSum) * 100);
+      const over = sums[i] > targetSum && sums[i] > 0;
+      const color = sums[i] === 0 ? '#e5e7eb' : (over ? '#ef4444' : '#16a34a');
+      return '<div class="budget-trend-row">' +
+        '<div class="budget-trend-month">' + (d.getMonth() + 1) + '월</div>' +
+        '<div class="budget-trend-bar-wrap"><div class="budget-trend-bar" style="width:' + pct + '%;background:' + color + ';"></div></div>' +
+        '<div class="budget-trend-amt">' + (sums[i] === 0 ? '-' : fmtWon(sums[i])) + '</div>' +
+        '</div>';
+    }).join('');
+  }
+  function budgetNav(delta) {
+    budgetDate = new Date(budgetDate.getFullYear(), budgetDate.getMonth() + delta, 1);
+    budgetRender();
+  }
+  function budgetToday() {
+    budgetDate = new Date();
+    budgetDate.setDate(1);
+    budgetRender();
+  }
+
+  /* ── 마이너스 통장 잔액 추이 ── */
+  function debtKey(d) {
+    return 'debt-' + budgetMonthKey(d);
+  }
+  function debtRender() {
+    document.getElementById('debt-input').value = localStorage.getItem(debtKey(budgetDate)) || '';
+    const months = [];
+    for (let i = 5; i >= 0; i--) {
+      months.push(new Date(budgetDate.getFullYear(), budgetDate.getMonth() - i, 1));
+    }
+    const vals = months.map(d => Number(localStorage.getItem(debtKey(d)) || 0));
+    const maxVal = Math.max(...vals, 1);
+    document.getElementById('debt-trend-rows').innerHTML = months.map((d, i) => {
+      const pct = vals[i] === 0 ? 0 : Math.min(100, (vals[i] / maxVal) * 100);
+      return '<div class="budget-trend-row">' +
+        '<div class="budget-trend-month">' + (d.getMonth() + 1) + '월</div>' +
+        '<div class="budget-trend-bar-wrap"><div class="budget-trend-bar" style="width:' + pct + '%;background:#f59e0b;"></div></div>' +
+        '<div class="budget-trend-amt">' + (vals[i] === 0 ? '-' : fmtWon(vals[i])) + '</div>' +
+        '</div>';
+    }).join('');
+  }
+  function debtSave() {
+    const val = document.getElementById('debt-input').value;
+    if (val === '') {
+      localStorage.removeItem(debtKey(budgetDate));
+    } else {
+      localStorage.setItem(debtKey(budgetDate), val);
+    }
+    debtRender();
   }
 
   if ('serviceWorker' in navigator) {
