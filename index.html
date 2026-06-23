@@ -26,6 +26,7 @@
     .tab-btn.active-main   { background: #e0f2fe; color: #0ea5e9; }
     .tab-btn.active-dental { background: #ecfeff; color: #0891b2; }
     .active-fm     { background: #f0fdf4; color: #16a34a; }
+    .active-fm2    { background: #fefce8; color: #b45309; }
     .topbar-actions { display: flex; gap: 8px; align-items: center; }
     .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; white-space: nowrap; }
     .btn-outline { background: #fff; border: 1px solid #d1d5db; color: #374151; }
@@ -305,6 +306,7 @@
     <button class="tab-btn" onclick="switchTab('dental', this)">🦷 치과 레퍼런스</button>
     <button class="tab-btn" onclick="switchTab('fm', this)">🧬 기능의학</button>
     <button class="tab-btn" onclick="switchTab('budget', this)">💰 가계부</button>
+    <button class="tab-btn" onclick="switchTab('fm2', this)">🌿 환경의학</button>
   </div>
   <div class="topbar-actions">
     <a href="profile.html" class="btn btn-outline">🌿 내 소개 페이지</a>
@@ -2364,17 +2366,176 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     PAGE 5 — 환경의학 (EnvHealth 2026)
+════════════════════════════════════════ -->
+<div id="page-fm2" class="page">
+  <div style="background:linear-gradient(135deg,#78350f 0%,#b45309 100%);padding:40px 40px 32px;color:#fff;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="font-size:12px;opacity:0.8;margin-bottom:8px;">APM Environmental Health 2026</div>
+      <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.5px;">🌿 환경의학 강의 자료</h1>
+      <p style="margin-top:8px;font-size:14px;opacity:0.85;">Environmental Health — 독성물질·생체변환·노출 감소·치료 전략</p>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:32px 40px 60px;">
+
+    <!-- 진행 상황 배너 -->
+    <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:20px;">⚙️</span>
+      <div>
+        <div style="font-weight:700;color:#92400e;font-size:14px;">번역/요약 PDF 생성 중</div>
+        <div style="font-size:13px;color:#78350f;margin-top:2px;">에이전트가 Chap 1~8 전체 자료를 번역·요약 중입니다. 완료되면 아래 링크가 활성화됩니다.</div>
+      </div>
+    </div>
+
+    <!-- 챕터 카드들 -->
+    <div style="font-size:13px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;">📚 챕터별 자료</div>
+
+    <!-- Chap 1 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 1 — 독성 효과의 패턴 인식</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Pattern Recognition &amp; Toxic Effects / Welcome &amp; Intro / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap1_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap1_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap1_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 2 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 2 — 생체변환</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Biotransformation / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap2_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap2_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap2_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 3 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 3 — 노출 감소</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Reduce Exposures / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap3_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap3_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap3_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 4 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 4 — 감수성 해소 / 영양 접근</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Address Susceptibility &amp; Nutrition Approach / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap4_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap4_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap4_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 5 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 5 — 안전한 치료 요법 확립</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Ensure Safe Therapeutic Regimen / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap5_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap5_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap5_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 6 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 6 — 생체변환 균형 치료</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Therapeutic Approach: Balance Biotransformation / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap6_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap6_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap6_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 7 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:16px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 7 — 고급 검사 평가 / 영구 화학물질</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Advanced Lab Eval / Forever Chemicals / Updates &amp; Where To Start / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap7_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap7_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap7_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- Chap 8 -->
+    <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);margin-bottom:28px;overflow:hidden;">
+      <div style="background:#fef3c7;padding:14px 20px;border-left:4px solid #f59e0b;">
+        <div style="font-weight:700;font-size:15px;color:#78350f;">Chapter 8 — 치료 요법 순서·모니터링 / 마무리</div>
+        <div style="font-size:12px;color:#92400e;margin-top:3px;">Sequence &amp; Monitoring Therapeutic Regimen / Closing / Cases Q&amp;A</div>
+      </div>
+      <div style="padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="fm-link pdf-t" href="envhealth2026/Chap8_번역.pdf">📄 번역 PDF</a>
+        <a class="fm-link pdf-s" href="envhealth2026/Chap8_요약.pdf">📋 요약 PDF</a>
+        <a class="fm-link pdf-t" href="envhealth2026/Chap8_퀴즈.pdf">❓ 퀴즈</a>
+      </div>
+    </div>
+
+    <!-- 합본 + 퀴즈 -->
+    <div style="font-size:13px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;">📦 합본 &amp; 퀴즈</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+      <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);padding:20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">📄</div>
+        <div style="font-weight:700;color:#78350f;margin-bottom:4px;">전체 번역 합본</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:12px;">Chap 1~8 전체 번역</div>
+        <a class="fm-link pdf-t" href="envhealth2026/전체_번역_합본.pdf" style="display:inline-block;">📄 다운로드</a>
+      </div>
+      <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);padding:20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">📋</div>
+        <div style="font-weight:700;color:#78350f;margin-bottom:4px;">전체 요약 합본</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:12px;">Chap 1~8 전체 요약</div>
+        <a class="fm-link pdf-s" href="envhealth2026/전체_요약_합본.pdf" style="display:inline-block;">📋 다운로드</a>
+      </div>
+      <div style="background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07);padding:20px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:8px;">❓</div>
+        <div style="font-weight:700;color:#78350f;margin-bottom:4px;">전체 퀴즈</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:12px;">Chap 1~8 종합 문제</div>
+        <a class="fm-link pdf-t" href="envhealth2026/전체_퀴즈.pdf" style="display:inline-block;">❓ 다운로드</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
   /* ── 탭 전환 ── */
   function switchTab(tab, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-main', 'active-dental', 'active-fm', 'active-budget'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-main', 'active-dental', 'active-fm', 'active-budget', 'active-fm2'));
     document.getElementById('page-' + tab).classList.add('active');
     if (tab === 'main') {
       btn.classList.add('active-main');
       document.getElementById('scroll-btn').style.display = '';
     } else if (tab === 'fm') {
       btn.classList.add('active-fm');
+      document.getElementById('scroll-btn').style.display = 'none';
+    } else if (tab === 'fm2') {
+      btn.classList.add('active-fm2');
       document.getElementById('scroll-btn').style.display = 'none';
     } else if (tab === 'budget') {
       btn.classList.add('active-budget');
