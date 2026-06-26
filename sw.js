@@ -1,4 +1,4 @@
-const CACHE = 'eunyoung-v3';
+const CACHE = 'eunyoung-v4';
 const ASSETS = [
   './manifest.json',
   './icon.svg'
