@@ -1,3 +1,12 @@
+# PDF files — all paths
+[[headers]]
+  for = "/**/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "inline"
+    X-Content-Type-Options = "nosniff"
+    Access-Control-Allow-Origin = "*"
+
 [[headers]]
   for = "/*.pdf"
   [headers.values]
@@ -6,6 +15,7 @@
     X-Content-Type-Options = "nosniff"
     Access-Control-Allow-Origin = "*"
 
+# All other pages
 [[headers]]
   for = "/*"
   [headers.values]
